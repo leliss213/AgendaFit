@@ -4,9 +4,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity"
     tools:showIn="@layout/activity_main">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/etMainUsuario"
+        android:hint="Usuario"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/etMainSenha"
+        android:hint="Senha"
+        android:inputType="textPassword"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/Entrar"
+        android:background="@drawable/botoes"
+        android:id="@+id/bMainEntrar"
+        android:padding="15dp"
+        android:layout_margin="10dp"
+        android:textColor="@color/branco"
+        android:textStyle="bold"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/Cancelar"
+        android:background="@drawable/botoes"
+        android:id="@+id/bMainCancelar"
+        android:padding="15dp"
+        android:layout_margin="10dp"
+        android:textColor="@color/branco"
+        android:textStyle="bold"/>
 
 </LinearLayout>

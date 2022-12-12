@@ -1,4 +1,16 @@
 <resources>
     <string name="app_name">AgendaFit-Mobile</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="Entrar">Entrar</string>
+    <string name="Cancelar">Cancelar</string>
+    <string name="title_activity_menu">MenuActivity</string>
+    <string name="visualizar">visualizar treinos</string>
+    <string name="adicionar">adicionar treinos</string>
+    <string name="perfil">perfil</string>
+    <string name="CadastrarTreino">Cadastrar Treino</string>
+    <string name="VisualizarTreino">Visualizar Treinos</string>
+    <string name="VisualizarExercicios">Visualizar Exercícios</string>
+    <string name="home">home</string>
+    <string name="CadastrarExercicio">Cadastrar Exercício</string>
+    <string name="title_activity_perfil">PerfilActivity</string>
 </resources>
