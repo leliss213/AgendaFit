@@ -20,14 +20,14 @@ public class Usuario implements Serializable{
     float altura;
     String email;
 
-    public Usuario(int codUsuario, String nomeUsuario, String login, String senha, float peso, float altura, String email) {
+    public Usuario(int codUsuario, String nomeUsuario, String login, String senha, String email, float peso, float altura) {
         this.codUsuario = codUsuario;
         this.nomeUsuario = nomeUsuario;
         this.login = login;
         this.senha = senha;
+        this.email = email;
         this.peso = peso;
         this.altura = altura;
-        this.email = email;
     }
 
     public int getCodUsuario() {

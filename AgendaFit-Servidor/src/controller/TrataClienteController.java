@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import model.UsuarioDao;
+import modelDominio.Usuario;
 
 /**
  *
@@ -32,11 +34,48 @@ public class TrataClienteController extends Thread{
         String acao;
         System.out.println("Aguardando Ação");
         
-        //try{
+        try{
+            acao = (String) in.readObject();
+            while(!acao.equalsIgnoreCase("fim")) {
+                System.out.println("Cliente " + idUnico + " enviou o comando: "+ acao);
+                
+                if(acao.equalsIgnoreCase("efetuarLogin")){
+                    out.writeObject("ok");
+                    Usuario usuario = (Usuario) in.readObject();
+                    
+                    UsuarioDao dao = new UsuarioDao();
+                    Usuario userSelected = dao.efetuarLogin(usuario);
+                    out.writeObject(userSelected);
+                }
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+            }  
             
-        //}catch(IOException | ClassNotFoundException e){
+        }catch(IOException | ClassNotFoundException e){
+            e.printStackTrace();
+        }
+        try {
+            // Fechando recursos ocupados pelo cliente.
+            System.out.println("Cliente " + idUnico + " finalizou a conexão");
+            this.in.close();
+            this.out.close();
 
-        //}
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         
     }
 }
