@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         etMainUsuario = findViewById(R.id.etMainUsuario);
         etMainSenha = findViewById(R.id.etMainSenha);
-
+//oi alice
         bMainEntrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

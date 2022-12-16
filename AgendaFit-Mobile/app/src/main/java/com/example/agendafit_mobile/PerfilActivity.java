@@ -19,7 +19,8 @@ public class PerfilActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
+//oi aqui tbm
+        
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
