@@ -21,7 +21,7 @@ public class TrataClienteController extends Thread{
     private ObjectOutputStream out;
     private Socket s;
     private int idUnico;
-
+//aqui
     public TrataClienteController(ObjectInputStream in, ObjectOutputStream out, Socket s, int idUnico) {
         this.in = in;
         this.out = out;
@@ -46,22 +46,11 @@ public class TrataClienteController extends Thread{
                     UsuarioDao dao = new UsuarioDao();
                     Usuario userSelected = dao.efetuarLogin(usuario);
                     out.writeObject(userSelected);
+                    //userSelected.equals(out);
                 }
                 
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
+                acao = (String) in.readObject();
+     
             }  
             
         }catch(IOException | ClassNotFoundException e){

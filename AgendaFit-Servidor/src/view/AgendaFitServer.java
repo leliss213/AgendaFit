@@ -28,7 +28,7 @@ public class AgendaFitServer {
             ServerSocket servidor = new ServerSocket(1234);
             System.out.println("Servidor inicializado. Aguardando conexão...");
             ConectaServidor s1 = new ConectaServidor(servidor, con);
-
+            s1.start();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -44,7 +44,6 @@ class ConectaServidor extends Thread {
     public ConectaServidor(ServerSocket servidor, Connection con) {
         this.servidor = servidor;
         this.con = con;
-        this.start();
     }
 
     public void run() {
@@ -58,6 +57,7 @@ class ConectaServidor extends Thread {
                 idUnico++; 
                 System.out.println("Iniciando uma nova Thread para o Cliente " + idUnico);
                 TrataClienteController tratacliente = new TrataClienteController(in, out, cliente, idUnico);
+                tratacliente.start();
             }
         } catch (IOException ex) {
             ex.printStackTrace();

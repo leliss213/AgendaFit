@@ -59,14 +59,19 @@
     android:textColor="@color/branco"
     android:textStyle="bold"/>
 
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bnMenu"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="94dp"
-        android:layout_gravity="bottom"
-        android:backgroundTint="@color/branco"
-        app:labelVisibilityMode="selected"
-        app:menu="@menu/bottom_nav" />
+        android:layout_height="match_parent">
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bnMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:backgroundTint="@color/branco"
+            app:labelVisibilityMode="selected"
+            app:menu="@menu/bottom_nav" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

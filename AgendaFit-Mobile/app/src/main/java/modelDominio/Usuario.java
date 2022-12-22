@@ -30,6 +30,11 @@ public class Usuario implements Serializable{
         this.email = email;
     }
 
+    public Usuario(String login, String senha) {
+        this.login = login;
+        this.senha = senha;
+    }
+
     public int getCodUsuario() {
         return codUsuario;
     }
