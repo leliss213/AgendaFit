@@ -1,8 +1,11 @@
 package controller;
 
 import com.example.agendafit_mobile.InformacoesApp;
+
 import java.io.IOException;
+
 import modelDominio.Usuario;
+
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -30,23 +33,23 @@ public class ConexaoController {
         return resultado;
     }
 
-        public Usuario login(Usuario user){
+    public Usuario login(Usuario user) {
         Usuario userLogado = null;
         String msgRecebida;
-        try{
+        try {
             informacoesApp.out.writeObject("efetuarLogin");
             msgRecebida = (String) informacoesApp.in.readObject();
 
-            if(msgRecebida.equals("ok")){
+            if (msgRecebida.equals("ok")) {
                 informacoesApp.out.writeObject(user);
-                userLogado = (Usuario)informacoesApp.in.readObject();
+                userLogado = (Usuario) informacoesApp.in.readObject();
                 return userLogado;
             }
 
-        }catch (IOException ioe){
+        } catch (IOException ioe) {
             ioe.printStackTrace();
             return null;
-        } catch (ClassNotFoundException classe){
+        } catch (ClassNotFoundException classe) {
             classe.printStackTrace();
             return null;
         }

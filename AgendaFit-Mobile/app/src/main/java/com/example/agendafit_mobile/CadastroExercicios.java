@@ -10,17 +10,15 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
 
-public class PerfilActivity extends AppCompatActivity {
+public class CadastroExercicios extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_perfil);
+        setContentView(R.layout.activity_cadastro_exercicios);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
-        
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 

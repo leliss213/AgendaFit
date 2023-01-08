@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".CadastroTreino"
+    tools:showIn="@layout/activity_cadastro_treino"
+    android:padding="5dp">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/etCadastroNomeTreino"
+        android:hint="Título do treino"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/etCadastroDescricao"
+        android:hint="Descrição do treino"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/etCadastroData"
+        android:hint="Data"
+        android:inputType="date"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/etCadastroHora"
+        android:hint="Hora"
+        android:inputType="time"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="290dp"
+            android:layout_height="wrap_content"
+            android:text="Escolha o tipo de treino"
+            android:textSize="18dp"/>
+
+        <Spinner
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/spCadastroTipoTreino"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:padding="9dp">
+        <Button
+            android:layout_width="190dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/bCadastroCadastrar"
+            android:text="Cadastrar"
+            android:background="@drawable/botoes"
+            android:textColor="@color/branco"
+            android:textStyle="bold"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="15dp"/>
+
+        <Button
+            android:layout_width="190dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/bCadastroCancelar"
+            android:text="Cancelar"
+            android:background="@drawable/botoes"
+            android:textColor="@color/branco"
+            android:textStyle="bold"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="15dp"/>
+    </LinearLayout>
+
+
+</LinearLayout>

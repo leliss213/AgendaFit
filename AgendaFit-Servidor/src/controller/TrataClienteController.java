@@ -9,7 +9,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import model.TreinoDao;
 import model.UsuarioDao;
+import modelDominio.Treino;
 import modelDominio.Usuario;
 
 /**
@@ -47,6 +49,16 @@ public class TrataClienteController extends Thread{
                     Usuario userSelected = dao.efetuarLogin(usuario);
                     out.writeObject(userSelected);
                     //userSelected.equals(out);
+                } else if(acao.equalsIgnoreCase("cadastroTreino")){
+                    out.writeObject("ok");
+                    Treino treino = (Treino) in.readObject();
+                    
+                    TreinoDao dao = new TreinoDao();
+                    if(dao.inserir(treino) == -1){
+                        out.writeObject("ok");
+                    } else{
+                        out.writeObject("nok");
+                    }
                 }
                 
                 acao = (String) in.readObject();

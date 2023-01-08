@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".CadastroExercicios"
+    tools:showIn="@layout/activity_cadastro_exercicios"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:padding="5dp">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/etCadastroExerciciosNomeExercicio"
+        android:hint="Nome do Exercício"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="290dp"
+            android:layout_height="wrap_content"
+            android:text="Escolha o tipo de treino"
+            android:textSize="18dp"/>
+
+        <Spinner
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/spCadastroTipoTreino"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp">
+
+        <Button
+            android:layout_width="190dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/bCadastroCancelar"
+            android:text="Cancelar"
+            android:background="@drawable/botoes"
+            android:textColor="@color/branco"
+            android:textStyle="bold"/>
+
+        <Button
+            android:layout_width="190dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/bCadastroCadastrar"
+            android:text="Cadastrar"
+            android:background="@drawable/botoes"
+            android:textColor="@color/branco"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

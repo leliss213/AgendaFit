@@ -20,6 +20,15 @@ public class Treino implements Serializable{
     private Exercicio exercicio;
     private int tipo;
 
+    public Treino(String nomeTreino, String descricao, String data, float hora, Exercicio exercicio, int tipo) {
+        this.nomeTreino = nomeTreino;
+        this.descricao = descricao;
+        this.data = data;
+        this.hora = hora;
+        this.exercicio = exercicio;
+        this.tipo = tipo;
+    }
+
     public Treino(int codTreino, String nomeTreino, String descricao, String data, float hora, Exercicio exercicio, int tipo) {
         this.codTreino = codTreino;
         this.nomeTreino = nomeTreino;

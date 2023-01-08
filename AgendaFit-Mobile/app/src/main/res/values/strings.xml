@@ -13,4 +13,16 @@
     <string name="home">home</string>
     <string name="CadastrarExercicio">Cadastrar Exercício</string>
     <string name="title_activity_perfil">PerfilActivity</string>
+    <string name="title_activity_cadastro_treino">CadastroTreino</string>
+    <string name="title_activity_visualizacao_treino">VisualizacaoTreino</string>
+
+    <string-array name="tipo_treino">
+        <item>Nenhum</item>
+        <item>Peito</item>
+        <item>Ombro</item>
+        <item>Braço</item>
+        <item>Costas</item>
+        <item>Perna</item>
+    </string-array>
+    <string name="title_activity_cadastro_exercicios">CadastroExercicios</string>
 </resources>

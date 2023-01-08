@@ -14,9 +14,12 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 public class MenuActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     BottomNavigationView bottomNavigationView;
+    Button bMenuCadastrarTreino, bMenuVisualizarTreino, bMenuCadastrarExercicio, bMenuVisualizarExercicio;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +28,12 @@ public class MenuActivity extends AppCompatActivity implements BottomNavigationV
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        bMenuCadastrarTreino = findViewById(R.id.bMenuCadastrarTreino);
+        bMenuVisualizarTreino = findViewById(R.id.bMenuVisualizarTreino);
+        bMenuCadastrarExercicio = findViewById(R.id.bMenuVisualizarTreino);
+        bMenuVisualizarExercicio = findViewById(R.id.bMenuVisualizarExercicio);
+
         bottomNavigationView = findViewById(R.id.bnMenu);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
@@ -35,16 +44,25 @@ public class MenuActivity extends AppCompatActivity implements BottomNavigationV
 
         int id = menuItem.getItemId();
 
-        switch (id){
+        switch (id) {
 
-            case R.id.home: return true;
+            case R.id.home:
+                Intent it = new Intent(this, MenuActivity.class);
+                startActivity(it);
+                return true;
 
-            case R.id.visualizar: return true;
+            case R.id.visualizar:
+                it = new Intent(this, VisualizacaoTreino.class);
+                startActivity(it);
+                return true;
 
-            case R.id.adicionar: return true;
+            case R.id.adicionar:
+                it = new Intent(this, CadastroTreino.class);
+                startActivity(it);
+                return true;
 
             case R.id.perfil:
-                Intent it = new Intent(MenuActivity.this, PerfilActivity.class);
+                it = new Intent(this, PerfilActivity.class);
                 startActivity(it);
                 return true;
         }

@@ -13,6 +13,33 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".CadastroExercicios"
+            android:label="@string/title_activity_cadastro_exercicios"
+            android:parentActivityName=".MenuActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.agendafit_mobile.MenuActivity" />
+        </activity>
+        <activity
+            android:name=".VisualizacaoTreino"
+            android:label="@string/title_activity_visualizacao_treino"
+            android:parentActivityName=".MenuActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.agendafit_mobile.MenuActivity" />
+        </activity>
+        <activity
+            android:name=".CadastroTreino"
+            android:label="@string/title_activity_cadastro_treino"
+            android:parentActivityName=".MenuActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.agendafit_mobile.MenuActivity" />
+        </activity>
+        <activity
             android:name=".PerfilActivity"
             android:label="@string/title_activity_perfil"
             android:parentActivityName=".MenuActivity"
