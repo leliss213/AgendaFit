@@ -9,8 +9,10 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import model.ExercicioDao;
 import model.TreinoDao;
 import model.UsuarioDao;
+import modelDominio.Exercicio;
 import modelDominio.Treino;
 import modelDominio.Usuario;
 
@@ -59,10 +61,24 @@ public class TrataClienteController extends Thread{
                     } else{
                         out.writeObject("nok");
                     }
+                } else if(acao.equalsIgnoreCase("cadastroExercicio")){
+                    out.writeObject("ok");
+                    Exercicio exercicio = (Exercicio) in.readObject();
+                    
+                    ExercicioDao dao = new ExercicioDao();
+                    if(dao.inserir(exercicio)==-1){
+                        out.writeObject("ok");
+                    } else{
+                        out.writeObject("nok");
+                    }      
+                } else if(acao.equalsIgnoreCase("listaExercicios")){
+                    out.writeObject("ok");
+                    
+                    ExercicioDao dao = new ExercicioDao();
+                    out.writeObject(dao.getLista());
                 }
                 
                 acao = (String) in.readObject();
-     
             }  
             
         }catch(IOException | ClassNotFoundException e){

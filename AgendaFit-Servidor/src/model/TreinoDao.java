@@ -29,7 +29,7 @@ public class TreinoDao {
         try {
             try {
                 con.setAutoCommit(false);
-                String sql = "insert into Treino (nomeTreino, descricao, data, hora, exercicio_codExercicio, tipoTreino) values (?,?,?,?,?,?);";
+                String sql = "insert into treinos (nomeTreino, descricao, data, hora, exercicio_codExercicio, tipoTreino) values (?,?,?,?,?,?);";
                 stmt = con.prepareStatement(sql);
                 
                 stmt.setString(1, treino.getNomeTreino());

@@ -31,13 +31,44 @@ public class MenuActivity extends AppCompatActivity implements BottomNavigationV
 
         bMenuCadastrarTreino = findViewById(R.id.bMenuCadastrarTreino);
         bMenuVisualizarTreino = findViewById(R.id.bMenuVisualizarTreino);
-        bMenuCadastrarExercicio = findViewById(R.id.bMenuVisualizarTreino);
+        bMenuCadastrarExercicio = findViewById(R.id.bMenuCadastrarExercicio);
         bMenuVisualizarExercicio = findViewById(R.id.bMenuVisualizarExercicio);
 
         bottomNavigationView = findViewById(R.id.bnMenu);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
+
+
+        bMenuCadastrarTreino.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(MenuActivity.this, CadastroTreino.class);
+                startActivity(it);
+            }
+        });
+        bMenuVisualizarTreino.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(MenuActivity.this, VisualizacaoTreino.class);
+                startActivity(it);
+            }
+        });
+        bMenuCadastrarExercicio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(MenuActivity.this, CadastroExercicios.class);
+                startActivity(it);
+            }
+        });
+        bMenuVisualizarExercicio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(MenuActivity.this, VisualizacaoExercicio.class);
+                startActivity(it);
+            }
+        });
     }
+
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {

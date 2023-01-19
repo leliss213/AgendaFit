@@ -13,6 +13,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".VisualizacaoExercicio"
+            android:label="@string/title_activity_visualizacao_exercicio"
+            android:parentActivityName=".MenuActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.agendafit_mobile.MenuActivity" />
+        </activity>
+        <activity
             android:name=".CadastroExercicios"
             android:label="@string/title_activity_cadastro_exercicios"
             android:parentActivityName=".MenuActivity"

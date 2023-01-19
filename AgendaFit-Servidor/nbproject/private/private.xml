@@ -5,7 +5,8 @@
         <group>
             <file>file:/C:/Users/Leandro/Desktop/AgendaFit/AgendaFit-Servidor/src/model/TreinoDao.java</file>
             <file>file:/C:/Users/Leandro/Desktop/AgendaFit/AgendaFit-Servidor/src/modelDominio/Exercicio.java</file>
-            <file>file:/C:/Users/Leandro/Desktop/AgendaFit/AgendaFit-Servidor/src/model/UsuarioDao.java</file>
+            <file>file:/C:/Users/Leandro/Desktop/AgendaFit/AgendaFit-Servidor/src/controller/TrataClienteController.java</file>
+            <file>file:/C:/Users/Leandro/Desktop/AgendaFit/AgendaFit-Servidor/src/model/ExercicioDao.java</file>
         </group>
     </open-files>
 </project-private>

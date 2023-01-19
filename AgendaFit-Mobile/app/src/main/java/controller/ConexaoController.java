@@ -4,6 +4,7 @@ import com.example.agendafit_mobile.InformacoesApp;
 
 import java.io.IOException;
 
+import modelDominio.Exercicio;
 import modelDominio.Usuario;
 
 import java.io.ObjectInputStream;
@@ -54,5 +55,22 @@ public class ConexaoController {
             return null;
         }
         return userLogado;
+    }
+
+    public String cadastraExercicio(Exercicio exercicio){
+        String msgRecebida ="";
+        try{
+            informacoesApp.out.writeObject("cadastroExercicio");
+            msgRecebida = (String) informacoesApp.in.readObject();
+            if(msgRecebida.equals("ok")){
+                informacoesApp.out.writeObject(exercicio);
+                msgRecebida = (String) informacoesApp.in.readObject();
+            }
+        }catch (IOException ioe){
+            ioe.printStackTrace();
+        }catch (ClassNotFoundException classe){
+            classe.printStackTrace();
+        }
+        return msgRecebida;
     }
 }
