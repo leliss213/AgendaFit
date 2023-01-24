@@ -26,4 +26,6 @@
     </string-array>
     <string name="title_activity_cadastro_exercicios">CadastroExercicios</string>
     <string name="title_activity_visualizacao_exercicio">VisualizacaoExercicio</string>
+    <string name="title_activity_visualizacao_detalhada_exercicio">VisualizacaoDetalhadaExercicio
+    </string>
 </resources>

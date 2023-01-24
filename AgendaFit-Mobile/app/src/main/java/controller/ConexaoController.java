@@ -10,6 +10,7 @@ import modelDominio.Usuario;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class ConexaoController {
     InformacoesApp informacoesApp;
@@ -72,5 +73,20 @@ public class ConexaoController {
             classe.printStackTrace();
         }
         return msgRecebida;
+    }
+
+    public ArrayList<Exercicio> listaExercicios(){
+        ArrayList<Exercicio> listaExercicios;
+        try {
+            informacoesApp.out.writeObject("listaExercicios");
+            listaExercicios = (ArrayList<Exercicio>) informacoesApp.in.readObject();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+            listaExercicios = null;
+        } catch (ClassNotFoundException classe) {
+            classe.printStackTrace();
+            listaExercicios = null;
+        }
+        return listaExercicios;
     }
 }

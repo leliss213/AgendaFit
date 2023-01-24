@@ -9,4 +9,13 @@
     tools:context=".PerfilActivity"
     tools:showIn="@layout/activity_perfil">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_person_black_24dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvPerfilNomeUsuario"/>
+
 </LinearLayout>

@@ -65,7 +65,7 @@ public class ExercicioDao {
         ArrayList<Exercicio> listaExercicios = new ArrayList<>();
         try{
             stmt = con.createStatement();
-            ResultSet res = stmt.executeQuery("select * from exercicios");
+            ResultSet res = stmt.executeQuery("select * from exercicios order by tipo");
             
             while (res.next()){
                 Exercicio exercicio = new Exercicio(res.getInt("codExercicio"),res.getString("nomeExercicio"),res.getInt("tipo"));

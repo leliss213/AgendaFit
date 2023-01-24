@@ -56,43 +56,23 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp">
+        android:padding="5dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="290dp"
+            android:layout_height="wrap_content"
+            android:text="Selecione os Exercícios do Treino"
+            android:textSize="18dp"/>
 
-        <com.google.android.material.card.MaterialCardView
+        <controller.SpinnerMultiSelecionavel
             android:layout_width="match_parent"
-            android:layout_height="35dp"
-            app:cardElevation="10dp"
-            android:id="@+id/mcvCadastro">
+            android:layout_height="wrap_content"
+            android:id="@+id/spMultiExercicios"
+            android:spinnerMode="dropdown">
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+        </controller.SpinnerMultiSelecionavel>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Selecione os Exercícios"
-                    android:layout_centerInParent="true"
-                    android:textSize="18dp"
-                    android:textColor="@color/preto"/>
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="184dp"
-                    android:layout_marginLeft="184dp"
-                    android:layout_marginEnd="184dp"
-                    android:layout_marginRight="184dp"
-                    android:src="@drawable/ic_arrow_down" />
-
-            </RelativeLayout>
-
-        </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
 
 

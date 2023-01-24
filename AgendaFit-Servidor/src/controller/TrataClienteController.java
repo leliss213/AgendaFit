@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 import model.ExercicioDao;
 import model.TreinoDao;
 import model.UsuarioDao;
@@ -38,7 +39,7 @@ public class TrataClienteController extends Thread{
     public void run() {
         String acao;
         System.out.println("Aguardando Ação");
-        
+        //ArrayList<Exercicio> listaExercicios = new ArrayList<>();
         try{
             acao = (String) in.readObject();
             while(!acao.equalsIgnoreCase("fim")) {
@@ -65,7 +66,6 @@ public class TrataClienteController extends Thread{
                 } else if(acao.equalsIgnoreCase("cadastroExercicio")){
                     out.writeObject("ok");
                     Exercicio exercicio = (Exercicio) in.readObject();
-                    
                     ExercicioDao dao = new ExercicioDao();
                     if(dao.inserir(exercicio)==-1){
                         out.writeObject("ok");
@@ -73,7 +73,7 @@ public class TrataClienteController extends Thread{
                         out.writeObject("nok");
                     }      
                 } else if(acao.equalsIgnoreCase("listaExercicios")){
-                    out.writeObject("ok");
+                    //out.writeObject();
                     
                     ExercicioDao dao = new ExercicioDao();
                     out.writeObject(dao.getLista());

@@ -1,16 +1,6 @@
 package com.example.agendafit_mobile;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
-
-import com.google.android.material.card.MaterialCardView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,19 +9,27 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import java.util.ArrayList;
+
+import controller.ConexaoController;
+import controller.SpinnerMultiSelecionavel;
+import modelDominio.Exercicio;
+
 
 public class CadastroTreino extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     Spinner spinnerTipoTreino;
     EditText etCadastroNomeTreino, etCadastroDescricao, etCadastroData, etCadastroHora;
     Button bCadastroCadastrar, bCadastroCancelar;
+    InformacoesApp informacoesApp;
+    SpinnerMultiSelecionavel spinnerMultiSelecionavel;
+    //recebe a lista do banco
+    ArrayList<Exercicio> listExercicios = new ArrayList<>();
 
-    //teste
-    MaterialCardView selecionarExercicios;
-    boolean [] select;
-    ArrayList<Integer> listExercicios = new ArrayList<>();
-    String [] nomesExercicios = {"Supino", "LegPress","ElevacaoLateral"};
-    //
+    //recebe somente a lista de nomes dos exercicios vindos do banco
+    ArrayList<String> listExerciciosNomes = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,16 +39,15 @@ public class CadastroTreino extends AppCompatActivity implements AdapterView.OnI
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        informacoesApp = (InformacoesApp) getApplicationContext();
 
-        selecionarExercicios = findViewById(R.id.mcvCadastro);
-        select = new boolean[nomesExercicios.length];
-
+        spinnerTipoTreino = findViewById(R.id.spCadastroTipoTreino);
+        spinnerMultiSelecionavel = findViewById(R.id.spMultiExercicios);
         etCadastroNomeTreino = findViewById(R.id.etCadastroNomeTreino);
         etCadastroDescricao = findViewById(R.id.etCadastroDescricao);
         etCadastroData = findViewById(R.id.etCadastroData);
         etCadastroHora = findViewById(R.id.etCadastroHora);
 
-        spinnerTipoTreino = findViewById(R.id.spCadastroTipoTreino);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.tipo_treino, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerTipoTreino.setAdapter(adapter);
@@ -58,6 +55,22 @@ public class CadastroTreino extends AppCompatActivity implements AdapterView.OnI
 
         bCadastroCadastrar = findViewById(R.id.bCadastroCadastrar);
         bCadastroCancelar = findViewById(R.id.bCadastroCancelar);
+
+        spinnerMultiSelecionavel.setEnabled(true);
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ConexaoController ccont = new ConexaoController(informacoesApp);
+                listExercicios = ccont.listaExercicios();
+                for(int x = 0; x<listExercicios.size();x++){
+                    String nome = listExercicios.get(x).getNomeExercicio();
+                    listExerciciosNomes.add(nome);
+                }
+                spinnerMultiSelecionavel.setItems(listExercicios);
+
+            }
+        });
+        thread.start();
 
         bCadastroCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,55 +112,8 @@ public class CadastroTreino extends AppCompatActivity implements AdapterView.OnI
             }
         });
 
-        selecionarExercicios.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showCousesDialog();
-            }
-        });
     }
     //teste
-    private void showCousesDialog(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(CadastroTreino.this);
-        builder.setTitle("Selecionar Exercicios");
-        builder.setCancelable(false);
-        builder.setMultiChoiceItems(nomesExercicios, select, new DialogInterface.OnMultiChoiceClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i, boolean b) {
-                if(b){
-                    listExercicios.add(i);
-                }else{
-                    listExercicios.remove(i);
-                }
-            }
-        }).setPositiveButton("ok", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                StringBuilder stringBuilder = new StringBuilder();
-                for(int x =0; x<listExercicios.size();x++){
-                    stringBuilder.append(nomesExercicios[listExercicios.get(x)]);
-
-                    if(x != listExercicios.size()-1 ){
-                        stringBuilder.append(", ");
-                    }
-                }
-            }
-        }).setNegativeButton("cancelar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
-        }).setNeutralButton("limpar todos", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                for(int x =0; x<select.length;x++){
-                    select[x] = false;
-                    listExercicios.clear();
-                }
-            }
-        });
-        builder.show();
-    }
 
     public void limpaCampos(){
         etCadastroNomeTreino.setText(null);
@@ -156,6 +122,7 @@ public class CadastroTreino extends AppCompatActivity implements AdapterView.OnI
         etCadastroHora.setText(null);
         etCadastroNomeTreino.requestFocus();
     }
+
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
