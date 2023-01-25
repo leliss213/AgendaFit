@@ -15,6 +15,7 @@ import androidx.appcompat.widget.Toolbar;
 import java.util.ArrayList;
 
 import controller.ConexaoController;
+import controller.InformacoesApp;
 import controller.SpinnerMultiSelecionavel;
 import modelDominio.Exercicio;
 

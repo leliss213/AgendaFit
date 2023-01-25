@@ -1,18 +1,18 @@
 package com.example.agendafit_mobile;
 
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.view.View;
+import controller.InformacoesApp;
+import modelDominio.Usuario;
 
 public class PerfilActivity extends AppCompatActivity {
-
+    TextView tvPerfilNomeUsuario, tvPerfilAlturaUsuario, tvPerfilPesoUsuario;
     InformacoesApp informacoesApp;
+    Usuario usuario;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,8 +21,15 @@ public class PerfilActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         informacoesApp = (InformacoesApp) getApplicationContext();
-        
+        tvPerfilNomeUsuario = findViewById(R.id.tvPerfilNomeUsuario);
+        tvPerfilAlturaUsuario = findViewById(R.id.tvPerfilAlturaUsuario);
+        tvPerfilPesoUsuario = findViewById(R.id.tvPerfilPesoUsuario);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        usuario = informacoesApp.getUsuarioLogado();
+        tvPerfilNomeUsuario.setText("Bem vindo - "+usuario.getNomeUsuario());
+        tvPerfilAlturaUsuario.setText("Altura: "+usuario.getAltura()+"cm");
+        tvPerfilPesoUsuario.setText("Peso: "+(usuario.getPeso())+"kg");
     }
 
 }

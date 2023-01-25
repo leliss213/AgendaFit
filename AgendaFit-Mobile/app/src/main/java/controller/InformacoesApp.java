@@ -1,4 +1,4 @@
-package com.example.agendafit_mobile;
+package controller;
 
 import android.app.Application;
 

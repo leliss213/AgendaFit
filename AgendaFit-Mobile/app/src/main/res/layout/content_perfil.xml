@@ -16,6 +16,33 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tvPerfilNomeUsuario"/>
+        android:id="@+id/tvPerfilNomeUsuario"
+        android:text="nome"
+        android:gravity="center"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvPerfilAlturaUsuario"
+        android:gravity="center"
+        android:text="altura"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvPerfilPesoUsuario"
+        android:gravity="center"
+        android:text="peso"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TREINOS"
+        android:gravity="center"
+        android:layout_marginTop="30dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="EXERCÍCIOS"
+        android:gravity="center"
+        android:layout_marginTop="30dp"/>
 
 </LinearLayout>

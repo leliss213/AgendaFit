@@ -2,9 +2,6 @@ package com.example.agendafit_mobile;
 
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -17,6 +14,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import controller.ConexaoController;
+import controller.InformacoesApp;
 import modelDominio.Exercicio;
 
 public class CadastroExercicios extends AppCompatActivity implements AdapterView.OnItemSelectedListener{

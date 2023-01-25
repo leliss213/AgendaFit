@@ -65,7 +65,7 @@
             android:textSize="18dp"/>
 
         <controller.SpinnerMultiSelecionavel
-            android:layout_width="match_parent"
+            android:layout_width="114dp"
             android:layout_height="wrap_content"
             android:id="@+id/spMultiExercicios"
             android:spinnerMode="dropdown">
@@ -74,8 +74,6 @@
 
 
     </LinearLayout>
-
-
 
     <LinearLayout
         android:layout_width="match_parent"

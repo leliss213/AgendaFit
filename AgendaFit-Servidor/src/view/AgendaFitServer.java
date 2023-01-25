@@ -25,7 +25,7 @@ public class AgendaFitServer {
 
         try {
             // iniciando servidor na porta 1234
-            ServerSocket servidor = new ServerSocket(1234);
+            ServerSocket servidor = new ServerSocket(12345);
             System.out.println("Servidor inicializado. Aguardando conexão...");
             ConectaServidor s1 = new ConectaServidor(servidor, con);
             s1.start();

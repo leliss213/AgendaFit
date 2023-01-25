@@ -28,7 +28,7 @@
             android:textSize="18dp"/>
 
         <Spinner
-            android:layout_width="40dp"
+            android:layout_width="114dp"
             android:layout_height="wrap_content"
             android:id="@+id/spCadastroTipoTreino"/>
     </LinearLayout>

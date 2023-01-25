@@ -1,7 +1,5 @@
 package controller;
 
-import com.example.agendafit_mobile.InformacoesApp;
-
 import java.io.IOException;
 
 import modelDominio.Exercicio;
@@ -22,7 +20,7 @@ public class ConexaoController {
     public boolean criaConexao() {
         boolean resultado;
         try {
-            informacoesApp.socket = new Socket("10.0.2.2", 1234);
+            informacoesApp.socket = new Socket("10.0.2.2", 12345);
             informacoesApp.out = new ObjectOutputStream(informacoesApp.socket.getOutputStream());
             informacoesApp.in = new ObjectInputStream(informacoesApp.socket.getInputStream());
 
@@ -88,5 +86,20 @@ public class ConexaoController {
             listaExercicios = null;
         }
         return listaExercicios;
+    }
+
+    public String deletaExercicio(Exercicio exercicio){
+        String msgRecebida="";
+        try{
+            informacoesApp.out.writeObject("deletarExercicio");
+            msgRecebida = (String) informacoesApp.in.readObject();
+            if(msgRecebida.equals("ok")){
+                informacoesApp.out.writeObject(exercicio);
+            }
+            return msgRecebida;
+        }catch (IOException | ClassNotFoundException e){
+            e.printStackTrace();
+            return msgRecebida;
+        }
     }
 }

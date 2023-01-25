@@ -77,6 +77,16 @@ public class TrataClienteController extends Thread{
                     
                     ExercicioDao dao = new ExercicioDao();
                     out.writeObject(dao.getLista());
+                } else if(acao.equalsIgnoreCase("deletarExercicio")){
+                    out.writeObject("ok");
+                    Exercicio exercicio = (Exercicio) in.readObject();
+                    ExercicioDao dao = new ExercicioDao();
+                    
+                    if(dao.excluir(exercicio)==-1){
+                        out.writeObject("ok");
+                    }else{
+                        out.writeObject("nok");
+                    }
                 }
                 
                 acao = (String) in.readObject();
