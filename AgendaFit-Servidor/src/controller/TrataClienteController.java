@@ -63,6 +63,21 @@ public class TrataClienteController extends Thread{
                     } else{
                         out.writeObject("nok");
                     }
+                } else if(acao.equalsIgnoreCase("listaTreinos")){
+                    //out.writeObject();
+                    
+                    TreinoDao dao = new TreinoDao();
+                    out.writeObject(dao.getLista());
+                } else if(acao.equalsIgnoreCase("deletarTreino")){
+                    out.writeObject("ok");
+                    Treino treino = (Treino) in.readObject();
+                    TreinoDao dao = new TreinoDao();
+                    
+                    if(dao.excluir(treino)==-1){
+                        out.writeObject("ok");
+                    }else{
+                        out.writeObject("nok");
+                    }
                 } else if(acao.equalsIgnoreCase("cadastroExercicio")){
                     out.writeObject("ok");
                     Exercicio exercicio = (Exercicio) in.readObject();
@@ -83,6 +98,30 @@ public class TrataClienteController extends Thread{
                     ExercicioDao dao = new ExercicioDao();
                     
                     if(dao.excluir(exercicio)==-1){
+                        out.writeObject("ok");
+                    }else{
+                        out.writeObject("nok");
+                    }
+                } else if(acao.equalsIgnoreCase("cadastroUsuario")){
+                    out.writeObject("ok");
+                    Usuario usuario = (Usuario) in.readObject();
+                    UsuarioDao dao = new UsuarioDao();
+                    if(dao.inserir(usuario)==-1){
+                        out.writeObject("ok");
+                    } else{
+                        out.writeObject("nok");
+                    }      
+                } else if(acao.equalsIgnoreCase("listaUsuarios")){
+                    //out.writeObject();
+                    
+                    UsuarioDao dao = new UsuarioDao();
+                    out.writeObject(dao.getLista());
+                } else if(acao.equalsIgnoreCase("deletarUsuario")){
+                    out.writeObject("ok");
+                    Usuario usuario = (Usuario) in.readObject();
+                    UsuarioDao dao = new UsuarioDao();
+                    
+                    if(dao.excluir(usuario)==-1){
                         out.writeObject("ok");
                     }else{
                         out.writeObject("nok");

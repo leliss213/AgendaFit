@@ -109,6 +109,6 @@ public class ExercicioDao {
             } catch (SQLException e) {
                 return e.getErrorCode();
             }
+        }
     }
-}
 }

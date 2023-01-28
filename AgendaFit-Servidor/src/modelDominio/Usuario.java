@@ -6,6 +6,7 @@
 package modelDominio;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  *
@@ -19,6 +20,7 @@ public class Usuario implements Serializable{
     float peso;
     float altura;
     String email;
+    ArrayList<Treino> treinos;
 
     public Usuario(int codUsuario, String nomeUsuario, String login, String senha, float peso, float altura, String email) {
         this.codUsuario = codUsuario;
@@ -28,6 +30,17 @@ public class Usuario implements Serializable{
         this.peso = peso;
         this.altura = altura;
         this.email = email;
+    }
+    
+    public Usuario(int codUsuario, String nomeUsuario, String login, String senha, float peso, float altura, String email, ArrayList<Treino> treinos) {
+        this.codUsuario = codUsuario;
+        this.nomeUsuario = nomeUsuario;
+        this.login = login;
+        this.senha = senha;
+        this.peso = peso;
+        this.altura = altura;
+        this.email = email;
+        this.treinos = treinos;
     }
 
     public Usuario(String login, String senha) {
@@ -89,6 +102,14 @@ public class Usuario implements Serializable{
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public ArrayList<Treino> getTreinos() {
+        return treinos;
+    }
+
+    public void setTreinos(ArrayList<Treino> treinos) {
+        this.treinos = treinos;
     }
 
     @Override
