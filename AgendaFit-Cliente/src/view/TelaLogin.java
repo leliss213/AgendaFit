@@ -132,8 +132,6 @@ public class TelaLogin extends javax.swing.JFrame {
         gridBagConstraints.gridy = 5;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         getContentPane().add(jButton2, gridBagConstraints);
-
-        jLabel4.setText("LOGO");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;

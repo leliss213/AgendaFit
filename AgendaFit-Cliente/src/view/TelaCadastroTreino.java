@@ -92,7 +92,7 @@ public class TelaCadastroTreino extends javax.swing.JFrame {
         jPanel1.add(jTextFieldNome, gridBagConstraints);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel2.setText("Email");
+        jLabel2.setText("Descrição");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
@@ -113,7 +113,7 @@ public class TelaCadastroTreino extends javax.swing.JFrame {
         jPanel1.add(jTextFieldEmail, gridBagConstraints);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel3.setText("Login");
+        jLabel3.setText("Data");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
@@ -134,7 +134,7 @@ public class TelaCadastroTreino extends javax.swing.JFrame {
         jPanel1.add(jTextFieldLogin, gridBagConstraints);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel4.setText("Senha");
+        jLabel4.setText("Hora");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
