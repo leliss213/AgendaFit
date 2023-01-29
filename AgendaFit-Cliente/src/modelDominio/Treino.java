@@ -6,6 +6,7 @@
 package modelDominio;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  *
@@ -17,6 +18,7 @@ public class Treino implements Serializable{
     private String descricao;
     private String data;
     private float hora;
+    private ArrayList<Exercicio> listaExercicios;
     private Exercicio exercicio;
     private int tipo;
 
@@ -30,6 +32,15 @@ public class Treino implements Serializable{
         this.tipo = tipo;
     }
 
+    public Treino(String nomeTreino, String descricao, String data, float hora, ArrayList<Exercicio> listaExercicios, int tipo) {
+        this.nomeTreino = nomeTreino;
+        this.descricao = descricao;
+        this.data = data;
+        this.hora = hora;
+        this.listaExercicios = listaExercicios;
+        this.tipo = tipo;
+    }
+    
     public int getTipo() {
         return tipo;
     }
@@ -89,5 +100,13 @@ public class Treino implements Serializable{
     @Override
     public String toString() {
         return "Treino{" + "codTreino=" + codTreino + ", nomeTreino=" + nomeTreino + ", descricao=" + descricao + ", data=" + data + ", hora=" + hora + ", exercicio=" + exercicio + ", tipo=" + tipo + '}';
+    }
+
+    public ArrayList<Exercicio> getListaExercicios() {
+        return listaExercicios;
+    }
+
+    public void setListaExercicios(ArrayList<Exercicio> listaExercicios) {
+        this.listaExercicios = listaExercicios;
     }
 }

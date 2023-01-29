@@ -38,11 +38,215 @@
         android:text="TREINOS"
         android:gravity="center"
         android:layout_marginTop="30dp"/>
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tlPerfilTreinos"
+        android:layout_gravity="center"
+        android:padding="15dp">
+        <TableRow
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:id="@+id/trPerfilTreinosPeito"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/tvPerfilTreinoPeito"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Qntd. de Treinos de Peito" />
+            <TextView
+                android:id="@+id/tvPerfilPeito"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Peito" />
+        </TableRow>
+        <TableRow
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:id="@+id/trPerfilTreinosOmbro"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/tvPerfilTreinoOmbro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Qntd. de Treinos de ombro" />
+            <TextView
+                android:id="@+id/tvPerfilOmbro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Ombro" />
+        </TableRow>
+        <TableRow
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:id="@+id/trPerfilTreinosBraco"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/tvPerfilTreinoBraco"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Qntd. de Treinos de Braço" />
+            <TextView
+                android:id="@+id/tvPerfilBraco"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Braço" />
+        </TableRow>
+        <TableRow
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:id="@+id/trPerfilTreinos"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/tvPerfilTreinoCostas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Qntd. de Treinos de Costas" />
+            <TextView
+                android:id="@+id/tvPerfilCostas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Costas" />
+        </TableRow>
+        <TableRow
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:id="@+id/trPerfilTreinosPerna"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/tvPerfilTreinoPerna"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Qntd. de Treinos de Perna" />
+            <TextView
+                android:id="@+id/tvPerfilPerna"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Perna" />
+        </TableRow>
+    </TableLayout>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="EXERCÍCIOS"
         android:gravity="center"
         android:layout_marginTop="30dp"/>
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tlPerfilExercicios"
+        android:layout_gravity="center"
+        android:padding="15dp">
+        <TableRow
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:id="@+id/trPerfilExerciciosPeito"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/tvPerfilExerciciosPeito"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="Qntd. de Exercícios de Peito" />
+            <TextView
+                android:id="@+id/tvPerfilPeitoexe"
+                android:layout_width="25dp"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="Peito" />
+        </TableRow>
+        <TableRow
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:id="@+id/trPerfilExerciciosOmbro"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/tvPerfilExerciciosOmbro"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="Qntd. de Exercícios de Ombro" />
+            <TextView
+                android:id="@+id/tvPerfilOmbroexe"
+                android:layout_width="25dp"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="Ombro" />
+        </TableRow>
+        <TableRow
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:id="@+id/trPerfilExerciciosBraco"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/tvPerfilExerciciosBraco"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="Qntd. de Exercicios de Braço" />
+            <TextView
+                android:id="@+id/tvPerfilBracoexe"
+                android:layout_width="25dp"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="Braço" />
+        </TableRow>
+        <TableRow
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:id="@+id/trPerfilExerciciosCostas"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/tvPerfilExerciciosCostas"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="Qntd. de Exercícios de Costas" />
+            <TextView
+                android:id="@+id/tvPerfilCostasexe"
+                android:layout_width="25dp"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="Costas" />
+        </TableRow>
+        <TableRow
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:id="@+id/trPerfilExerciciosPerna"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/tvPerfilExerciciosPerna"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="Qntd. de Exercícios de Perna" />
+            <TextView
+                android:id="@+id/tvPerfilPernaexe"
+                android:layout_width="25dp"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="Perna" />
+        </TableRow>
+    </TableLayout>
 
 </LinearLayout>

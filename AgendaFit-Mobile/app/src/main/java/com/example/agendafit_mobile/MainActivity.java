@@ -43,10 +43,10 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         if (resultadoConexao == true) {
-                            Toast.makeText(informacoesApp, "SEXOOOOOO", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(informacoesApp, "conectado", Toast.LENGTH_SHORT).show();
 
                         } else if (resultadoConexao == false) {
-                            Toast.makeText(informacoesApp, "ANTI SEXOOOOOOO", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(informacoesApp, "erro na conexão", Toast.LENGTH_SHORT).show();
                         }
 
                     }

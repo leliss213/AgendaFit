@@ -80,6 +80,7 @@ public class VisualizacaoExercicio extends AppCompatActivity {
             mensagem.setTitle("Excluir Exercício");
             mensagem.setIcon(android.R.drawable.ic_delete);
             mensagem.setMessage("Deseja excluir esse exercício?");
+            mensagem.setPositiveButtonIcon(getDrawable(R.drawable.ic_sim));
             mensagem.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -108,6 +109,7 @@ public class VisualizacaoExercicio extends AppCompatActivity {
                     thread.start();
                 }
             });
+            mensagem.setNegativeButtonIcon(getDrawable(R.drawable.ic_nao));
             mensagem.setNegativeButton("Não", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {

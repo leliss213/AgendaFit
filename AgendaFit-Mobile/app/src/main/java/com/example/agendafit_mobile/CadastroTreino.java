@@ -1,6 +1,7 @@
 package com.example.agendafit_mobile;
 
 import android.os.Bundle;
+import android.print.PrintJob;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,6 +19,7 @@ import controller.ConexaoController;
 import controller.InformacoesApp;
 import controller.SpinnerMultiSelecionavel;
 import modelDominio.Exercicio;
+import modelDominio.Treino;
 
 
 public class CadastroTreino extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -28,7 +30,7 @@ public class CadastroTreino extends AppCompatActivity implements AdapterView.OnI
     SpinnerMultiSelecionavel spinnerMultiSelecionavel;
     //recebe a lista do banco
     ArrayList<Exercicio> listExercicios = new ArrayList<>();
-
+    ArrayList<Exercicio> listExerciciosSelecionados = new ArrayList<>();
     //recebe somente a lista de nomes dos exercicios vindos do banco
     ArrayList<String> listExerciciosNomes = new ArrayList<>();
 
@@ -81,7 +83,34 @@ public class CadastroTreino extends AppCompatActivity implements AdapterView.OnI
                         if(!etCadastroData.getText().toString().isEmpty()){
                             if(!etCadastroHora.getText().toString().isEmpty()){
                                 if(spinnerTipoTreino.getSelectedItemPosition()!=0){
+                                    if(spinnerMultiSelecionavel.getSelectedSize()>0){
+                                        String nomeTreino = etCadastroNomeTreino.getText().toString();
+                                        String descricao = etCadastroDescricao.getText().toString();
+                                        String data = etCadastroData.getText().toString();
+                                        float hora = Float.parseFloat(etCadastroHora.getText().toString());
+                                        int tipoTreino = spinnerTipoTreino.getSelectedItemPosition();
+                                        listExerciciosSelecionados = spinnerMultiSelecionavel.getSelectedItems();
+                                        final Treino treino = new Treino(nomeTreino,descricao,data,hora,listExerciciosSelecionados,tipoTreino);
+                                        //Toast.makeText(informacoesApp, "IRU", Toast.LENGTH_SHORT).show();
+                                        Thread thread1 = new Thread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                ConexaoController ccont = new ConexaoController(informacoesApp);
+                                                String msgRecebida = ccont.cadastroTreino(treino);
+                                                runOnUiThread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        Toast.makeText(informacoesApp, "certo", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
 
+                                            }
+                                        });
+                                        thread1.start();
+                                    }else {
+                                        Toast.makeText(informacoesApp, "Insira os Exercícios!", Toast.LENGTH_SHORT).show();
+                                        spinnerMultiSelecionavel.requestFocus();
+                                    }
 
                                 } else{
                                     Toast.makeText(CadastroTreino.this, "Insira o Tipo do Treino!", Toast.LENGTH_SHORT).show();

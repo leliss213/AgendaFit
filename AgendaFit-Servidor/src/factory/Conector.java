@@ -22,7 +22,7 @@ public class Conector {
         try{
           // String que armazena a url de conexao com o banco
             String url = "jdbc:mysql://localhost:3306/"; // Caminho do banco e porta
-            String banco = "academia";                  // Nome da base
+            String banco = "mydb";                  // Nome da base
             String usuario = "root";                     // Usuário para acesso
             String senha = "";                           // Senha para acesso
 

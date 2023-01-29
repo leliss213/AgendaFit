@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 
 import modelDominio.Exercicio;
+import modelDominio.Treino;
 import modelDominio.Usuario;
 
 import java.io.ObjectInputStream;
@@ -65,7 +66,7 @@ public class ConexaoController {
                 informacoesApp.out.writeObject(exercicio);
                 msgRecebida = (String) informacoesApp.in.readObject();
             }
-        }catch (IOException ioe){
+            }catch (IOException ioe){
             ioe.printStackTrace();
         }catch (ClassNotFoundException classe){
             classe.printStackTrace();
@@ -95,6 +96,7 @@ public class ConexaoController {
             msgRecebida = (String) informacoesApp.in.readObject();
             if(msgRecebida.equals("ok")){
                 informacoesApp.out.writeObject(exercicio);
+                msgRecebida = (String) informacoesApp.in.readObject();
             }
             return msgRecebida;
         }catch (IOException | ClassNotFoundException e){
@@ -102,4 +104,23 @@ public class ConexaoController {
             return msgRecebida;
         }
     }
+
+    public String cadastroTreino(Treino treino){
+        String msgRecebida ="";
+        try{
+            informacoesApp.out.writeObject("cadastroTreino");
+            msgRecebida = (String) informacoesApp.in.readObject();
+            if(msgRecebida.equals("ok")){
+                informacoesApp.out.writeObject(treino);
+                msgRecebida = (String) informacoesApp.in.readObject();
+            }
+            return msgRecebida;
+        }catch (IOException ioe){
+            ioe.printStackTrace();
+        }catch (ClassNotFoundException classe){
+            classe.printStackTrace();
+        }
+        return msgRecebida;
+    }
+
 }

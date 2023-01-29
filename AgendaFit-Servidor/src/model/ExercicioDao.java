@@ -80,6 +80,26 @@ public class ExercicioDao {
             return null;   
         }
     }
+    public ArrayList<Exercicio> getFiltroLista(int codExercicio){
+        Statement stmt = null;
+        ArrayList<Exercicio> listaExercicios = new ArrayList<>();
+        try{
+            stmt = con.createStatement();
+            ResultSet res = stmt.executeQuery("select *\n" +
+                                           "from treinos inner join treinoexercicio on treinoexercicio.treinos_codTreino = treinos.codTreino\n" +
+"			                   inner join exercicios on treinoexercicio.exercicios_codExercicio = exercicios.codExercicio\n" +
+"                                          where exercicios.codExercicio ="+codExercicio+";");
+            while (res.next()){
+                Exercicio exercicio = new Exercicio(res.getInt("codExercicio"),res.getString("nomeExercicio"),res.getInt("tipo"));
+                listaExercicios.add(exercicio);
+            }
+            return listaExercicios;
+        }catch(SQLException e){
+            System.out.println(e.getErrorCode() + " - "
+                    + e.getMessage());
+            return null; 
+        }
+    }
     
     public int excluir(Exercicio exercicio){
         PreparedStatement stmt = null;
@@ -112,3 +132,4 @@ public class ExercicioDao {
         }
     }
 }
+
