@@ -52,7 +52,7 @@ public class TelaGerenciaUsuario extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         jPanel2.setLayout(new java.awt.GridBagLayout());
@@ -202,7 +202,7 @@ public class TelaGerenciaUsuario extends javax.swing.JFrame {
         jPanel2.add(jButtonCancelar, gridBagConstraints);
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel8.setText("Cadastro de Usuario");
+        jLabel8.setText("Gerenciamento de Usuario");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;

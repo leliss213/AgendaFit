@@ -62,7 +62,7 @@ public class TelaTabela extends javax.swing.JFrame {
 
         jMenuBar1.setBackground(new java.awt.Color(65, 78, 225));
 
-        jMenu1.setText("Adicionar");
+        jMenu1.setText("Adicionar    |");
         jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenu1MouseClicked(evt);
