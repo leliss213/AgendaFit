@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author Leandro
  */
-public class Usuario implements Serializable{
+public class Usuario implements Serializable{    
     int codUsuario;
     String nomeUsuario;
     String login;

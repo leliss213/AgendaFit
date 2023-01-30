@@ -39,6 +39,7 @@ public class ExercicioDao {
                 
                 stmt.execute();
                 stmt.close();
+                
                 return -1;
             }catch(SQLException e){
                 try {

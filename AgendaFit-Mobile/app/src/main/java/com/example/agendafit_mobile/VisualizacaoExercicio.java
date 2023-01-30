@@ -17,6 +17,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import controller.ConexaoController;
+import controller.ExercicioAdapter;
 import controller.InformacoesApp;
 import modelDominio.Exercicio;
 

@@ -57,23 +57,6 @@ public class ConexaoController {
         return userLogado;
     }
 
-    public String cadastraExercicio(Exercicio exercicio){
-        String msgRecebida ="";
-        try{
-            informacoesApp.out.writeObject("cadastroExercicio");
-            msgRecebida = (String) informacoesApp.in.readObject();
-            if(msgRecebida.equals("ok")){
-                informacoesApp.out.writeObject(exercicio);
-                msgRecebida = (String) informacoesApp.in.readObject();
-            }
-            }catch (IOException ioe){
-            ioe.printStackTrace();
-        }catch (ClassNotFoundException classe){
-            classe.printStackTrace();
-        }
-        return msgRecebida;
-    }
-
     public ArrayList<Exercicio> listaExercicios(){
         ArrayList<Exercicio> listaExercicios;
         try {
@@ -87,6 +70,21 @@ public class ConexaoController {
             listaExercicios = null;
         }
         return listaExercicios;
+    }
+
+    public ArrayList<Treino> listaTreinos(){
+        ArrayList<Treino> listaTreinos;
+        try {
+            informacoesApp.out.writeObject("listaTreinos");
+            listaTreinos = (ArrayList<Treino>) informacoesApp.in.readObject();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+            listaTreinos = null;
+        } catch (ClassNotFoundException classe) {
+            classe.printStackTrace();
+            listaTreinos = null;
+        }
+        return listaTreinos;
     }
 
     public String deletaExercicio(Exercicio exercicio){
@@ -114,7 +112,23 @@ public class ConexaoController {
                 informacoesApp.out.writeObject(treino);
                 msgRecebida = (String) informacoesApp.in.readObject();
             }
-            return msgRecebida;
+        }catch (IOException ioe){
+            ioe.printStackTrace();
+        }catch (ClassNotFoundException classe){
+            classe.printStackTrace();
+        }
+        return msgRecebida;
+    }
+
+    public String cadastraExercicio(Exercicio exercicio){
+        String msgRecebida ="";
+        try{
+            informacoesApp.out.writeObject("cadastroExercicio");
+            msgRecebida = (String) informacoesApp.in.readObject();
+            if(msgRecebida.equals("ok")){
+                informacoesApp.out.writeObject(exercicio);
+                msgRecebida = (String) informacoesApp.in.readObject();
+            }
         }catch (IOException ioe){
             ioe.printStackTrace();
         }catch (ClassNotFoundException classe){

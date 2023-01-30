@@ -54,7 +54,7 @@ public class TelaSobre extends javax.swing.JFrame {
         jLabel4.setText("Versão: 1.0 ");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel5.setText("Autores: Guilherme A. Hertzer e Leandro H. Kopp ");
+        jLabel5.setText("Autores: Guilherme A. Hertzer e Leandro H. Kopp Ferreira ");
 
         jButton1.setBackground(new java.awt.Color(65, 78, 225));
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -93,7 +93,7 @@ public class TelaSobre extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(141, 141, 141)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -64,8 +64,6 @@ public class TrataClienteController extends Thread{
                         out.writeObject("nok");
                     }
                 } else if(acao.equalsIgnoreCase("listaTreinos")){
-                    //out.writeObject();
-                    
                     TreinoDao dao = new TreinoDao();
                     out.writeObject(dao.getLista());
                 } else if(acao.equalsIgnoreCase("deletarTreino")){
@@ -88,8 +86,6 @@ public class TrataClienteController extends Thread{
                         out.writeObject("nok");
                     }      
                 } else if(acao.equalsIgnoreCase("listaExercicios")){
-                    //out.writeObject();
-                    
                     ExercicioDao dao = new ExercicioDao();
                     out.writeObject(dao.getLista());
                 } else if(acao.equalsIgnoreCase("deletarExercicio")){

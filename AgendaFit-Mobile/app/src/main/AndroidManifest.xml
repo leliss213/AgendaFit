@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".VisualizacaoDetalhadaExercicio"
+            android:name=".VisualizacaoDetalhadaTreino"
             android:label="@string/title_activity_visualizacao_detalhada_exercicio"
             android:parentActivityName=".VisualizacaoExercicio"
             android:theme="@style/AppTheme.NoActionBar">

@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -18,34 +19,33 @@ public class Treino implements Serializable{
     private String descricao;
     private String data;
     private float hora;
-    private ArrayList<Exercicio> listaExercicios;
-    private Exercicio exercicio;
+    private ArrayList<Exercicio> exercicios;
     private int tipo;
 
-    public Treino(int codTreino, String nomeTreino, String descricao, String data, float hora, Exercicio exercicio, int tipo) {
+    public Treino(int codTreino, String nomeTreino, String descricao, String data, float hora, int tipo) {
         this.codTreino = codTreino;
         this.nomeTreino = nomeTreino;
         this.descricao = descricao;
         this.data = data;
         this.hora = hora;
-        this.exercicio = exercicio;
         this.tipo = tipo;
     }
 
-    public ArrayList<Exercicio> getListaExercicios() {
-        return listaExercicios;
-    }
-
-    public void setListaExercicios(ArrayList<Exercicio> listaExercicios) {
-        this.listaExercicios = listaExercicios;
-    }
-
-    public Treino(String nomeTreino, String descricao, String data, float hora, ArrayList<Exercicio> listaExercicios, int tipo) {
+    public Treino(String nomeTreino, String descricao, String data, float hora, ArrayList<Exercicio> exercicios, int tipo) {
         this.nomeTreino = nomeTreino;
         this.descricao = descricao;
         this.data = data;
         this.hora = hora;
-        this.listaExercicios = listaExercicios;
+        this.exercicios = exercicios;
+        this.tipo = tipo;
+    }
+
+    public Treino(int codTreino, String nomeTreino, String descricao, String data, float hora, ArrayList<Exercicio> exercicios, int tipo) {
+        this.nomeTreino = nomeTreino;
+        this.descricao = descricao;
+        this.data = data;
+        this.hora = hora;
+        this.exercicios = exercicios;
         this.tipo = tipo;
     }
 
@@ -97,16 +97,16 @@ public class Treino implements Serializable{
         this.hora = hora;
     }
 
-    public Exercicio getExercicio() {
-        return exercicio;
+    public ArrayList<Exercicio> getExercicio() {
+        return exercicios;
     }
 
-    public void setExercicio(Exercicio exercicio) {
-        this.exercicio = exercicio;
+    public void setExercicio(ArrayList<Exercicio> exercicios) {
+        this.exercicios = exercicios;
     }
 
     @Override
     public String toString() {
-        return "Treino{" + "codTreino=" + codTreino + ", nomeTreino=" + nomeTreino + ", descricao=" + descricao + ", data=" + data + ", hora=" + hora + ", exercicio=" + exercicio + ", tipo=" + tipo + '}';
+        return "Treino{" + "codTreino=" + codTreino + ", nomeTreino=" + nomeTreino + ", descricao=" + descricao + ", data=" + data + ", hora=" + hora + ", tipo=" + tipo + '}';
     }
 }

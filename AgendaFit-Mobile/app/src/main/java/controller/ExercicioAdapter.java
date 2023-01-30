@@ -1,4 +1,4 @@
-package com.example.agendafit_mobile;
+package controller;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -6,6 +6,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.agendafit_mobile.R;
 
 import java.util.List;
 

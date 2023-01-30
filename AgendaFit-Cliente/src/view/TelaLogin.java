@@ -7,6 +7,7 @@ package view;
 
 import controller.ConexaoController;
 import controller.InformacoesApp;
+import java.io.EOFException;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
