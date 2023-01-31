@@ -8,8 +8,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,8 +20,7 @@ import android.widget.Button;
 
 public class MenuActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     BottomNavigationView bottomNavigationView;
-    Button bMenuCadastrarTreino, bMenuVisualizarTreino, bMenuCadastrarExercicio, bMenuVisualizarExercicio;
-
+    CardView cvMenuVisualizaTreinos, cvMenuVisualizaExercicios, cvMenuAdicionaTreino, cvMenuAdicionaExercicio;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,39 +29,41 @@ public class MenuActivity extends AppCompatActivity implements BottomNavigationV
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        bMenuCadastrarTreino = findViewById(R.id.bMenuCadastrarTreino);
-        bMenuVisualizarTreino = findViewById(R.id.bMenuVisualizarTreino);
-        bMenuCadastrarExercicio = findViewById(R.id.bMenuCadastrarExercicio);
-        bMenuVisualizarExercicio = findViewById(R.id.bMenuVisualizarExercicio);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("AGENDA FIT");
+        actionBar.hide();
+        cvMenuAdicionaExercicio = findViewById(R.id.cvMenuAdicionarExercicio);
+        cvMenuAdicionaTreino = findViewById(R.id.cvMenuAdicionarTreino);
+        cvMenuVisualizaExercicios = findViewById(R.id.cvMenuVisualizaExercicios);
+        cvMenuVisualizaTreinos = findViewById(R.id.cvMenuVisualizaTreinos);
 
         bottomNavigationView = findViewById(R.id.bnMenu);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
 
 
-        bMenuCadastrarTreino.setOnClickListener(new View.OnClickListener() {
+        cvMenuAdicionaTreino.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent it = new Intent(MenuActivity.this, CadastroTreino.class);
                 startActivity(it);
             }
         });
-        bMenuVisualizarTreino.setOnClickListener(new View.OnClickListener() {
+        cvMenuVisualizaTreinos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent it = new Intent(MenuActivity.this, VisualizacaoTreino.class);
                 startActivity(it);
             }
         });
-        bMenuCadastrarExercicio.setOnClickListener(new View.OnClickListener() {
+        cvMenuAdicionaExercicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent it = new Intent(MenuActivity.this, CadastroExercicios.class);
                 startActivity(it);
             }
         });
-        bMenuVisualizarExercicio.setOnClickListener(new View.OnClickListener() {
+        cvMenuVisualizaExercicios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent it = new Intent(MenuActivity.this, VisualizacaoExercicio.class);

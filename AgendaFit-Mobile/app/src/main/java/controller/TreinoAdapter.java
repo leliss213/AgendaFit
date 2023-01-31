@@ -76,7 +76,6 @@ public class TreinoAdapter extends RecyclerView.Adapter<TreinoAdapter.MyViewHold
     }
 
 
-
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView tvTreinoNome, tvTreinoTipo,tvTreinoDescricao,tvTreinoHora,tvTreinoData;
         public MyViewHolder(View itemView) {

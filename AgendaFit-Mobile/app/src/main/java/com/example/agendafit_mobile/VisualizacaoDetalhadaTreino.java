@@ -1,5 +1,6 @@
 package com.example.agendafit_mobile;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -10,6 +11,8 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
 
+import modelDominio.Treino;
+
 public class VisualizacaoDetalhadaTreino extends AppCompatActivity {
 
     @Override
@@ -18,8 +21,13 @@ public class VisualizacaoDetalhadaTreino extends AppCompatActivity {
         setContentView(R.layout.activity_visualizacao_detalhada_exercicio);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        Intent it = getIntent();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        if(it != null){
+            Treino treino = (Treino) it.getSerializableExtra("treino");
+
+        }
     }
 
 }

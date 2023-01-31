@@ -1,5 +1,6 @@
 package com.example.agendafit_mobile;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -7,6 +8,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.ActivityChooserView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -71,7 +73,10 @@ public class VisualizacaoTreino extends AppCompatActivity {
     TreinoAdapter.TreinoOnClickListener trataCliqueItem = new TreinoAdapter.TreinoOnClickListener() {
         @Override
         public void onClickTreino(View view, int position) {
-
+            Treino treino =listaTreinos.get(position);
+            Intent it = new Intent(VisualizacaoTreino.this,VisualizacaoDetalhadaTreino.class);
+            it.putExtra("treino",treino);
+            startActivity(it);
         }
     };
 
