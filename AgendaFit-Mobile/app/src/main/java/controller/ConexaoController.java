@@ -72,6 +72,23 @@ public class ConexaoController {
         return listaExercicios;
     }
 
+    public ArrayList<Exercicio> listaExerciciosFiltro(int codTreino){
+        ArrayList<Exercicio> listaExercicios;
+        try {
+            informacoesApp.out.writeObject("listaExerciciosFiltro");
+            informacoesApp.in.readObject();
+            informacoesApp.out.writeObject(codTreino);
+            listaExercicios = (ArrayList<Exercicio>) informacoesApp.in.readObject();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+            listaExercicios = null;
+        } catch (ClassNotFoundException classe) {
+            classe.printStackTrace();
+            listaExercicios = null;
+        }
+        return listaExercicios;
+    }
+
     public ArrayList<Treino> listaTreinos(){
         ArrayList<Treino> listaTreinos;
         try {

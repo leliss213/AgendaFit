@@ -122,6 +122,11 @@ public class TrataClienteController extends Thread{
                     }else{
                         out.writeObject("nok");
                     }
+                } else if(acao.equalsIgnoreCase("listaExerciciosFiltro")){
+                    out.writeObject("ok");
+                    ExercicioDao dao = new ExercicioDao();
+                    int codTreino = (int) in.readObject();                    
+                    out.writeObject(dao.getFiltroLista(codTreino));
                 }
                 
                 acao = (String) in.readObject();

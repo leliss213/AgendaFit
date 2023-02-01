@@ -178,7 +178,7 @@ public class TelaLogin extends javax.swing.JFrame {
                                 TelaTabela telaB = new TelaTabela();
                                 telaB.setVisible(true);
 
-                                //this.dispose();
+                                dispose();
                             } else {
                                 System.out.println("Usuário ou senha incorretos");
                             }

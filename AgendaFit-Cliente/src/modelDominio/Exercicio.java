@@ -21,6 +21,9 @@ public class Exercicio implements Serializable{
         this.nomeExercicio = nomeExercicio;
         this.tipo = tipo;
     }
+    public Exercicio(String nomeExercicio) {
+        this.nomeExercicio = nomeExercicio;
+    }
 
     public int getTipo() {
         return tipo;

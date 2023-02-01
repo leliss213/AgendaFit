@@ -57,6 +57,7 @@ public class VisualizacaoExercicio extends AppCompatActivity {
                             rvVisualizacaoExercicio.setLayoutManager(new LinearLayoutManager(informacoesApp));
                             rvVisualizacaoExercicio.setItemAnimator(new DefaultItemAnimator());
                             rvVisualizacaoExercicio.setAdapter(exercicioAdapter);
+
                         }
                     });
                 } else{
@@ -64,6 +65,7 @@ public class VisualizacaoExercicio extends AppCompatActivity {
                         @Override
                         public void run() {
                             Toast.makeText(informacoesApp, "Nao foi possivel obter a lista de exercicios", Toast.LENGTH_SHORT).show();
+
                         }
                     });
 
@@ -95,13 +97,15 @@ public class VisualizacaoExercicio extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         Toast.makeText(informacoesApp, "Exercicio Excluído com sucesso!", Toast.LENGTH_SHORT).show();
+                                        //criar metodo refresh com lista vazia para preencher novamente, setando a lista nova
+                                        //exercicioAdapter.notifyDataSetChanged();
                                     }
                                 });
                             } else{
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Toast.makeText(informacoesApp, "ERRO:", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(informacoesApp, "ERRO: exercício pertence a algum treino!", Toast.LENGTH_SHORT).show();
                                     }
                                 });
                             }

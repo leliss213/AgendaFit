@@ -10,6 +10,12 @@
     tools:context=".MainActivity"
     tools:showIn="@layout/activity_main">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="119dp">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
