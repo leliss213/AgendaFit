@@ -107,9 +107,7 @@ public class TrataClienteController extends Thread{
                     } else{
                         out.writeObject("nok");
                     }      
-                } else if(acao.equalsIgnoreCase("listaUsuarios")){
-                    //out.writeObject();
-                    
+                } else if(acao.equalsIgnoreCase("listaUsuarios")){                    
                     UsuarioDao dao = new UsuarioDao();
                     out.writeObject(dao.getLista());
                 } else if(acao.equalsIgnoreCase("deletarUsuario")){
