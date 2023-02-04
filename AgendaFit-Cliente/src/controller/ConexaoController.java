@@ -21,7 +21,7 @@ public class ConexaoController {
     public boolean criaConexao() {
         boolean resultado;
         try {
-            informacoesApp.socket = new Socket("127.0.0.1", 12345);
+            informacoesApp.socket = new Socket("127.0.0.1", 12346);
             informacoesApp.out = new ObjectOutputStream(informacoesApp.socket.getOutputStream());
             informacoesApp.in = new ObjectInputStream(informacoesApp.socket.getInputStream());
 

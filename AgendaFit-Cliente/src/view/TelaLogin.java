@@ -52,6 +52,7 @@ public class TelaLogin extends javax.swing.JFrame {
         jPasswordFieldSenha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Login");
         setLocationByPlatform(true);
         setMinimumSize(new java.awt.Dimension(400, 300));
         getContentPane().setLayout(new java.awt.GridBagLayout());
@@ -89,6 +90,8 @@ public class TelaLogin extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         getContentPane().add(jLabel1, gridBagConstraints);
+
+        jTextFieldUsuario.setText("leandro");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
@@ -141,6 +144,8 @@ public class TelaLogin extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         getContentPane().add(jLabel4, gridBagConstraints);
+
+        jPasswordFieldSenha.setText("123");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
@@ -175,7 +180,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
                             if (usuario != null) {
                                 informacoesApp.setUsuarioLogado(usuario);
-                                TelaTabela telaB = new TelaTabela();
+                                TelaTabelaUsuario telaB = new TelaTabelaUsuario();
                                 telaB.setVisible(true);
 
                                 dispose();

@@ -38,6 +38,7 @@ public class TelaSobre extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Sobre");
 
         jPanel2.setBackground(new java.awt.Color(153, 153, 153));
 
