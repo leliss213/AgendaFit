@@ -15,14 +15,21 @@ public class Exercicio implements Serializable{
     private int codExercicio;
     private String nomeExercicio;
     private int tipo;
+    
+    public Exercicio(String nomeExercicio, int tipo) {
+        this.nomeExercicio = nomeExercicio;
+        this.tipo = tipo;
+    }
 
+    public Exercicio(String nomeExercicio) {
+        this.nomeExercicio = nomeExercicio;
+    }
+    
+    
     public Exercicio(int codExercicio, String nomeExercicio, int tipo) {
         this.codExercicio = codExercicio;
         this.nomeExercicio = nomeExercicio;
         this.tipo = tipo;
-    }
-    public Exercicio(String nomeExercicio) {
-        this.nomeExercicio = nomeExercicio;
     }
 
     public int getTipo() {

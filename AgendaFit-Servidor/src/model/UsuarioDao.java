@@ -65,7 +65,7 @@ public class UsuarioDao {
         try{
             try{
                 con.setAutoCommit(false);
-                String sql = "insert into usuarios (nomeUsuario , login, senha, email, peso, altura) values (?,?,?,?,?,?);";
+                String sql = "insert into usuario (nomeUsuario , login, senha, email, peso, altura) values (?,?,?,?,?,?);";
                 stmt = con.prepareStatement(sql);
                 
                 String password = Util.encryptPassword(usuario.getSenha());
@@ -82,6 +82,7 @@ public class UsuarioDao {
                 return -1;
             }catch(SQLException e){
                 try {
+                    System.out.println(e.getMessage());
                     con.rollback(); // cancelando a transação 
                     return e.getErrorCode(); // devolvendo o erro
                 } catch (SQLException ex) {
@@ -105,7 +106,7 @@ public class UsuarioDao {
         ArrayList<Usuario> listaUsuarios = new ArrayList<>();
         try{
             stmt = con.createStatement();
-            ResultSet res = stmt.executeQuery("select * from exercicios order by tipo");
+            ResultSet res = stmt.executeQuery("select * from usuario order by codUsuario desc");
             
             while (res.next()){
                 Usuario usuario = new Usuario(res.getInt("codUsuario"),
@@ -132,7 +133,7 @@ public class UsuarioDao {
         try{
             try{
                 con.setAutoCommit(false);
-                String sql = "delete from exercicios where codUsuario = ?";
+                String sql = "delete from usuario where codUsuario = ?";
                 stmt = con.prepareStatement(sql);
                 
                 stmt.setInt(1, usuario.getCodUsuario());

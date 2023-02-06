@@ -42,6 +42,16 @@ public class Usuario implements Serializable{
         this.email = email;
         this.treinos = treinos;
     }
+    
+    public Usuario(String nomeUsuario, String email, String login, String senha, float peso, float altura, ArrayList<Treino> treinos) {
+        this.nomeUsuario = nomeUsuario;
+        this.login = login;
+        this.senha = senha;
+        this.peso = peso;
+        this.altura = altura;
+        this.email = email;
+        this.treinos = treinos;
+    }
 
     public Usuario(String login, String senha) {
         this.login = login;
