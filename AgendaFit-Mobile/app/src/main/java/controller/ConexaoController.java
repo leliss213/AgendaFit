@@ -21,6 +21,7 @@ public class ConexaoController {
     public boolean criaConexao() {
         boolean resultado;
         try {
+            //informacoesApp.socket = new Socket("192.168.238.240", 12345);
             informacoesApp.socket = new Socket("10.0.2.2", 12345);
             informacoesApp.out = new ObjectOutputStream(informacoesApp.socket.getOutputStream());
             informacoesApp.in = new ObjectInputStream(informacoesApp.socket.getInputStream());
@@ -111,6 +112,22 @@ public class ConexaoController {
             msgRecebida = (String) informacoesApp.in.readObject();
             if(msgRecebida.equals("ok")){
                 informacoesApp.out.writeObject(exercicio);
+                msgRecebida = (String) informacoesApp.in.readObject();
+            }
+            return msgRecebida;
+        }catch (IOException | ClassNotFoundException e){
+            e.printStackTrace();
+            return msgRecebida;
+        }
+    }
+
+    public String deletaTreino(Treino treino){
+        String msgRecebida = "";
+        try{
+            informacoesApp.out.writeObject("deletarTreino");
+            msgRecebida = (String) informacoesApp.in.readObject();
+            if(msgRecebida.equals("ok")){
+                informacoesApp.out.writeObject(treino);
                 msgRecebida = (String) informacoesApp.in.readObject();
             }
             return msgRecebida;
