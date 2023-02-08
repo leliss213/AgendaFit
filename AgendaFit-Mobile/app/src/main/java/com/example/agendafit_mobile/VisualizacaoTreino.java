@@ -40,12 +40,18 @@ public class VisualizacaoTreino extends AppCompatActivity {
         informacoesApp = (InformacoesApp) getApplicationContext();
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Visualização dos Treinos");
-
+        //Toast.makeText(informacoesApp, "antes da thread", Toast.LENGTH_SHORT).show();
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 ConexaoController ccont = new ConexaoController(informacoesApp);
                 listaTreinos = ccont.listaTreinos();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //Toast.makeText(informacoesApp, "dentro da thread", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
                 if(listaTreinos != null){
                     runOnUiThread(new Runnable() {

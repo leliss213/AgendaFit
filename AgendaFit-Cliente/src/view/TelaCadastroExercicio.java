@@ -144,7 +144,7 @@ public class TelaCadastroExercicio extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel1.add(jLabel8, gridBagConstraints);
 
-        jComboBoxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Braço", "Perna ", "Peito", "Ombro", "Nenhum" }));
+        jComboBoxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nenhum", "Peito", "Ombro", "Braço", "Costas", "Perna" }));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;

@@ -52,4 +52,5 @@ public class TabelaExercicioModel extends AbstractTableModel {
     public Exercicio getRowObject(int row) {
         return exercicios.get(row);
     }
+    
 }

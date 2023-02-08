@@ -21,13 +21,15 @@ public class Exercicio implements Serializable{
         this.tipo = tipo;
     }
 
+    public Exercicio(String nomeExercicio) {
+        this.nomeExercicio = nomeExercicio;
+    }
+
+
     public Exercicio(int codExercicio, String nomeExercicio, int tipo) {
         this.codExercicio = codExercicio;
         this.nomeExercicio = nomeExercicio;
         this.tipo = tipo;
-    }
-    public Exercicio(String nomeExercicio) {
-        this.nomeExercicio = nomeExercicio;
     }
 
     public int getTipo() {
@@ -57,5 +59,21 @@ public class Exercicio implements Serializable{
     @Override
     public String toString() {
         return "Exercicio{" + "codExercicio=" + codExercicio + ", nomeExercicio=" + nomeExercicio + ", tipo=" + tipo + '}';
+    }
+    public String tipoLiteral(){
+        Exercicio exercicio=null;
+        String retorno = "";
+        if(exercicio.getTipo() == 1){
+            retorno = "Peito";
+        }else if(exercicio.getTipo() == 2){
+            retorno = "Ombro";
+        }else if(exercicio.getTipo() == 3){
+            retorno = "Braço";
+        }else if(exercicio.getTipo() == 4){
+            retorno = "Costas";
+        }else if(exercicio.getTipo() == 5){
+            retorno = "Perna";
+        }
+        return retorno;
     }
 }

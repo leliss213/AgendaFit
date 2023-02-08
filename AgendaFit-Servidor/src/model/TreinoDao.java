@@ -16,18 +16,20 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import modelDominio.Exercicio;
 import modelDominio.Treino;
+
 /**
  *
  * @author Leandro
  */
 public class TreinoDao {
+
     private Connection con;
 
     public TreinoDao() {
         con = Conector.getConnection();
     }
-    
-    public int inserir(Treino treino){
+
+    public int inserir(Treino treino) {
         PreparedStatement stmt = null;
         try {
             try {
@@ -35,7 +37,7 @@ public class TreinoDao {
                 //primeiro insere o treino 
                 String sql = "insert into treinos (nomeTreino, descricao, data, hora, tipoTreino) values (?,?,?,?,?);";
                 stmt = con.prepareStatement(sql);
-                
+
                 stmt.setString(1, treino.getNomeTreino());
                 stmt.setString(2, treino.getDescricao());
                 stmt.setString(3, treino.getData());
@@ -54,21 +56,21 @@ public class TreinoDao {
                 //lastID armazena o ID arrecem inserido do treino
                 int lastID = Integer.valueOf(rs.getString(1));
                 //for percorrendo os exercicios e inserindo na tabela intermediária
-                for (Exercicio exercicio: treino.getExercicio()){
+                for (Exercicio exercicio : treino.getExercicio()) {
                     String sql2 = "insert into TreinoExercicio(treinos_codTreino,exercicios_codExercicio) values (?,?);";
-                    
+
                     stmt2 = con.prepareStatement(sql2);
-                    
+
                     stmt2.setInt(1, lastID);
                     stmt2.setInt(2, exercicio.getCodExercicio());
-                    stmt2.execute();   
+                    stmt2.execute();
                 }
                 con.commit();
                 stmt.close();
                 stmt2.close();
-                
+
                 return -1;
-            } catch(SQLException e){
+            } catch (SQLException e) {
                 try {
                     con.rollback(); // cancelando a transação 
                     return e.getErrorCode(); // devolvendo o erro
@@ -76,7 +78,7 @@ public class TreinoDao {
                     return ex.getErrorCode();
                 }
             }
-        } finally{
+        } finally {
             try {
                 stmt.close();
                 con.setAutoCommit(true);
@@ -86,58 +88,61 @@ public class TreinoDao {
             }
         }
     }
-    
-    public ArrayList<Treino> getLista(){
+
+    public ArrayList<Treino> getLista() {
         Statement stmt = null;
         ArrayList<Treino> listaTreinos = new ArrayList<>();
-        try{
+        try {
             stmt = con.createStatement();
             //select ordenando a lista pelo tipo do treino
             ResultSet res = stmt.executeQuery("select * from treinos order by tipoTreino");
             //while percorrendo os treinos e adicionando na lista para retornar
-            while (res.next()){
-                Treino treino = new Treino(res.getInt("codTreino"),res.getString("nomeTreino"),res.getString("descricao"),res.getString("data"),res.getFloat("hora"), res.getInt("tipoTreino"));
-                
+            while (res.next()) {
+                Treino treino = new Treino(res.getInt("codTreino"), res.getString("nomeTreino"), res.getString("descricao"), res.getString("data"), res.getFloat("hora"), res.getInt("tipoTreino"));
+
                 listaTreinos.add(treino);
             }
             return listaTreinos;
-            
-        }catch(SQLException e){
+
+        } catch (SQLException e) {
             System.out.println(e.getErrorCode() + " - "
                     + e.getMessage());
-            return null;   
+            return null;
         }
     }
-    
-    public int excluir(Treino treino){
-        PreparedStatement stmt = null;
-        try{
-            try{
-                con.setAutoCommit(false);
-                String sql = "delete from treinos where codTreino = ?";
-                stmt = con.prepareStatement(sql);
-                
-                stmt.setInt(1, treino.getCodTreino());
-                stmt.execute();
-                con.commit();
-                return -1;
-            }catch(SQLException e){
+
+    public int excluir(Treino treino) {
+        //Statement stmt = null;
+        Statement stmt2 = null;
+        try {
+            try {
+
+                int codTreino = treino.getCodTreino();
+
+                stmt2 = con.createStatement();
+
+                String query = String.format("delete from treinoexercicio where treinoexercicio.treinos_codTreino = %d ", codTreino);
+                stmt2.executeUpdate(query);
+                String query2 = String.format("delete from treinos where codTreino = %d", codTreino);
+                stmt2.executeUpdate(query2);
+            } catch (SQLException e) {
                 try {
                     con.rollback(); // cancelando a transação 
                     return e.getErrorCode(); // devolvendo o erro
                 } catch (SQLException ex) {
                     return ex.getErrorCode();
                 }
-            } 
-        } finally{
+            }
+        } finally {
             try {
-                stmt.close();
+                stmt2.close();
                 con.setAutoCommit(true);
                 con.close();
             } catch (SQLException e) {
                 return e.getErrorCode();
             }
         }
+        return -1;
     }
 
 }

@@ -65,7 +65,7 @@ public class VisualizacaoDetalhadaTreino extends AppCompatActivity {
             tvVisualizacaoDetalhadaTituloTreino.setText("Título: "+treino.getNomeTreino());
             tvVisualizacaoDetalhadaDescricaoTreino.setText("Descrição: "+treino.getDescricao());
             tvVisualizacaoDetalhadaData.setText("Data: "+treino.getData());
-            tvVisualizacaoDetalhadaHora.setText(String.valueOf("Hora: "+treino.getHora()));
+            tvVisualizacaoDetalhadaHora.setText("Hora: "+treino.getHora());
             String treinoLiteral="";
             if(treino.getTipo() == 1){
                 treinoLiteral = "Peito";
@@ -103,6 +103,8 @@ public class VisualizacaoDetalhadaTreino extends AppCompatActivity {
                                         @Override
                                         public void run() {
                                             Toast.makeText(informacoesApp, "Treino Excluido com sucesso", Toast.LENGTH_SHORT).show();
+                                            Intent it = new Intent(VisualizacaoDetalhadaTreino.this, VisualizacaoTreino.class);
+                                            startActivity(it);
                                         }
                                     });
                                 }else {
