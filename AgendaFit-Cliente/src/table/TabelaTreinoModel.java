@@ -42,7 +42,7 @@ public class TabelaTreinoModel extends AbstractTableModel {
         case 2:
           return treino.getHora();
         case 3:
-          return treino.getTipo();
+          return treino.tipoLiteral();
         default:
           return null;
       }

@@ -6,7 +6,6 @@
 package view;
 
 import controller.ConexaoController;
-import controller.InformacoesApp;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
@@ -23,20 +22,20 @@ import table.TabelaUsuarioModel;
  */
 public class TelaTabelaUsuario extends javax.swing.JFrame {
     ConexaoController ccont;
-    InformacoesApp informacoesApp;
     /**
      * Creates new form TelaTabela
      */
     public TelaTabelaUsuario() {
         initComponents();
-        informacoesApp = new InformacoesApp();
+        
+        ccont = new ConexaoController();
+        ccont.criaConexao();
+        
         loadTable();
     }
     
     public void loadTable()
     {
-        ccont = new ConexaoController(informacoesApp);
-        ccont.criaConexao();
         try {
             ArrayList<Usuario> listaUsuarios = ccont.listaUsuario();
             DefaultTableModel model = new DefaultTableModel();
@@ -50,7 +49,15 @@ public class TelaTabelaUsuario extends javax.swing.JFrame {
     public void editarUsuario(int linhaSelecionada)
     {
         Usuario usuario = ((TabelaUsuarioModel) jTable1.getModel()).getRowObject(linhaSelecionada);
-        System.out.println(usuario.getNomeUsuario());
+        TelaCadastroUsuario telaCadastroUsuario = new TelaCadastroUsuario();
+        telaCadastroUsuario.setVisible(true);
+        telaCadastroUsuario.editaUsuario(usuario);
+        telaCadastroUsuario.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                loadTable();
+            }
+        });
     }
 
     /**
@@ -79,10 +86,7 @@ public class TelaTabelaUsuario extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Nome", "Login", "Email"
@@ -215,8 +219,6 @@ public class TelaTabelaUsuario extends javax.swing.JFrame {
         if(jTable1.getSelectedRow() != -1) {
             try {
                 Usuario usuario = ((TabelaUsuarioModel) jTable1.getModel()).getRowObject(jTable1.getSelectedRow());
-                ccont = new ConexaoController(informacoesApp);
-                ccont.criaConexao();
                 ccont.deletaUsuario(usuario);
                 
                 loadTable();

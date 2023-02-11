@@ -6,14 +6,17 @@
 package view;
 
 import controller.ConexaoController;
-import controller.InformacoesApp;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import modelDominio.Usuario;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.event.InternalFrameAdapter;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.table.DefaultTableModel;
+import modelDominio.Treino;
+import table.TabelaTreinoModel;
+import utils.Util;
 
 /**
  *
@@ -21,14 +24,49 @@ import javax.swing.event.InternalFrameAdapter;
  */
 public class TelaCadastroUsuario extends javax.swing.JFrame {
     ConexaoController ccont;
-    InformacoesApp informacoesApp;
-    ArrayList treinos;
+    ArrayList<Treino> treinos = new ArrayList();
+    ArrayList<Treino> listTreinos;
+    
     /**
      * Creates new form TelaCadastro
      */
     public TelaCadastroUsuario() {
         initComponents();
-        informacoesApp = new InformacoesApp();
+        
+        ccont = new ConexaoController();
+        ccont.criaConexao();
+        
+        loadData();
+    }
+    
+    public void loadData()
+    {
+        try { 
+            listTreinos = ccont.listaTreinos();
+            jComboBox1.setModel(new DefaultComboBoxModel(listTreinos.toArray()));
+        } catch (IOException ex) {
+            Logger.getLogger(TelaCadastroTreino.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(TelaCadastroTreino.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void loadTreinos()
+    {
+        DefaultTableModel model = new DefaultTableModel();
+        jTable1.setModel(new TabelaTreinoModel(treinos));
+    }
+    
+    public void editaUsuario(Usuario usuario)
+    {
+        jTextFieldNome.setText(usuario.getNomeUsuario());
+        jTextFieldEmail.setText(usuario.getEmail());
+        jTextFieldLogin.setText(usuario.getLogin());
+        jTextFieldAltura.setText(String.valueOf(usuario.getAltura()));
+        jTextFieldPeso.setText(String.valueOf(usuario.getPeso()));
+        
+        //DefaultTableModel model = new DefaultTableModel();
+        //jTable1.setModel(new TabelaTreinoModel(usuario.getTreinos()));
     }
 
     /**
@@ -61,8 +99,8 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonAddTreino = new javax.swing.JButton();
+        jButtonRemoveTreino = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
 
@@ -79,6 +117,8 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro Usuario");
+        setMaximumSize(new java.awt.Dimension(800, 800));
+        setPreferredSize(new java.awt.Dimension(486, 650));
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         jPanel1.setLayout(new java.awt.GridBagLayout());
@@ -238,7 +278,7 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 0.75;
+        gridBagConstraints.weighty = 0.3;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         getContentPane().add(jPanel1, gridBagConstraints);
 
@@ -247,13 +287,10 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Nome", "Data", "Hora", "Tipo"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -266,27 +303,37 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.weighty = 0.1;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel3.add(jScrollPane1, gridBagConstraints);
 
-        jButton1.setText("Adicionar");
+        jButtonAddTreino.setText("Adicionar");
+        jButtonAddTreino.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAddTreinoActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        jPanel3.add(jButton1, gridBagConstraints);
+        jPanel3.add(jButtonAddTreino, gridBagConstraints);
 
-        jButton2.setText("Remover");
+        jButtonRemoveTreino.setText("Remover");
+        jButtonRemoveTreino.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRemoveTreinoActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        jPanel3.add(jButton2, gridBagConstraints);
+        jPanel3.add(jButtonRemoveTreino, gridBagConstraints);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText("Treinos");
@@ -298,7 +345,6 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel3.add(jLabel7, gridBagConstraints);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -314,7 +360,7 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 0.25;
+        gridBagConstraints.weighty = 0.7;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         getContentPane().add(jPanel3, gridBagConstraints);
 
@@ -339,17 +385,20 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
                                 String senhaUsuario = jPasswordFieldSenha.getPassword().toString();
                                 Float alturaUsuario = Float.valueOf(jTextFieldAltura.getText());
                                 Float pesoUsuario = Float.valueOf(jTextFieldPeso.getText());
+                                
+                                String hash = Util.encryptPassword(senhaUsuario);
 
-                                final Usuario usuario = new Usuario(nomeUsuario, emailUsuario, loginUsuario, senhaUsuario, alturaUsuario, pesoUsuario, treinos);
+                                final Usuario usuario = new Usuario(nomeUsuario, emailUsuario, loginUsuario, hash, alturaUsuario, pesoUsuario, treinos);
 
                                 Thread thread = new Thread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        ccont = new ConexaoController(informacoesApp);
-                                        ccont.criaConexao();
                                         try {
                                             String msgRecebida = ccont.cadastraUsuario(usuario);
                                             System.out.println(msgRecebida);
+                                            
+                                            TelaCadastroUsuario.this.dispose();
+                                            
                                         } catch (IOException | ClassNotFoundException ex) {
                                             Logger.getLogger(TelaCadastroExercicio.class.getName()).log(Level.SEVERE, null, ex);
                                         }
@@ -382,6 +431,28 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
             jTextFieldNome.requestFocus();
         }
     }//GEN-LAST:event_jButtonCadastrarActionPerformed
+
+    private void jButtonAddTreinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddTreinoActionPerformed
+        Treino treino = (Treino) jComboBox1.getSelectedItem();
+        
+        this.treinos.add(treino);
+        
+        loadTreinos();
+    }//GEN-LAST:event_jButtonAddTreinoActionPerformed
+
+    private void jButtonRemoveTreinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoveTreinoActionPerformed
+        int linhaSelecionada = jTable1.getSelectedRow();
+        
+        if (linhaSelecionada != -1) {
+            Treino treino = ((TabelaTreinoModel) jTable1.getModel()).getRowObject(linhaSelecionada);
+        
+            this.treinos.remove(treino);
+
+            loadTreinos();
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione uma treino para remover!");
+        }
+    }//GEN-LAST:event_jButtonRemoveTreinoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -420,10 +491,10 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButtonAddTreino;
     private javax.swing.JButton jButtonCadastrar;
     private javax.swing.JButton jButtonCancelar;
+    private javax.swing.JButton jButtonRemoveTreino;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
