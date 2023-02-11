@@ -6,7 +6,6 @@
  */
 package model;
 
-import com.sun.jdi.connect.Connector;
 import factory.Conector;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -64,6 +63,65 @@ public class TreinoDao {
                     stmt2.setInt(1, lastID);
                     stmt2.setInt(2, exercicio.getCodExercicio());
                     stmt2.execute();
+                }
+                con.commit();
+                stmt.close();
+                stmt2.close();
+
+                return -1;
+            } catch (SQLException e) {
+                try {
+                    con.rollback(); // cancelando a transação 
+                    return e.getErrorCode(); // devolvendo o erro
+                } catch (SQLException ex) {
+                    return ex.getErrorCode();
+                }
+            }
+        } finally {
+            try {
+                stmt.close();
+                con.setAutoCommit(true);
+                con.close();
+            } catch (SQLException e) {
+                return e.getErrorCode();
+            }
+        }
+    }
+    
+    public int alterar(Treino treino) {
+        PreparedStatement stmt = null;
+        try {
+            try {
+                con.setAutoCommit(false);
+                //primeiro insere o treino 
+                String sql = "UPDATE treinos SET nomeTreino = ?, descricao = ?, data = ?, hora = ?, tipoTreino= ? WHERE codTreino = ?;";
+                stmt = con.prepareStatement(sql);
+
+                stmt.setString(1, treino.getNomeTreino());
+                stmt.setString(2, treino.getDescricao());
+                stmt.setString(3, treino.getData());
+                stmt.setFloat(4, treino.getHora());
+                stmt.setInt(5, treino.getTipo());
+                stmt.setInt(6, treino.getCodTreino());
+                //executa o stmt e faz o commit
+                stmt.executeUpdate();
+                con.commit();
+                //cria o stmt da tabela intermediária entre treino e exercício
+                PreparedStatement stmt2 = null;
+                //cria um delete para remover todos os exercicios para aquele treino 
+                PreparedStatement stmt3 = con.prepareStatement("DELETE FROM TreinoExercicio WHERE treinos_codTreino = ?");
+                stmt3.setInt(1, treino.getCodTreino());
+                stmt3.execute();
+                stmt3.close();
+                //for percorrendo os exercicios e inserindo na tabela intermediária
+                for (Exercicio exercicio : treino.getExercicio()) {
+                    String sql2 = "insert into TreinoExercicio(treinos_codTreino,exercicios_codExercicio) values (?,?);";
+
+                    stmt2 = con.prepareStatement(sql2);
+
+                    stmt2.setInt(1, treino.getCodTreino());
+                    stmt2.setInt(2, exercicio.getCodExercicio());
+                    stmt2.executeUpdate();
                 }
                 con.commit();
                 stmt.close();

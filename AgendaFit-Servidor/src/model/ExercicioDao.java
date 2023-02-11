@@ -61,6 +61,43 @@ public class ExercicioDao {
         }
     }
     
+    public int alterar(Exercicio exercicio){
+        PreparedStatement stmt = null;
+        
+        try{
+            try{
+                con.setAutoCommit(false);
+                String sql = "UPDATE exercicios SET nomeExercicio = ?, tipo = ? WHERE codExercicio = ?;";
+                stmt = con.prepareStatement(sql);
+                
+                stmt.setString(1, exercicio.getNomeExercicio());
+                stmt.setInt(2, exercicio.getTipo());
+                stmt.setInt(3, exercicio.getCodExercicio());
+                
+                stmt.executeUpdate();
+                stmt.close();
+                
+                return -1;
+            }catch(SQLException e){
+                try {
+                    con.rollback(); // cancelando a transação 
+                    return e.getErrorCode(); // devolvendo o erro
+                } catch (SQLException ex) {
+                    return ex.getErrorCode();
+                }
+            }
+            
+        }finally{
+            try {
+                stmt.close();
+                con.setAutoCommit(true);
+                con.close();
+            } catch (SQLException e) {
+                return e.getErrorCode();
+            }
+        }
+    }
+    
     public ArrayList<Exercicio> getLista(){
         Statement stmt = null;
         ArrayList<Exercicio> listaExercicios = new ArrayList<>();
