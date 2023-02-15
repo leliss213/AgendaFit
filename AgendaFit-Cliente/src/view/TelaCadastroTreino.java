@@ -6,47 +6,67 @@
 package view;
 
 import controller.ConexaoController;
-import controller.InformacoesApp;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import modelDominio.Treino;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.table.DefaultTableModel;
 import modelDominio.Exercicio;
+import table.TabelaExercicioModel;
 
 /**
  *
  * @author guilh
  */
 public class TelaCadastroTreino extends javax.swing.JFrame {
-
+    
     ConexaoController ccont;
-    InformacoesApp informacoesApp;
-    ArrayList<Exercicio> exercicios;
+    ArrayList<Exercicio> exercicios = new ArrayList();
     ArrayList<Exercicio> listExercicios;
+    int codTreino;
+    
     /**
      * Creates new form TelaCadastro
      */
     public TelaCadastroTreino() {
         initComponents();
-        informacoesApp = new InformacoesApp();
-        loadData();
+
+        ccont = new ConexaoController();
+        ccont.criaConexao();
+        
+        loadData();    
     }
     
     public void loadData()
     {
-        try {
-            ccont = new ConexaoController(informacoesApp);
-            ccont.criaConexao();
+        try { 
             listExercicios = ccont.listaExercicios();
-            
-            
-        } catch (IOException ex) {
-            Logger.getLogger(TelaCadastroTreino.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+            jComboBox1.setModel(new DefaultComboBoxModel(listExercicios.toArray()));
+        } catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(TelaCadastroTreino.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public void loadExercicios()
+    {
+        DefaultTableModel model = new DefaultTableModel();
+        jTable1.setModel(new TabelaExercicioModel(exercicios));
+    }
+    
+    public void editarTreino(Treino treino)
+    {
+        this.codTreino = treino.getCodTreino();
+        jTextFieldNome.setText(treino.getNomeTreino());
+        jTextFieldDescricao.setText(treino.getDescricao());
+        jFormattedData.setText(treino.getData());
+        jTextFieldHora.setText(String.valueOf(treino.getHora()));
+        jComboBoxTipo.setSelectedIndex(treino.getTipo());
+        
+        //DefaultTableModel model = new DefaultTableModel();
+        //jTable1.setModel(new TabelaExercicioModel(treino.getExercicio()));
     }
 
     /**
@@ -73,12 +93,12 @@ public class TelaCadastroTreino extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jComboBoxTipo = new javax.swing.JComboBox<>();
-        jTextFieldData = new javax.swing.JTextField();
+        jFormattedData = new javax.swing.JFormattedTextField();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonAddExercicio = new javax.swing.JButton();
+        jButtonRemoveExercicio = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
 
@@ -105,8 +125,6 @@ public class TelaCadastroTreino extends javax.swing.JFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 2;
-        gridBagConstraints.ipady = 5;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel1.add(jLabel1, gridBagConstraints);
@@ -115,7 +133,6 @@ public class TelaCadastroTreino extends javax.swing.JFrame {
         gridBagConstraints.gridy = 1;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 179;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
@@ -127,8 +144,6 @@ public class TelaCadastroTreino extends javax.swing.JFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 7;
-        gridBagConstraints.ipady = 5;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel1.add(jLabel2, gridBagConstraints);
@@ -136,8 +151,7 @@ public class TelaCadastroTreino extends javax.swing.JFrame {
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 179;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel1.add(jTextFieldDescricao, gridBagConstraints);
@@ -148,8 +162,6 @@ public class TelaCadastroTreino extends javax.swing.JFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 5;
-        gridBagConstraints.ipady = 5;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel1.add(jLabel3, gridBagConstraints);
@@ -158,7 +170,6 @@ public class TelaCadastroTreino extends javax.swing.JFrame {
         gridBagConstraints.gridy = 4;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 179;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel1.add(jTextFieldHora, gridBagConstraints);
@@ -169,7 +180,6 @@ public class TelaCadastroTreino extends javax.swing.JFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 5;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipady = 5;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel1.add(jLabel4, gridBagConstraints);
@@ -213,7 +223,6 @@ public class TelaCadastroTreino extends javax.swing.JFrame {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 97;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel1.add(jLabel8, gridBagConstraints);
@@ -224,12 +233,11 @@ public class TelaCadastroTreino extends javax.swing.JFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipady = 5;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel1.add(jLabel7, gridBagConstraints);
 
-        jComboBoxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Treino de força", "Treino funcional", "Treino de alongamento e flexibilidade", "Treino de HIIT", "Treino de resistência" }));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 5;
@@ -237,15 +245,15 @@ public class TelaCadastroTreino extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel1.add(jComboBoxTipo, gridBagConstraints);
+
+        jFormattedData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 179;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        jPanel1.add(jTextFieldData, gridBagConstraints);
+        jPanel1.add(jFormattedData, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
@@ -259,10 +267,7 @@ public class TelaCadastroTreino extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
                 "Nome", "Tipo"
@@ -292,23 +297,33 @@ public class TelaCadastroTreino extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel4.add(jScrollPane1, gridBagConstraints);
 
-        jButton1.setText("Adicionar");
+        jButtonAddExercicio.setText("Adicionar");
+        jButtonAddExercicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAddExercicioActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        jPanel4.add(jButton1, gridBagConstraints);
+        jPanel4.add(jButtonAddExercicio, gridBagConstraints);
 
-        jButton2.setText("Remover");
+        jButtonRemoveExercicio.setText("Remover");
+        jButtonRemoveExercicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRemoveExercicioActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        jPanel4.add(jButton2, gridBagConstraints);
+        jPanel4.add(jButtonRemoveExercicio, gridBagConstraints);
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel9.setText("Exercicios");
@@ -319,7 +334,6 @@ public class TelaCadastroTreino extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel4.add(jLabel9, gridBagConstraints);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -352,12 +366,12 @@ public class TelaCadastroTreino extends javax.swing.JFrame {
     private void jButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarActionPerformed
         if(!jTextFieldNome.getText().isEmpty()){
             if(!jTextFieldDescricao.getText().isEmpty()){
-                if(!jTextFieldData.getText().isEmpty()){
+                if(!jFormattedData.getText().isEmpty()){
                     if(!jTextFieldHora.getText().isEmpty()){
                         if(jComboBoxTipo.getSelectedIndex()!=0){
                             String nomeTreino = jTextFieldNome.getText();
                             String descricao = jTextFieldDescricao.getText();
-                            String data = jTextFieldData.getText();
+                            String data = jFormattedData.getText();
                             Float hora = Float.valueOf(jTextFieldHora.getText());
                             int tipoTreino = jComboBoxTipo.getSelectedIndex();
 
@@ -366,8 +380,6 @@ public class TelaCadastroTreino extends javax.swing.JFrame {
                             Thread thread = new Thread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    ccont = new ConexaoController(informacoesApp);
-                                    ccont.criaConexao();
                                     try {
                                         String msgRecebida = ccont.cadastraTreino(treino);
                                         System.out.println(msgRecebida);
@@ -390,7 +402,7 @@ public class TelaCadastroTreino extends javax.swing.JFrame {
                     }
                 } else{
                     JOptionPane.showMessageDialog(null, "Insira o Data do Treino!");
-                    jTextFieldData.requestFocus();
+                    jFormattedData.requestFocus();
                 }
             } else{
                 JOptionPane.showMessageDialog(null, "Insira o Descrição do Treino!");
@@ -401,6 +413,27 @@ public class TelaCadastroTreino extends javax.swing.JFrame {
             jTextFieldNome.requestFocus();
         }   
     }//GEN-LAST:event_jButtonCadastrarActionPerformed
+
+    private void jButtonAddExercicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddExercicioActionPerformed
+        Exercicio exercicio = (Exercicio) jComboBox1.getSelectedItem();
+        
+        this.exercicios.add(exercicio);
+        
+        loadExercicios();
+    }//GEN-LAST:event_jButtonAddExercicioActionPerformed
+
+    private void jButtonRemoveExercicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoveExercicioActionPerformed
+        int linhaSelecionada = jTable1.getSelectedRow();
+        if(linhaSelecionada != -1) {
+            Exercicio exercicio = ((TabelaExercicioModel) jTable1.getModel()).getRowObject(linhaSelecionada);
+
+            this.exercicios.remove(exercicio);
+
+            loadExercicios();
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione uma exercicio para remover!");
+        }
+    }//GEN-LAST:event_jButtonRemoveExercicioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -441,12 +474,13 @@ public class TelaCadastroTreino extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButtonAddExercicio;
     private javax.swing.JButton jButtonCadastrar;
     private javax.swing.JButton jButtonCancelar;
+    private javax.swing.JButton jButtonRemoveExercicio;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBoxTipo;
+    private javax.swing.JFormattedTextField jFormattedData;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -459,7 +493,6 @@ public class TelaCadastroTreino extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextFieldData;
     private javax.swing.JTextField jTextFieldDescricao;
     private javax.swing.JTextField jTextFieldHora;
     private javax.swing.JTextField jTextFieldNome;

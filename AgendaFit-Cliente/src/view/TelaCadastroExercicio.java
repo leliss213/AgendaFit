@@ -6,7 +6,6 @@
 package view;
 
 import controller.ConexaoController;
-import controller.InformacoesApp;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,13 +19,25 @@ import modelDominio.Exercicio;
 public class TelaCadastroExercicio extends javax.swing.JFrame {
     
     ConexaoController ccont;
-    InformacoesApp informacoesApp;
+    int codExercicio;
+    
     /**
      * Creates new form TelaCadastro
      */
     public TelaCadastroExercicio() {
         initComponents();
-        informacoesApp = new InformacoesApp();
+        
+        ccont = new ConexaoController();
+        ccont.criaConexao();
+        
+        this.codExercicio = 0;
+    }
+    
+    public void editarExercicio(Exercicio exercicio)
+    {
+        this.codExercicio = exercicio.getCodExercicio();
+        jTextFieldNome.setText(exercicio.getNomeExercicio());
+        jComboBoxTipo.setSelectedIndex(exercicio.getTipo());
     }
 
     /**
@@ -180,10 +191,16 @@ public class TelaCadastroExercicio extends javax.swing.JFrame {
                 Thread thread = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        ccont = new ConexaoController(informacoesApp);
-                        ccont.criaConexao();
+                        
                         try {
-                            String msgRecebida = ccont.cadastraExercicio(exercicio);
+                            String msgRecebida = "";
+                            System.out.println(TelaCadastroExercicio.this.codExercicio);
+                            if (TelaCadastroExercicio.this.codExercicio != 0) {
+                                exercicio.setCodExercicio(TelaCadastroExercicio.this.codExercicio);
+                                msgRecebida = ccont.alteraExercicio(exercicio);
+                            } else {
+                                msgRecebida = ccont.cadastraExercicio(exercicio);
+                            }
                             System.out.println(msgRecebida);
                             
                             TelaCadastroExercicio.this.dispose();

@@ -107,6 +107,20 @@ public class Treino implements Serializable{
 
     @Override
     public String toString() {
-        return "Treino{" + "codTreino=" + codTreino + ", nomeTreino=" + nomeTreino + ", descricao=" + descricao + ", data=" + data + ", hora=" + hora + ", tipo=" + tipo + '}';
+        return nomeTreino + " - " + this.tipoLiteral();
+    }
+    
+    public String tipoLiteral(){
+        String retorno = "";
+        switch (this.getTipo()) {
+            case 1 -> retorno = "Treino de força";
+            case 2 -> retorno = "Treino funcional";
+            case 3 -> retorno = "Treino de alongamento e flexibilidade";
+            case 4 -> retorno = "Treino de HIIT";
+            case 5 -> retorno = "Treino de resistência";
+            default -> {
+            }
+        }
+        return retorno;
     }
 }

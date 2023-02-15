@@ -38,7 +38,7 @@ public class TabelaExercicioModel extends AbstractTableModel {
         case 0:
           return exercicio.getNomeExercicio();
         case 1:
-          return exercicio.getTipo();
+          return exercicio.tipoLiteral();
         default:
           return null;
       }

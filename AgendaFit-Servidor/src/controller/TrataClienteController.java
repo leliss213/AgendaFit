@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
 import model.ExercicioDao;
 import model.TreinoDao;
 import model.UsuarioDao;
@@ -54,7 +53,6 @@ public class TrataClienteController extends Thread{
                     out.writeObject(userSelected);
                     //userSelected.equals(out);
                 } else if(acao.equalsIgnoreCase("cadastroTreino")){
-                    out.writeObject("ok");
                     Treino treino = (Treino) in.readObject();
                     
                     TreinoDao dao = new TreinoDao();
@@ -63,11 +61,19 @@ public class TrataClienteController extends Thread{
                     } else{
                         out.writeObject("nok");
                     }
+                } else if(acao.equalsIgnoreCase("alteraTreino")){
+                    Treino treino = (Treino) in.readObject();
+                    
+                    TreinoDao dao = new TreinoDao();
+                    if(dao.alterar(treino) == -1){
+                        out.writeObject("ok");
+                    } else{
+                        out.writeObject("nok");
+                    }
                 } else if(acao.equalsIgnoreCase("listaTreinos")){
                     TreinoDao dao = new TreinoDao();
                     out.writeObject(dao.getLista());
                 } else if(acao.equalsIgnoreCase("deletarTreino")){
-                    out.writeObject("ok");
                     Treino treino = (Treino) in.readObject();
                     TreinoDao dao = new TreinoDao();
                     
@@ -77,10 +83,17 @@ public class TrataClienteController extends Thread{
                         out.writeObject("nok");
                     }
                 } else if(acao.equalsIgnoreCase("cadastroExercicio")){
-                    out.writeObject("ok");
                     Exercicio exercicio = (Exercicio) in.readObject();
                     ExercicioDao dao = new ExercicioDao();
                     if(dao.inserir(exercicio)==-1){
+                        out.writeObject("ok");
+                    } else{
+                        out.writeObject("nok");
+                    }      
+                } else if(acao.equalsIgnoreCase("alteraExercicio")){
+                    Exercicio exercicio = (Exercicio) in.readObject();
+                    ExercicioDao dao = new ExercicioDao();
+                    if(dao.alterar(exercicio)==-1){
                         out.writeObject("ok");
                     } else{
                         out.writeObject("nok");
@@ -89,7 +102,6 @@ public class TrataClienteController extends Thread{
                     ExercicioDao dao = new ExercicioDao();
                     out.writeObject(dao.getLista());
                 } else if(acao.equalsIgnoreCase("deletarExercicio")){
-                    out.writeObject("ok");
                     Exercicio exercicio = (Exercicio) in.readObject();
                     ExercicioDao dao = new ExercicioDao();
                     
@@ -99,10 +111,17 @@ public class TrataClienteController extends Thread{
                         out.writeObject("nok");
                     }
                 } else if(acao.equalsIgnoreCase("cadastroUsuario")){
-                    out.writeObject("ok");
                     Usuario usuario = (Usuario) in.readObject();
                     UsuarioDao dao = new UsuarioDao();
                     if(dao.inserir(usuario)==-1){
+                        out.writeObject("ok");
+                    } else{
+                        out.writeObject("nok");
+                    }      
+                } else if(acao.equalsIgnoreCase("alteraUsuario")){
+                    Usuario usuario = (Usuario) in.readObject();
+                    UsuarioDao dao = new UsuarioDao();
+                    if(dao.alterar(usuario)==-1){
                         out.writeObject("ok");
                     } else{
                         out.writeObject("nok");
@@ -111,7 +130,6 @@ public class TrataClienteController extends Thread{
                     UsuarioDao dao = new UsuarioDao();
                     out.writeObject(dao.getLista());
                 } else if(acao.equalsIgnoreCase("deletarUsuario")){
-                    out.writeObject("ok");
                     Usuario usuario = (Usuario) in.readObject();
                     UsuarioDao dao = new UsuarioDao();
                     

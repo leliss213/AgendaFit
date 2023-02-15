@@ -58,21 +58,18 @@ public class Exercicio implements Serializable{
 
     @Override
     public String toString() {
-        return "Exercicio{" + "codExercicio=" + codExercicio + ", nomeExercicio=" + nomeExercicio + ", tipo=" + tipo + '}';
+        return nomeExercicio + " - " + this.tipoLiteral();
     }
     public String tipoLiteral(){
-        Exercicio exercicio=null;
         String retorno = "";
-        if(exercicio.getTipo() == 1){
-            retorno = "Peito";
-        }else if(exercicio.getTipo() == 2){
-            retorno = "Ombro";
-        }else if(exercicio.getTipo() == 3){
-            retorno = "Braço";
-        }else if(exercicio.getTipo() == 4){
-            retorno = "Costas";
-        }else if(exercicio.getTipo() == 5){
-            retorno = "Perna";
+        switch (this.getTipo()) {
+            case 1 -> retorno = "Peito";
+            case 2 -> retorno = "Ombro";
+            case 3 -> retorno = "Braço";
+            case 4 -> retorno = "Costas";
+            case 5 -> retorno = "Perna";
+            default -> {
+            }
         }
         return retorno;
     }

@@ -12,18 +12,17 @@ import java.util.ArrayList;
 import modelDominio.Treino;
 
 public class ConexaoController {
-    InformacoesApp informacoesApp;
+    public Socket socket;
+    public ObjectOutputStream out;
+    public ObjectInputStream in;
 
-    public ConexaoController(InformacoesApp infoApp) {
-        informacoesApp = infoApp;
-    }
     //conexão é apenas para o mobile
     public boolean criaConexao() {
         boolean resultado;
         try {
-            informacoesApp.socket = new Socket("127.0.0.1", 12345);
-            informacoesApp.out = new ObjectOutputStream(informacoesApp.socket.getOutputStream());
-            informacoesApp.in = new ObjectInputStream(informacoesApp.socket.getInputStream());
+            socket = new Socket("127.0.0.1", 12345);
+            out = new ObjectOutputStream(socket.getOutputStream());
+            in = new ObjectInputStream(socket.getInputStream());
 
             resultado = true;
 
@@ -37,11 +36,11 @@ public class ConexaoController {
     public Usuario login(Usuario user) throws IOException, ClassNotFoundException {
         Usuario userLogado = null;
         String msgRecebida;
-        informacoesApp.out.writeObject("efetuarLogin");
-        msgRecebida = (String) informacoesApp.in.readObject();
+        out.writeObject("efetuarLogin");
+        msgRecebida = (String) in.readObject();
         if (msgRecebida.equals("ok")) {
-            informacoesApp.out.writeObject(user);
-            userLogado = (Usuario) informacoesApp.in.readObject();
+            out.writeObject(user);
+            userLogado = (Usuario) in.readObject();
             return userLogado;
         }
         return userLogado;
@@ -49,84 +48,117 @@ public class ConexaoController {
 
     public String cadastraExercicio(Exercicio exercicio) throws IOException, ClassNotFoundException{
         String msgRecebida ="";
-        informacoesApp.out.writeObject("cadastroExercicio");
-        msgRecebida = (String) informacoesApp.in.readObject();
+        out.writeObject("cadastroExercicio");
+        msgRecebida = (String) in.readObject();
         if(msgRecebida.equals("ok")){
-            informacoesApp.out.writeObject(exercicio);
-            msgRecebida = (String) informacoesApp.in.readObject();
+            out.writeObject(exercicio);
+            msgRecebida = (String) in.readObject();
+        }
+        return msgRecebida;
+    }
+    
+    public String alteraExercicio(Exercicio exercicio) throws IOException, ClassNotFoundException{
+        String msgRecebida ="";
+        out.writeObject("alteraExercicio");
+        msgRecebida = (String) in.readObject();
+        if(msgRecebida.equals("ok")){
+            out.writeObject(exercicio);
+            msgRecebida = (String) in.readObject();
         }
         return msgRecebida;
     }
 
     public ArrayList<Exercicio> listaExercicios() throws IOException, ClassNotFoundException{
         ArrayList<Exercicio> listaExercicios;
-        informacoesApp.out.writeObject("listaExercicios");
-        listaExercicios = (ArrayList<Exercicio>) informacoesApp.in.readObject();
+        out.writeObject("listaExercicios");
+        listaExercicios = (ArrayList<Exercicio>) in.readObject();
         return listaExercicios;
     }
 
     public String deletaExercicio(Exercicio exercicio) throws IOException, ClassNotFoundException{
         String msgRecebida="";
-        informacoesApp.out.writeObject("deletarExercicio");
-        msgRecebida = (String) informacoesApp.in.readObject();
+        out.writeObject("deletarExercicio");
+        msgRecebida = (String) in.readObject();
         if(msgRecebida.equals("ok")){
-            informacoesApp.out.writeObject(exercicio);
+            out.writeObject(exercicio);
         }
         return msgRecebida;
     }
     
     public String cadastraUsuario(Usuario usuario) throws IOException, ClassNotFoundException{
         String msgRecebida ="";
-        informacoesApp.out.writeObject("cadastroUsuario");
-        msgRecebida = (String) informacoesApp.in.readObject();
+        out.writeObject("cadastroUsuario");
+        msgRecebida = (String) in.readObject();
         if(msgRecebida.equals("ok")){
-            informacoesApp.out.writeObject(usuario);
-            msgRecebida = (String) informacoesApp.in.readObject();
+            out.writeObject(usuario);
+            msgRecebida = (String) in.readObject();
+        }
+        return msgRecebida;
+    }
+    
+    public String alteraUsuario(Usuario usuario) throws IOException, ClassNotFoundException{
+        String msgRecebida ="";
+        out.writeObject("alteraUsuario");
+        msgRecebida = (String) in.readObject();
+        if(msgRecebida.equals("ok")){
+            out.writeObject(usuario);
+            msgRecebida = (String) in.readObject();
         }
         return msgRecebida;
     }
 
     public ArrayList<Usuario> listaUsuario() throws IOException, ClassNotFoundException{
         ArrayList<Usuario> listaUsuarios;
-        informacoesApp.out.writeObject("listaUsuarios");
-        listaUsuarios = (ArrayList<Usuario>) informacoesApp.in.readObject();
+        out.writeObject("listaUsuarios");
+        listaUsuarios = (ArrayList<Usuario>) in.readObject();
         return listaUsuarios;
     }
 
     public String deletaUsuario(Usuario usuario) throws IOException, ClassNotFoundException{
         String msgRecebida="";
-        informacoesApp.out.writeObject("deletarUsuario");
-        msgRecebida = (String) informacoesApp.in.readObject();
+        out.writeObject("deletarUsuario");
+        msgRecebida = (String) in.readObject();
         if(msgRecebida.equals("ok")){
-            informacoesApp.out.writeObject(usuario);
+            out.writeObject(usuario);
         }
         return msgRecebida;
     }
     
     public String cadastraTreino(Treino treino) throws IOException, ClassNotFoundException{
         String msgRecebida ="";
-        informacoesApp.out.writeObject("cadastroTreino");
-        msgRecebida = (String) informacoesApp.in.readObject();
+        out.writeObject("cadastroTreino");
+        msgRecebida = (String) in.readObject();
         if(msgRecebida.equals("ok")){
-            informacoesApp.out.writeObject(treino);
-            msgRecebida = (String) informacoesApp.in.readObject();
+            out.writeObject(treino);
+            msgRecebida = (String) in.readObject();
+        }
+        return msgRecebida;
+    }
+    
+    public String alteraTreino(Treino treino) throws IOException, ClassNotFoundException{
+        String msgRecebida ="";
+        out.writeObject("alteraTreino");
+        msgRecebida = (String) in.readObject();
+        if(msgRecebida.equals("ok")){
+            out.writeObject(treino);
+            msgRecebida = (String) in.readObject();
         }
         return msgRecebida;
     }
 
     public ArrayList<Treino> listaTreinos() throws IOException, ClassNotFoundException{
         ArrayList<Treino> listaTreinos;
-        informacoesApp.out.writeObject("listaTreinos");
-        listaTreinos = (ArrayList<Treino>) informacoesApp.in.readObject();
+        out.writeObject("listaTreinos");
+        listaTreinos = (ArrayList<Treino>) in.readObject();
         return listaTreinos;
     }
 
     public String deletaTreino(Treino treino) throws IOException, ClassNotFoundException{
         String msgRecebida="";
-        informacoesApp.out.writeObject("deletarTreino");
-        msgRecebida = (String) informacoesApp.in.readObject();
+        out.writeObject("deletarTreino");
+        msgRecebida = (String) in.readObject();
         if(msgRecebida.equals("ok")){
-            informacoesApp.out.writeObject(treino);
+            out.writeObject(treino);
         }
         return msgRecebida;
     }

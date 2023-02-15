@@ -6,13 +6,12 @@
 package view;
 
 import controller.ConexaoController;
-import controller.InformacoesApp;
-import java.io.EOFException;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import modelDominio.Usuario;
-import utils.Application;
+import utils.Util;
 
 /**
  *
@@ -21,14 +20,15 @@ import utils.Application;
 public class TelaLogin extends javax.swing.JFrame {
     
     ConexaoController ccont;
-    InformacoesApp informacoesApp;
     
     /**
      * Creates new form TelaLogin
      */
     public TelaLogin() {
         initComponents();
-        informacoesApp = new InformacoesApp();
+        
+        ccont = new ConexaoController();
+        ccont.criaConexao();
     }
 
     /**
@@ -169,25 +169,21 @@ public class TelaLogin extends javax.swing.JFrame {
                 Thread thread1 = new Thread(new Runnable() {
                 @Override
                     public void run() {
-                            Usuario usuario = new Usuario(nomeUsuario, senha);
                             try {
-                                ccont = new ConexaoController(informacoesApp);
-                                ccont.criaConexao();
+                                String hash = Util.encryptPassword(senha);
+                                System.out.println(hash);
+                                Usuario usuario = new Usuario(nomeUsuario, hash);
                                 usuario = ccont.login(usuario);
-                            } catch (IOException ex) {
-                                Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
-                            } catch (ClassNotFoundException ex) {
-                                Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
-                            }
+                                if (usuario != null) {
+                                    TelaTabelaUsuario telaB = new TelaTabelaUsuario();
+                                    telaB.setVisible(true);
 
-                            if (usuario != null) {
-                                informacoesApp.setUsuarioLogado(usuario);
-                                TelaTabelaUsuario telaB = new TelaTabelaUsuario();
-                                telaB.setVisible(true);
-
-                                dispose();
-                            } else {
-                                System.out.println("Usuário ou senha incorretos");
+                                    dispose();
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "Usuário ou senha incorretos");
+                                }
+                            } catch (IOException | ClassNotFoundException ex) {
+                                Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
                             }
                         }
                     });

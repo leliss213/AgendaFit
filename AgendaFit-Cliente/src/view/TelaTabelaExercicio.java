@@ -6,7 +6,6 @@
 package view;
 
 import controller.ConexaoController;
-import controller.InformacoesApp;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
@@ -23,20 +22,20 @@ import table.TabelaExercicioModel;
  */
 public class TelaTabelaExercicio extends javax.swing.JFrame {
     ConexaoController ccont;
-    InformacoesApp informacoesApp;
     /**
      * Creates new form TelaTabela
      */
     public TelaTabelaExercicio() {
         initComponents();
-        informacoesApp = new InformacoesApp();
+        
+        ccont = new ConexaoController();
+        ccont.criaConexao();
+        
         loadTable();
     }
     
     public void loadTable()
     {
-        ccont = new ConexaoController(informacoesApp);
-        ccont.criaConexao();
         try {
             ArrayList<Exercicio> listaExercicios = ccont.listaExercicios();
             DefaultTableModel model = new DefaultTableModel();
@@ -49,7 +48,16 @@ public class TelaTabelaExercicio extends javax.swing.JFrame {
     
     public void editarExercicio(int linhaSelecionada)
     {
-        
+        Exercicio exercicio = ((TabelaExercicioModel) jTable1.getModel()).getRowObject(linhaSelecionada);
+        TelaCadastroExercicio telaCadastroExercicio = new TelaCadastroExercicio();
+        telaCadastroExercicio.setVisible(true);
+        telaCadastroExercicio.editarExercicio(exercicio);
+        telaCadastroExercicio.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                loadTable();
+            }
+        });
     }
 
     /**
@@ -66,11 +74,6 @@ public class TelaTabelaExercicio extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jButtonAdicionar = new javax.swing.JButton();
         jButtonRemover = new javax.swing.JButton();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItemExercicio = new javax.swing.JMenuItem();
-        jMenuItemTreino = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Lista Exercicios");
@@ -78,10 +81,7 @@ public class TelaTabelaExercicio extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
                 "Nome", "Tipo"
@@ -139,65 +139,9 @@ public class TelaTabelaExercicio extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         getContentPane().add(jButtonRemover, gridBagConstraints);
 
-        jMenuBar1.setBackground(new java.awt.Color(65, 78, 225));
-
-        jMenu1.setText("Adicionar    |");
-        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu1MouseClicked(evt);
-            }
-        });
-
-        jMenuItemExercicio.setText("Exercicio");
-        jMenuItemExercicio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemExercicioActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItemExercicio);
-
-        jMenuItemTreino.setText("Treino");
-        jMenuItemTreino.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemTreinoActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItemTreino);
-
-        jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Sobre");
-        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu2MouseClicked(evt);
-            }
-        });
-        jMenuBar1.add(jMenu2);
-
-        setJMenuBar(jMenuBar1);
-
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
-        
-    }//GEN-LAST:event_jMenu1MouseClicked
-
-    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
-        TelaSobre telaS = new TelaSobre();
-        telaS.setVisible(true);
-    }//GEN-LAST:event_jMenu2MouseClicked
-
-    private void jMenuItemExercicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExercicioActionPerformed
-        TelaTabelaExercicio telaTabelaExercicio = new TelaTabelaExercicio();
-        telaTabelaExercicio.setVisible(true);
-    }//GEN-LAST:event_jMenuItemExercicioActionPerformed
-
-    private void jMenuItemTreinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemTreinoActionPerformed
-        TelaTabelaTreino telaTabelaTreino = new TelaTabelaTreino();
-        telaTabelaTreino.setVisible(true);
-    }//GEN-LAST:event_jMenuItemTreinoActionPerformed
 
     private void jButtonAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarActionPerformed
         TelaCadastroExercicio telaCadastroExercicio = new TelaCadastroExercicio();
@@ -214,8 +158,6 @@ public class TelaTabelaExercicio extends javax.swing.JFrame {
         if(jTable1.getSelectedRow() != -1) {
             try {
                 Exercicio exercicio = ((TabelaExercicioModel) jTable1.getModel()).getRowObject(jTable1.getSelectedRow());
-                ccont = new ConexaoController(informacoesApp);
-                ccont.criaConexao();
                 ccont.deletaExercicio(exercicio);
                 
                 loadTable();
@@ -272,11 +214,6 @@ public class TelaTabelaExercicio extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAdicionar;
     private javax.swing.JButton jButtonRemover;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItemExercicio;
-    private javax.swing.JMenuItem jMenuItemTreino;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
