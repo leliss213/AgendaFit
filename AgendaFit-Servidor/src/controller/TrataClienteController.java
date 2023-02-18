@@ -16,17 +16,19 @@ import modelDominio.Exercicio;
 import modelDominio.Treino;
 import modelDominio.Usuario;
 
-/** guilherme
 /**
+ * guilherme /**
  *
  * @author Leandro
  */
-public class TrataClienteController extends Thread{
+public class TrataClienteController extends Thread {
+
     private ObjectInputStream in;
     private ObjectOutputStream out;
     private Socket s;
     private int idUnico;
 //aqui
+
     public TrataClienteController(ObjectInputStream in, ObjectOutputStream out, Socket s, int idUnico) {
         this.in = in;
         this.out = out;
@@ -39,116 +41,116 @@ public class TrataClienteController extends Thread{
         String acao;
         System.out.println("Aguardando Ação");
         //ArrayList<Exercicio> listaExercicios = new ArrayList<>();
-        try{
+        try {
             acao = (String) in.readObject();
-            while(!acao.equalsIgnoreCase("fim")) {
-                System.out.println("Cliente " + idUnico + " enviou o comando: "+ acao);
-                
-                if(acao.equalsIgnoreCase("efetuarLogin")){
+            while (!acao.equalsIgnoreCase("fim")) {
+                System.out.println("Cliente " + idUnico + " enviou o comando: " + acao);
+
+                if (acao.equalsIgnoreCase("efetuarLogin")) {
                     out.writeObject("ok");
                     Usuario usuario = (Usuario) in.readObject();
-                    
+
                     UsuarioDao dao = new UsuarioDao();
                     Usuario userSelected = dao.efetuarLogin(usuario);
                     out.writeObject(userSelected);
                     //userSelected.equals(out);
-                } else if(acao.equalsIgnoreCase("cadastroTreino")){
+                } else if (acao.equalsIgnoreCase("cadastroTreino")) {
                     Treino treino = (Treino) in.readObject();
-                    
+
                     TreinoDao dao = new TreinoDao();
-                    if(dao.inserir(treino) == -1){
+                    if (dao.inserir(treino) == -1) {
                         out.writeObject("ok");
-                    } else{
+                    } else {
                         out.writeObject("nok");
                     }
-                } else if(acao.equalsIgnoreCase("alteraTreino")){
+                } else if (acao.equalsIgnoreCase("alteraTreino")) {
                     Treino treino = (Treino) in.readObject();
-                    
+
                     TreinoDao dao = new TreinoDao();
-                    if(dao.alterar(treino) == -1){
+                    if (dao.alterar(treino) == -1) {
                         out.writeObject("ok");
-                    } else{
+                    } else {
                         out.writeObject("nok");
                     }
-                } else if(acao.equalsIgnoreCase("listaTreinos")){
+                } else if (acao.equalsIgnoreCase("listaTreinos")) {
                     TreinoDao dao = new TreinoDao();
                     out.writeObject(dao.getLista());
-                } else if(acao.equalsIgnoreCase("deletarTreino")){
+                } else if (acao.equalsIgnoreCase("deletarTreino")) {
                     Treino treino = (Treino) in.readObject();
                     TreinoDao dao = new TreinoDao();
-                    
-                    if(dao.excluir(treino)==-1){
+
+                    if (dao.excluir(treino) == -1) {
                         out.writeObject("ok");
-                    }else{
+                    } else {
                         out.writeObject("nok");
                     }
-                } else if(acao.equalsIgnoreCase("cadastroExercicio")){
+                } else if (acao.equalsIgnoreCase("cadastroExercicio")) {
                     Exercicio exercicio = (Exercicio) in.readObject();
                     ExercicioDao dao = new ExercicioDao();
-                    if(dao.inserir(exercicio)==-1){
+                    if (dao.inserir(exercicio) == -1) {
                         out.writeObject("ok");
-                    } else{
+                    } else {
                         out.writeObject("nok");
-                    }      
-                } else if(acao.equalsIgnoreCase("alteraExercicio")){
+                    }
+                } else if (acao.equalsIgnoreCase("alteraExercicio")) {
                     Exercicio exercicio = (Exercicio) in.readObject();
                     ExercicioDao dao = new ExercicioDao();
-                    if(dao.alterar(exercicio)==-1){
+                    if (dao.alterar(exercicio) == -1) {
                         out.writeObject("ok");
-                    } else{
+                    } else {
                         out.writeObject("nok");
-                    }      
-                } else if(acao.equalsIgnoreCase("listaExercicios")){
+                    }
+                } else if (acao.equalsIgnoreCase("listaExercicios")) {
                     ExercicioDao dao = new ExercicioDao();
                     out.writeObject(dao.getLista());
-                } else if(acao.equalsIgnoreCase("deletarExercicio")){
+                } else if (acao.equalsIgnoreCase("deletarExercicio")) {
                     Exercicio exercicio = (Exercicio) in.readObject();
                     ExercicioDao dao = new ExercicioDao();
-                    
-                    if(dao.excluir(exercicio)==-1){
+
+                    if (dao.excluir(exercicio) == -1) {
                         out.writeObject("ok");
-                    }else{
+                    } else {
                         out.writeObject("nok");
                     }
-                } else if(acao.equalsIgnoreCase("cadastroUsuario")){
+                } else if (acao.equalsIgnoreCase("cadastroUsuario")) {
                     Usuario usuario = (Usuario) in.readObject();
                     UsuarioDao dao = new UsuarioDao();
-                    if(dao.inserir(usuario)==-1){
+                    if (dao.inserir(usuario) == -1) {
                         out.writeObject("ok");
-                    } else{
+                    } else {
                         out.writeObject("nok");
-                    }      
-                } else if(acao.equalsIgnoreCase("alteraUsuario")){
+                    }
+                } else if (acao.equalsIgnoreCase("alteraUsuario")) {
                     Usuario usuario = (Usuario) in.readObject();
                     UsuarioDao dao = new UsuarioDao();
-                    if(dao.alterar(usuario)==-1){
+                    if (dao.alterar(usuario) == -1) {
                         out.writeObject("ok");
-                    } else{
+                    } else {
                         out.writeObject("nok");
-                    }      
-                } else if(acao.equalsIgnoreCase("listaUsuarios")){                    
+                    }
+                } else if (acao.equalsIgnoreCase("listaUsuarios")) {
                     UsuarioDao dao = new UsuarioDao();
                     out.writeObject(dao.getLista());
-                } else if(acao.equalsIgnoreCase("deletarUsuario")){
+                } else if (acao.equalsIgnoreCase("deletarUsuario")) {
                     Usuario usuario = (Usuario) in.readObject();
                     UsuarioDao dao = new UsuarioDao();
-                    
-                    if(dao.excluir(usuario)==-1){
+
+                    if (dao.excluir(usuario) == -1) {
                         out.writeObject("ok");
-                    }else{
+                    } else {
                         out.writeObject("nok");
                     }
-                } else if(acao.equalsIgnoreCase("listaExerciciosFiltro")){
+                } else if (acao.equalsIgnoreCase("listaExerciciosFiltro")) {
                     out.writeObject("ok");
                     ExercicioDao dao = new ExercicioDao();
-                    int codTreino = (int) in.readObject();                    
+                    int codTreino = (int) in.readObject();
                     out.writeObject(dao.getFiltroLista(codTreino));
                 }
-                
+
                 acao = (String) in.readObject();
-            }  
-            
-        }catch(IOException | ClassNotFoundException e){
+            }
+
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         try {
@@ -160,6 +162,6 @@ public class TrataClienteController extends Thread{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
     }
 }

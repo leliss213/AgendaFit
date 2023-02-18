@@ -87,7 +87,7 @@ public class TreinoDao {
             }
         }
     }
-    
+
     public int alterar(Treino treino) {
         PreparedStatement stmt = null;
         try {
@@ -116,7 +116,6 @@ public class TreinoDao {
                 //for percorrendo os exercicios e inserindo na tabela intermediária
                 for (Exercicio exercicio : treino.getExercicio()) {
                     String sql2 = "insert into TreinoExercicio(treinos_codTreino,exercicios_codExercicio) values (?,?);";
-
                     stmt2 = con.prepareStatement(sql2);
 
                     stmt2.setInt(1, treino.getCodTreino());
@@ -125,7 +124,9 @@ public class TreinoDao {
                 }
                 con.commit();
                 stmt.close();
-                stmt2.close();
+                if(stmt2 != null) {
+                    stmt2.close();
+                }
 
                 return -1;
             } catch (SQLException e) {
@@ -158,6 +159,18 @@ public class TreinoDao {
             while (res.next()) {
                 Treino treino = new Treino(res.getInt("codTreino"), res.getString("nomeTreino"), res.getString("descricao"), res.getString("data"), res.getFloat("hora"), res.getInt("tipoTreino"));
 
+                ArrayList<Exercicio> exercicios = new ArrayList<>();
+                PreparedStatement stmt3 = con.prepareStatement("SELECT * FROM treinoexercicio LEFT JOIN exercicios ON exercicios.codExercicio = exercicios_codExercicio WHERE treinos_codTreino = ?");
+                stmt3.setInt(1, treino.getCodTreino());
+                ResultSet res3 = stmt3.executeQuery();
+                while (res3.next()) {
+                    Exercicio exercicio = new Exercicio(res3.getInt("codExercicio"),
+                            res3.getString("nomeExercicio"),
+                            res3.getInt("tipo"));
+
+                    exercicios.add(exercicio);
+                }
+                treino.setExercicio(exercicios);
                 listaTreinos.add(treino);
             }
             return listaTreinos;

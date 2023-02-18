@@ -11,11 +11,12 @@ import java.io.Serializable;
  *
  * @author Leandro
  */
-public class Exercicio implements Serializable{
+public class Exercicio implements Serializable {
+
     private int codExercicio;
     private String nomeExercicio;
     private int tipo;
-    
+
     public Exercicio(String nomeExercicio, int tipo) {
         this.nomeExercicio = nomeExercicio;
         this.tipo = tipo;
@@ -24,8 +25,7 @@ public class Exercicio implements Serializable{
     public Exercicio(String nomeExercicio) {
         this.nomeExercicio = nomeExercicio;
     }
-    
-    
+
     public Exercicio(int codExercicio, String nomeExercicio, int tipo) {
         this.codExercicio = codExercicio;
         this.nomeExercicio = nomeExercicio;
@@ -60,17 +60,19 @@ public class Exercicio implements Serializable{
     public String toString() {
         return nomeExercicio + " - " + this.tipoLiteral();
     }
-    public String tipoLiteral(){
-        String retorno = "";
-        switch (this.getTipo()) {
-            case 1 -> retorno = "Peito";
-            case 2 -> retorno = "Ombro";
-            case 3 -> retorno = "Braço";
-            case 4 -> retorno = "Costas";
-            case 5 -> retorno = "Perna";
-            default -> {
-            }
+
+    public String tipoLiteral() {
+        if (this.getTipo() == 1) {
+            return "Peito";
+        } else if (this.getTipo() == 2) {
+            return "Ombro";
+        } else if (this.getTipo() == 3) {
+            return "Braço";
+        } else if (this.getTipo() == 4) {
+            return "Costas";
+        } else if (this.getTipo() == 5) {
+            return "Perna";
         }
-        return retorno;
+        return "";
     }
 }
