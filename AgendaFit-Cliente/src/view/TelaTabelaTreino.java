@@ -21,33 +21,33 @@ import table.TabelaTreinoModel;
  * @author guilh
  */
 public class TelaTabelaTreino extends javax.swing.JFrame {
+
     ConexaoController ccont;
+
     /**
      * Creates new form TelaTabela
      */
     public TelaTabelaTreino() {
         initComponents();
-        
+
         ccont = new ConexaoController();
         ccont.criaConexao();
-        
+
         loadTable();
     }
-    
-    public void loadTable()
-    {
+
+    public void loadTable() {
         try {
             ArrayList<Treino> listaTreinos = ccont.listaTreinos();
             DefaultTableModel model = new DefaultTableModel();
-            
+
             jTable1.setModel(new TabelaTreinoModel(listaTreinos));
         } catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(TelaCadastroExercicio.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void editarTreino(int linhaSelecionada)
-    {
+
+    public void editarTreino(int linhaSelecionada) {
         Treino treino = ((TabelaTreinoModel) jTable1.getModel()).getRowObject(linhaSelecionada);
         TelaCadastroTreino telaCadastroTreino = new TelaCadastroTreino();
         telaCadastroTreino.setVisible(true);
@@ -155,17 +155,23 @@ public class TelaTabelaTreino extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAdicionarActionPerformed
 
     private void jButtonRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverActionPerformed
-        if(jTable1.getSelectedRow() != -1) {
-            try {
-                Treino treino = ((TabelaTreinoModel) jTable1.getModel()).getRowObject(jTable1.getSelectedRow());
-                ccont.deletaTreino(treino);
-                
-                loadTable();
-            } catch (IOException ex) {
-                Logger.getLogger(TelaTabelaUsuario.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(TelaTabelaUsuario.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        if (jTable1.getSelectedRow() != -1) {
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Treino treino = ((TabelaTreinoModel) jTable1.getModel()).getRowObject(jTable1.getSelectedRow());
+                        ccont.deletaTreino(treino);
+
+                        loadTable();
+                    } catch (IOException ex) {
+                        Logger.getLogger(TelaTabelaUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(TelaTabelaUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            });
+            thread.start();
         }
     }//GEN-LAST:event_jButtonRemoverActionPerformed
 

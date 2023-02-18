@@ -21,33 +21,33 @@ import table.TabelaExercicioModel;
  * @author guilh
  */
 public class TelaTabelaExercicio extends javax.swing.JFrame {
+
     ConexaoController ccont;
+
     /**
      * Creates new form TelaTabela
      */
     public TelaTabelaExercicio() {
         initComponents();
-        
+
         ccont = new ConexaoController();
         ccont.criaConexao();
-        
+
         loadTable();
     }
-    
-    public void loadTable()
-    {
+
+    public void loadTable() {
         try {
             ArrayList<Exercicio> listaExercicios = ccont.listaExercicios();
             DefaultTableModel model = new DefaultTableModel();
-            
+
             jTable1.setModel(new TabelaExercicioModel(listaExercicios));
         } catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(TelaCadastroExercicio.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void editarExercicio(int linhaSelecionada)
-    {
+
+    public void editarExercicio(int linhaSelecionada) {
         Exercicio exercicio = ((TabelaExercicioModel) jTable1.getModel()).getRowObject(linhaSelecionada);
         TelaCadastroExercicio telaCadastroExercicio = new TelaCadastroExercicio();
         telaCadastroExercicio.setVisible(true);
@@ -155,17 +155,24 @@ public class TelaTabelaExercicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAdicionarActionPerformed
 
     private void jButtonRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverActionPerformed
-        if(jTable1.getSelectedRow() != -1) {
-            try {
-                Exercicio exercicio = ((TabelaExercicioModel) jTable1.getModel()).getRowObject(jTable1.getSelectedRow());
-                ccont.deletaExercicio(exercicio);
-                
-                loadTable();
-            } catch (IOException ex) {
-                Logger.getLogger(TelaTabelaUsuario.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(TelaTabelaUsuario.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        if (jTable1.getSelectedRow() != -1) {
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+
+                    try {
+                        Exercicio exercicio = ((TabelaExercicioModel) jTable1.getModel()).getRowObject(jTable1.getSelectedRow());
+                        ccont.deletaExercicio(exercicio);
+
+                        loadTable();
+                    } catch (IOException ex) {
+                        Logger.getLogger(TelaTabelaUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(TelaTabelaUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            });
+            thread.start();
         }
     }//GEN-LAST:event_jButtonRemoverActionPerformed
 
