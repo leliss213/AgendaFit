@@ -21,7 +21,7 @@ public class Treino implements Serializable{
     private float hora;
     private ArrayList<Exercicio> exercicios;
     private int tipo;
-    
+
     public Treino(int codTreino, String nomeTreino, String descricao, String data, float hora, int tipo) {
         this.codTreino = codTreino;
         this.nomeTreino = nomeTreino;
@@ -107,19 +107,21 @@ public class Treino implements Serializable{
 
     @Override
     public String toString() {
-        return nomeTreino + " - " + this.tipoLiteral();
+        return "Treino{" + "codTreino=" + codTreino + ", nomeTreino=" + nomeTreino + ", descricao=" + descricao + ", data=" + data + ", hora=" + hora + ", tipo=" + tipo + '}';
     }
-    
+
     public String tipoLiteral(){
         String retorno = "";
-        switch (this.getTipo()) {
-            case 1 -> retorno = "Treino de força";
-            case 2 -> retorno = "Treino funcional";
-            case 3 -> retorno = "Treino de alongamento e flexibilidade";
-            case 4 -> retorno = "Treino de HIIT";
-            case 5 -> retorno = "Treino de resistência";
-            default -> {
-            }
+        if(tipo == 1){
+            retorno = "Peito";
+        }else if(tipo == 2){
+            retorno = "Ombro";
+        }else if(tipo == 3){
+            retorno = "Braço";
+        }else if(tipo == 4){
+            retorno = "Costas";
+        }else if(tipo == 5){
+            retorno = "Perna";
         }
         return retorno;
     }

@@ -171,4 +171,21 @@ public class ConexaoController {
         return msgRecebida;
     }
 
+    public String alteraTreino(Treino treino){
+        String msgRecebida ="";
+        try{
+            informacoesApp.out.writeObject("alteraTreino");
+            //msgRecebida = (String) informacoesApp.in.readObject();
+            //if(msgRecebida.equals("ok")){
+                informacoesApp.out.writeObject(treino);
+                msgRecebida = (String) informacoesApp.in.readObject();
+            //}
+        }catch (IOException ioe){
+            ioe.printStackTrace();
+        }catch (ClassNotFoundException classe){
+            classe.printStackTrace();
+        }
+        return msgRecebida;
+    }
+
 }

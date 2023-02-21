@@ -53,6 +53,7 @@ public class TrataClienteController extends Thread{
                     out.writeObject(userSelected);
                     //userSelected.equals(out);
                 } else if(acao.equalsIgnoreCase("cadastroTreino")){
+                    out.writeObject("ok");
                     Treino treino = (Treino) in.readObject();
                     
                     TreinoDao dao = new TreinoDao();
@@ -74,6 +75,7 @@ public class TrataClienteController extends Thread{
                     TreinoDao dao = new TreinoDao();
                     out.writeObject(dao.getLista());
                 } else if(acao.equalsIgnoreCase("deletarTreino")){
+                    out.writeObject("ok");
                     Treino treino = (Treino) in.readObject();
                     TreinoDao dao = new TreinoDao();
                     
@@ -83,6 +85,7 @@ public class TrataClienteController extends Thread{
                         out.writeObject("nok");
                     }
                 } else if(acao.equalsIgnoreCase("cadastroExercicio")){
+                    out.writeObject("ok");
                     Exercicio exercicio = (Exercicio) in.readObject();
                     ExercicioDao dao = new ExercicioDao();
                     if(dao.inserir(exercicio)==-1){
@@ -102,6 +105,7 @@ public class TrataClienteController extends Thread{
                     ExercicioDao dao = new ExercicioDao();
                     out.writeObject(dao.getLista());
                 } else if(acao.equalsIgnoreCase("deletarExercicio")){
+                    out.writeObject("ok");
                     Exercicio exercicio = (Exercicio) in.readObject();
                     ExercicioDao dao = new ExercicioDao();
                     

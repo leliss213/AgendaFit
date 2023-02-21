@@ -9,35 +9,58 @@
     android:orientation="vertical"
     tools:showIn="@layout/activity_visualizacao_detalhada_treino">
 
-    <TextView
+    <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tvVisualizacaoDetalhadaTituloTreino"
         android:text="titulo"
         android:padding="5dp"/>
-    <TextView
+    <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tvVisualizacaoDetalhadaDescricaoTreino"
         android:text="descricao"
         android:padding="5dp"/>
-    <TextView
+    <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tvVisualizacaoDetalhadaData"
         android:text="data"
         android:padding="5dp"/>
-    <TextView
+    <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tvVisualizacaoDetalhadaHora"
         android:text="hora"
         android:padding="5dp"/>
-    <TextView
+    <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tvVisualizacaoDetalhadaTipoTreino"
+        android:id="@+id/tvVisualizacaoDetalhadaTipoTreinoString"
         android:text="tipo"
+        android:padding="5dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp">
+        <TextView
+            android:layout_width="290dp"
+            android:layout_height="wrap_content"
+            android:text="Escolha o tipo de treino"
+            android:textSize="18dp"
+            android:id="@+id/tvVisualizacaoDetalhadaTexto2"/>
+
+        <Spinner
+            android:id="@+id/spCadastroTipoTreino"
+            android:layout_width="114dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvVisualizacaoDetalhadaExerciciosTreino"
+        android:text="exercicios do treino"
         android:padding="5dp"/>
     <LinearLayout
         android:layout_width="match_parent"
@@ -47,7 +70,8 @@
         <TextView
             android:layout_width="290dp"
             android:layout_height="wrap_content"
-            android:text="Exercícios do Treino:" />
+            android:text="Exercícios do Treino:"
+            android:id="@+id/tvVisualizacaoDetalhadaTexto"/>
 
         <controller.SpinnerMultiSelecionavel
             android:layout_width="114dp"
@@ -56,6 +80,27 @@
             android:spinnerMode="dropdown">
         </controller.SpinnerMultiSelecionavel>
     </LinearLayout>
+    <Button
+        android:id="@+id/bVisualizacaoDetalhadaTreinoAlterar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/botoes"
+        android:padding="15dp"
+        android:text="Alterar"
+        android:textColor="@color/branco"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/bVisualizacaoDetalhadaTreinoSalvar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/botoes"
+        android:padding="15dp"
+        android:text="Salvar"
+        android:textColor="@color/branco"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/bVisualizacaoDetalhadaTreinoExcluir"

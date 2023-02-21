@@ -109,4 +109,20 @@ public class Treino implements Serializable{
     public String toString() {
         return "Treino{" + "codTreino=" + codTreino + ", nomeTreino=" + nomeTreino + ", descricao=" + descricao + ", data=" + data + ", hora=" + hora + ", tipo=" + tipo + '}';
     }
+
+    public String tipoLiteral(){
+        String retorno = "";
+        if(tipo == 1){
+            retorno = "Peito";
+        }else if(tipo == 2){
+            retorno = "Ombro";
+        }else if(tipo == 3){
+            retorno = "Braço";
+        }else if(tipo == 4){
+            retorno = "Costas";
+        }else if(tipo == 5){
+            retorno = "Perna";
+        }
+        return retorno;
+    }
 }
