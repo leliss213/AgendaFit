@@ -16,9 +16,10 @@ import view.TelaLogin;
  * @author guilh
  */
 public class Application {
+
     public static final String VERSION = "v0.0.1";
-    public static final String NAME = "Sitema - "+VERSION;
-    
+    public static final String NAME = "Sitema - " + VERSION;
+
     private static Application instance;
 
     public static Application getInstance() {
@@ -48,8 +49,8 @@ public class Application {
 
         TelaLogin frame = new TelaLogin();
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
-        frame.setVisible(true);  
+        frame.setLocation(dim.width / 2 - frame.getSize().width / 2, dim.height / 2 - frame.getSize().height / 2);
+        frame.setVisible(true);
     }
-   
+
 }

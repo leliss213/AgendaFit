@@ -18,62 +18,62 @@ import modelDominio.Usuario;
  * @author Leandro
  */
 public class UsuarioDao {
+
     private Connection con;
-    
+
     public UsuarioDao() {
         con = Conector.getConnection();
     }
-    
+
     public Usuario efetuarLogin(Usuario user) {
         PreparedStatement stmt = null; // usado para rodar SQL
         Usuario userselecionado = null;
-        
-        try{
-            String sql = "select * from usuario" + 
-                    " where login = ? and senha = ? ";
+
+        try {
+            String sql = "select * from usuario where login = ? and senha = ?";
             stmt = con.prepareStatement(sql);
-            
+
             stmt.setString(1, user.getLogin());
             stmt.setString(2, user.getSenha());
-            
+
             ResultSet res = stmt.executeQuery();
-            
-            while(res.next()){
+
+            while (res.next()) {
                 userselecionado = new Usuario(res.getInt("codUsuario"),
-                            res.getString("nomeUsuario"),
-                            res.getString("login"),
-                            res.getString("senha"),
-                            res.getFloat("altura"),
-                            res.getFloat("peso"),
-                            res.getString("email"));
+                        res.getString("nomeUsuario"),
+                        res.getString("login"),
+                        res.getString("senha"),
+                        res.getFloat("altura"),
+                        res.getFloat("peso"),
+                        res.getString("email"));
             }
             res.close();
             stmt.close();
             con.close();
             return userselecionado;
-            
-        }catch(SQLException e){
+
+        } catch (SQLException e) {
             System.out.println(e.getErrorCode() + "-" + e.getMessage());
             return null;
-        } 
+        }
     }
-    
-    public int inserir(Usuario usuario){
+
+    public int inserir(Usuario usuario) {
         PreparedStatement stmt = null;
-        
-        try{
-            try{
+
+        try {
+            try {
                 con.setAutoCommit(false);
                 String sql = "insert into usuario (nomeUsuario, login, senha, email, peso, altura) values (?,?,?,?,?,?);";
                 stmt = con.prepareStatement(sql);
-                
+
                 stmt.setString(1, usuario.getNomeUsuario());
                 stmt.setString(2, usuario.getLogin());
                 stmt.setString(3, usuario.getSenha());
                 stmt.setString(4, usuario.getEmail());
                 stmt.setFloat(5, usuario.getPeso());
                 stmt.setFloat(6, usuario.getAltura());
-                
+
                 //executa o stmt e faz o commit
                 stmt.execute();
                 con.commit();
@@ -101,7 +101,7 @@ public class UsuarioDao {
                 stmt2.close();
 
                 return -1;
-            }catch(SQLException e){
+            } catch (SQLException e) {
                 try {
                     System.out.println(e.getMessage());
                     con.rollback(); // cancelando a transação 
@@ -110,8 +110,8 @@ public class UsuarioDao {
                     return ex.getErrorCode();
                 }
             }
-            
-        }finally{
+
+        } finally {
             try {
                 stmt.close();
                 con.setAutoCommit(true);
@@ -121,16 +121,16 @@ public class UsuarioDao {
             }
         }
     }
-    
-    public int alterar(Usuario usuario){
+
+    public int alterar(Usuario usuario) {
         PreparedStatement stmt = null;
-        
-        try{
-            try{
+
+        try {
+            try {
                 con.setAutoCommit(false);
                 String sql = "UPDATE usuario SET nomeUsuario = ?, login = ?, senha = ?, email = ?, peso = ?, altura = ? WHERE codUsuario = ?;";
                 stmt = con.prepareStatement(sql);
-                
+
                 stmt.setString(1, usuario.getNomeUsuario());
                 stmt.setString(2, usuario.getLogin());
                 stmt.setString(3, usuario.getSenha());
@@ -138,7 +138,7 @@ public class UsuarioDao {
                 stmt.setFloat(5, usuario.getPeso());
                 stmt.setFloat(6, usuario.getAltura());
                 stmt.setFloat(7, usuario.getCodUsuario());
-                
+
                 //executa o stmt e faz o commit
                 stmt.executeUpdate();
                 con.commit();
@@ -148,7 +148,7 @@ public class UsuarioDao {
                 PreparedStatement stmt3 = con.prepareStatement("DELETE FROM TreinoUsuario WHERE usuarios_codUsuario = ?");
                 stmt3.setInt(1, usuario.getCodUsuario());
                 stmt3.executeUpdate();
-                stmt3.close(); 
+                stmt3.close();
                 //for percorrendo os exercicios e inserindo na tabela intermediária
                 for (Treino treino : usuario.getTreinos()) {
                     String sql2 = "insert into TreinoUsuario(usuarios_codUsuario,treinos_codTreino) values (?,?);";
@@ -161,10 +161,12 @@ public class UsuarioDao {
                 }
                 con.commit();
                 stmt.close();
-                stmt2.close();
+                if(stmt2 != null) {
+                    stmt2.close();
+                }
 
                 return -1;
-            }catch(SQLException e){
+            } catch (SQLException e) {
                 try {
                     System.out.println(e.getMessage());
                     con.rollback(); // cancelando a transação 
@@ -173,8 +175,8 @@ public class UsuarioDao {
                     return ex.getErrorCode();
                 }
             }
-            
-        }finally{
+
+        } finally {
             try {
                 stmt.close();
                 con.setAutoCommit(true);
@@ -184,55 +186,76 @@ public class UsuarioDao {
             }
         }
     }
-    
-    public ArrayList<Usuario> getLista(){
+
+    public ArrayList<Usuario> getLista() {
         Statement stmt = null;
         ArrayList<Usuario> listaUsuarios = new ArrayList<>();
-        try{
+        try {
             stmt = con.createStatement();
             ResultSet res = stmt.executeQuery("select * from usuario order by codUsuario desc");
-            
-            while (res.next()){
+
+            while (res.next()) {
                 Usuario usuario = new Usuario(res.getInt("codUsuario"),
-                            res.getString("nomeUsuario"),
-                            res.getString("login"),
-                            res.getString("senha"),
-                            res.getFloat("altura"),
-                            res.getFloat("peso"),
-                            res.getString("email"));
-                
+                        res.getString("nomeUsuario"),
+                        res.getString("login"),
+                        res.getString("senha"),
+                        res.getFloat("altura"),
+                        res.getFloat("peso"),
+                        res.getString("email"));
+
+                ArrayList<Treino> treinos = new ArrayList<>();
+                PreparedStatement stmt3 = con.prepareStatement("SELECT * FROM treinousuario LEFT JOIN treinos ON treinos.codTreino = treinos_codTreino WHERE usuarios_codUsuario = ?");
+                stmt3.setInt(1, usuario.getCodUsuario());
+                ResultSet res3 = stmt3.executeQuery();
+                while (res3.next()) {
+                    Treino treino = new Treino(res3.getInt("codTreino"),
+                            res3.getString("nomeTreino"),
+                            res3.getString("descricao"),
+                            res3.getString("data"),
+                            res3.getFloat("hora"),
+                            res3.getInt("tipoTreino"));
+
+                    treinos.add(treino);
+                }
+                usuario.setTreinos(treinos);
+
                 listaUsuarios.add(usuario);
             }
             return listaUsuarios;
-            
-        }catch(SQLException e){
+
+        } catch (SQLException e) {
             System.out.println(e.getErrorCode() + " - "
                     + e.getMessage());
-            return null;   
+            return null;
         }
     }
-    
-    public int excluir(Usuario usuario){
+
+    public int excluir(Usuario usuario) {
         PreparedStatement stmt = null;
-        try{
-            try{
+        try {
+            try {
                 con.setAutoCommit(false);
                 String sql = "delete from usuario where codUsuario = ?";
                 stmt = con.prepareStatement(sql);
-                
+
+                stmt.setInt(1, usuario.getCodUsuario());
+                stmt.execute();
+
+                stmt = con.prepareStatement("DELETE FROM treinousuario WHERE usuarios_codUsuario = ?");
+
                 stmt.setInt(1, usuario.getCodUsuario());
                 stmt.execute();
                 con.commit();
                 return -1;
-            }catch(SQLException e){
+            } catch (SQLException e) {
                 try {
                     con.rollback(); // cancelando a transação 
                     return e.getErrorCode(); // devolvendo o erro
                 } catch (SQLException ex) {
                     return ex.getErrorCode();
                 }
-            } 
-        } finally{
+            }
+        } finally {
             try {
                 stmt.close();
                 con.setAutoCommit(true);

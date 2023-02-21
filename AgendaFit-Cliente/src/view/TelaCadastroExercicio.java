@@ -17,24 +17,23 @@ import modelDominio.Exercicio;
  * @author guilh
  */
 public class TelaCadastroExercicio extends javax.swing.JFrame {
-    
+
     ConexaoController ccont;
     int codExercicio;
-    
+
     /**
      * Creates new form TelaCadastro
      */
     public TelaCadastroExercicio() {
         initComponents();
-        
+
         ccont = new ConexaoController();
         ccont.criaConexao();
-        
+
         this.codExercicio = 0;
     }
-    
-    public void editarExercicio(Exercicio exercicio)
-    {
+
+    public void editarExercicio(Exercicio exercicio) {
         this.codExercicio = exercicio.getCodExercicio();
         jTextFieldNome.setText(exercicio.getNomeExercicio());
         jComboBoxTipo.setSelectedIndex(exercicio.getTipo());
@@ -180,21 +179,20 @@ public class TelaCadastroExercicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarActionPerformed
-        if(!jTextFieldNome.getText().isEmpty()){
-            if(!jComboBoxTipo.getSelectedItem().toString().equals("Nenhum")){
+        if (!jTextFieldNome.getText().isEmpty()) {
+            if (!jComboBoxTipo.getSelectedItem().toString().equals("Nenhum")) {
 
                 String nomeExercicio = jTextFieldNome.getText();
                 int tipoExercicio = jComboBoxTipo.getSelectedIndex();
- 
-                final Exercicio exercicio = new Exercicio(nomeExercicio, tipoExercicio);
+
+                Exercicio exercicio = new Exercicio(nomeExercicio, tipoExercicio);
 
                 Thread thread = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        
+
                         try {
                             String msgRecebida = "";
-                            System.out.println(TelaCadastroExercicio.this.codExercicio);
                             if (TelaCadastroExercicio.this.codExercicio != 0) {
                                 exercicio.setCodExercicio(TelaCadastroExercicio.this.codExercicio);
                                 msgRecebida = ccont.alteraExercicio(exercicio);
@@ -202,7 +200,7 @@ public class TelaCadastroExercicio extends javax.swing.JFrame {
                                 msgRecebida = ccont.cadastraExercicio(exercicio);
                             }
                             System.out.println(msgRecebida);
-                            
+
                             TelaCadastroExercicio.this.dispose();
                         } catch (IOException | ClassNotFoundException ex) {
                             Logger.getLogger(TelaCadastroExercicio.class.getName()).log(Level.SEVERE, null, ex);
@@ -211,11 +209,11 @@ public class TelaCadastroExercicio extends javax.swing.JFrame {
                 });
                 thread.start();
 
-            } else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Informe o Tipo do Exercício");
                 jComboBoxTipo.requestFocus();
             }
-        } else{
+        } else {
             JOptionPane.showMessageDialog(null, "Informe o Nome do Exercício");
             jTextFieldNome.requestFocus();
         }

@@ -19,29 +19,30 @@ import modelDominio.Exercicio;
  * @author Leandro
  */
 public class ExercicioDao {
+
     private Connection con;
-    
+
     public ExercicioDao() {
         con = Conector.getConnection();
     }
-    
-    public int inserir(Exercicio exercicio){
+
+    public int inserir(Exercicio exercicio) {
         PreparedStatement stmt = null;
-        
-        try{
-            try{
+
+        try {
+            try {
                 con.setAutoCommit(false);
                 String sql = "insert into exercicios (nomeExercicio, tipo) values (?,?);";
                 stmt = con.prepareStatement(sql);
-                
+
                 stmt.setString(1, exercicio.getNomeExercicio());
                 stmt.setInt(2, exercicio.getTipo());
-                
+
                 stmt.execute();
                 stmt.close();
-                
+
                 return -1;
-            }catch(SQLException e){
+            } catch (SQLException e) {
                 try {
                     con.rollback(); // cancelando a transação 
                     return e.getErrorCode(); // devolvendo o erro
@@ -49,8 +50,8 @@ public class ExercicioDao {
                     return ex.getErrorCode();
                 }
             }
-            
-        }finally{
+
+        } finally {
             try {
                 stmt.close();
                 con.setAutoCommit(true);
@@ -60,25 +61,25 @@ public class ExercicioDao {
             }
         }
     }
-    
-    public int alterar(Exercicio exercicio){
+
+    public int alterar(Exercicio exercicio) {
         PreparedStatement stmt = null;
-        
-        try{
-            try{
+
+        try {
+            try {
                 con.setAutoCommit(false);
                 String sql = "UPDATE exercicios SET nomeExercicio = ?, tipo = ? WHERE codExercicio = ?;";
                 stmt = con.prepareStatement(sql);
-                
+
                 stmt.setString(1, exercicio.getNomeExercicio());
                 stmt.setInt(2, exercicio.getTipo());
                 stmt.setInt(3, exercicio.getCodExercicio());
-                
+
                 stmt.executeUpdate();
                 stmt.close();
-                
+
                 return -1;
-            }catch(SQLException e){
+            } catch (SQLException e) {
                 try {
                     con.rollback(); // cancelando a transação 
                     return e.getErrorCode(); // devolvendo o erro
@@ -86,8 +87,8 @@ public class ExercicioDao {
                     return ex.getErrorCode();
                 }
             }
-            
-        }finally{
+
+        } finally {
             try {
                 stmt.close();
                 con.setAutoCommit(true);
@@ -97,69 +98,70 @@ public class ExercicioDao {
             }
         }
     }
-    
-    public ArrayList<Exercicio> getLista(){
+
+    public ArrayList<Exercicio> getLista() {
         Statement stmt = null;
         ArrayList<Exercicio> listaExercicios = new ArrayList<>();
-        try{
+        try {
             stmt = con.createStatement();
             ResultSet res = stmt.executeQuery("select * from exercicios order by tipo");
-            
-            while (res.next()){
-                Exercicio exercicio = new Exercicio(res.getInt("codExercicio"),res.getString("nomeExercicio"),res.getInt("tipo"));
-                
+
+            while (res.next()) {
+                Exercicio exercicio = new Exercicio(res.getInt("codExercicio"), res.getString("nomeExercicio"), res.getInt("tipo"));
+
                 listaExercicios.add(exercicio);
             }
             return listaExercicios;
-            
-        }catch(SQLException e){
+
+        } catch (SQLException e) {
             System.out.println(e.getErrorCode() + " - "
                     + e.getMessage());
-            return null;   
+            return null;
         }
     }
-    public ArrayList<Exercicio> getFiltroLista(int codTreino){
+
+    public ArrayList<Exercicio> getFiltroLista(int codTreino) {
         Statement stmt = null;
         ArrayList<Exercicio> listaExercicios = new ArrayList<>();
-        try{
+        try {
             stmt = con.createStatement();
-            ResultSet res = stmt.executeQuery("select * " +
-                                           "from treinos inner join treinoexercicio on treinoexercicio.treinos_codTreino = treinos.codTreino " +
-"			                   inner join exercicios on treinoexercicio.exercicios_codExercicio = exercicios.codExercicio" +
-"                                          where treinos.codTreino ="+codTreino+";");
-            while (res.next()){
+            ResultSet res = stmt.executeQuery("select * "
+                    + "from treinos inner join treinoexercicio on treinoexercicio.treinos_codTreino = treinos.codTreino "
+                    + "			                   inner join exercicios on treinoexercicio.exercicios_codExercicio = exercicios.codExercicio"
+                    + "                                          where treinos.codTreino =" + codTreino + ";");
+            while (res.next()) {
                 Exercicio exercicio = new Exercicio(res.getString("nomeExercicio"));
                 listaExercicios.add(exercicio);
             }
             return listaExercicios;
-        }catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println(e.getErrorCode() + " - "
                     + e.getMessage());
-            return null; 
+            return null;
         }
     }
-    
-    public int excluir(Exercicio exercicio){
+
+    public int excluir(Exercicio exercicio) {
         PreparedStatement stmt = null;
-        try{
-            try{
+        try {
+            try {
                 con.setAutoCommit(false);
                 String sql = "delete from exercicios where codExercicio = ?";
                 stmt = con.prepareStatement(sql);
-                
+
                 stmt.setInt(1, exercicio.getCodExercicio());
                 stmt.execute();
                 con.commit();
                 return -1;
-            }catch(SQLException e){
+            } catch (SQLException e) {
                 try {
                     con.rollback(); // cancelando a transação 
                     return e.getErrorCode(); // devolvendo o erro
                 } catch (SQLException ex) {
                     return ex.getErrorCode();
                 }
-            } 
-        } finally{
+            }
+        } finally {
             try {
                 stmt.close();
                 con.setAutoCommit(true);
@@ -170,4 +172,3 @@ public class ExercicioDao {
         }
     }
 }
-

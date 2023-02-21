@@ -18,15 +18,15 @@ import utils.Util;
  * @author guilh
  */
 public class TelaLogin extends javax.swing.JFrame {
-    
+
     ConexaoController ccont;
-    
+
     /**
      * Creates new form TelaLogin
      */
     public TelaLogin() {
         initComponents();
-        
+
         ccont = new ConexaoController();
         ccont.criaConexao();
     }
@@ -167,26 +167,26 @@ public class TelaLogin extends javax.swing.JFrame {
                 String nomeUsuario = jTextFieldUsuario.getText();
 
                 Thread thread1 = new Thread(new Runnable() {
-                @Override
+                    @Override
                     public void run() {
-                            try {
-                                String hash = Util.encryptPassword(senha);
-                                System.out.println(hash);
-                                Usuario usuario = new Usuario(nomeUsuario, hash);
-                                usuario = ccont.login(usuario);
-                                if (usuario != null) {
-                                    TelaTabelaUsuario telaB = new TelaTabelaUsuario();
-                                    telaB.setVisible(true);
+                        try {
+                            String hash = Util.encryptPassword(senha.toString());
+                            System.out.println(hash);
+                            Usuario usuario = new Usuario(nomeUsuario, hash);
+                            usuario = ccont.login(usuario);
+                            if (usuario != null) {
+                                TelaTabelaUsuario telaB = new TelaTabelaUsuario();
+                                telaB.setVisible(true);
 
-                                    dispose();
-                                } else {
-                                    JOptionPane.showMessageDialog(null, "Usuário ou senha incorretos");
-                                }
-                            } catch (IOException | ClassNotFoundException ex) {
-                                Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
+                                dispose();
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Usuário ou senha incorretos");
                             }
+                        } catch (IOException | ClassNotFoundException ex) {
+                            Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                    });
+                    }
+                });
                 thread1.start();
             } else {
                 System.out.println("Insira a Senha!");

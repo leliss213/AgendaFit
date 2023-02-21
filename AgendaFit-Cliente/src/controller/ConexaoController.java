@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import modelDominio.Treino;
 
 public class ConexaoController {
+
     public Socket socket;
     public ObjectOutputStream out;
     public ObjectInputStream in;
@@ -46,120 +47,105 @@ public class ConexaoController {
         return userLogado;
     }
 
-    public String cadastraExercicio(Exercicio exercicio) throws IOException, ClassNotFoundException{
-        String msgRecebida ="";
+    public String cadastraExercicio(Exercicio exercicio) throws IOException, ClassNotFoundException {
+        String msgRecebida = "";
         out.writeObject("cadastroExercicio");
+        out.writeObject(exercicio);
         msgRecebida = (String) in.readObject();
-        if(msgRecebida.equals("ok")){
-            out.writeObject(exercicio);
-            msgRecebida = (String) in.readObject();
-        }
-        return msgRecebida;
-    }
-    
-    public String alteraExercicio(Exercicio exercicio) throws IOException, ClassNotFoundException{
-        String msgRecebida ="";
-        out.writeObject("alteraExercicio");
-        msgRecebida = (String) in.readObject();
-        if(msgRecebida.equals("ok")){
-            out.writeObject(exercicio);
-            msgRecebida = (String) in.readObject();
-        }
+
         return msgRecebida;
     }
 
-    public ArrayList<Exercicio> listaExercicios() throws IOException, ClassNotFoundException{
+    public String alteraExercicio(Exercicio exercicio) throws IOException, ClassNotFoundException {
+        String msgRecebida = "";
+        out.writeObject("alteraExercicio");
+        out.writeObject(exercicio);
+        msgRecebida = (String) in.readObject();
+
+        return msgRecebida;
+    }
+
+    public ArrayList<Exercicio> listaExercicios() throws IOException, ClassNotFoundException {
         ArrayList<Exercicio> listaExercicios;
         out.writeObject("listaExercicios");
         listaExercicios = (ArrayList<Exercicio>) in.readObject();
         return listaExercicios;
     }
 
-    public String deletaExercicio(Exercicio exercicio) throws IOException, ClassNotFoundException{
-        String msgRecebida="";
+    public String deletaExercicio(Exercicio exercicio) throws IOException, ClassNotFoundException {
+        String msgRecebida = "";
         out.writeObject("deletarExercicio");
+        out.writeObject(exercicio);
         msgRecebida = (String) in.readObject();
-        if(msgRecebida.equals("ok")){
-            out.writeObject(exercicio);
-        }
-        return msgRecebida;
-    }
-    
-    public String cadastraUsuario(Usuario usuario) throws IOException, ClassNotFoundException{
-        String msgRecebida ="";
-        out.writeObject("cadastroUsuario");
-        msgRecebida = (String) in.readObject();
-        if(msgRecebida.equals("ok")){
-            out.writeObject(usuario);
-            msgRecebida = (String) in.readObject();
-        }
-        return msgRecebida;
-    }
-    
-    public String alteraUsuario(Usuario usuario) throws IOException, ClassNotFoundException{
-        String msgRecebida ="";
-        out.writeObject("alteraUsuario");
-        msgRecebida = (String) in.readObject();
-        if(msgRecebida.equals("ok")){
-            out.writeObject(usuario);
-            msgRecebida = (String) in.readObject();
-        }
+
         return msgRecebida;
     }
 
-    public ArrayList<Usuario> listaUsuario() throws IOException, ClassNotFoundException{
+    public String cadastraUsuario(Usuario usuario) throws IOException, ClassNotFoundException {
+        String msgRecebida = "";
+        out.writeObject("cadastroUsuario");
+        out.writeObject(usuario);
+        msgRecebida = (String) in.readObject();
+
+        return msgRecebida;
+    }
+
+    public String alteraUsuario(Usuario usuario) throws IOException, ClassNotFoundException {
+        String msgRecebida = "";
+        out.writeObject("alteraUsuario");
+        out.writeObject(usuario);
+        msgRecebida = (String) in.readObject();
+
+        return msgRecebida;
+    }
+
+    public ArrayList<Usuario> listaUsuario() throws IOException, ClassNotFoundException {
         ArrayList<Usuario> listaUsuarios;
         out.writeObject("listaUsuarios");
         listaUsuarios = (ArrayList<Usuario>) in.readObject();
         return listaUsuarios;
     }
 
-    public String deletaUsuario(Usuario usuario) throws IOException, ClassNotFoundException{
-        String msgRecebida="";
+    public String deletaUsuario(Usuario usuario) throws IOException, ClassNotFoundException {
+        String msgRecebida = "";
         out.writeObject("deletarUsuario");
+        out.writeObject(usuario);
         msgRecebida = (String) in.readObject();
-        if(msgRecebida.equals("ok")){
-            out.writeObject(usuario);
-        }
-        return msgRecebida;
-    }
-    
-    public String cadastraTreino(Treino treino) throws IOException, ClassNotFoundException{
-        String msgRecebida ="";
-        out.writeObject("cadastroTreino");
-        msgRecebida = (String) in.readObject();
-        if(msgRecebida.equals("ok")){
-            out.writeObject(treino);
-            msgRecebida = (String) in.readObject();
-        }
-        return msgRecebida;
-    }
-    
-    public String alteraTreino(Treino treino) throws IOException, ClassNotFoundException{
-        String msgRecebida ="";
-        out.writeObject("alteraTreino");
-        msgRecebida = (String) in.readObject();
-        if(msgRecebida.equals("ok")){
-            out.writeObject(treino);
-            msgRecebida = (String) in.readObject();
-        }
+
         return msgRecebida;
     }
 
-    public ArrayList<Treino> listaTreinos() throws IOException, ClassNotFoundException{
+    public String cadastraTreino(Treino treino) throws IOException, ClassNotFoundException {
+        String msgRecebida = "";
+        out.writeObject("cadastroTreino");
+        out.writeObject(treino);
+        msgRecebida = (String) in.readObject();
+
+        return msgRecebida;
+    }
+
+    public String alteraTreino(Treino treino) throws IOException, ClassNotFoundException {
+        String msgRecebida = "";
+        out.writeObject("alteraTreino");
+        out.writeObject(treino);
+        msgRecebida = (String) in.readObject();
+
+        return msgRecebida;
+    }
+
+    public ArrayList<Treino> listaTreinos() throws IOException, ClassNotFoundException {
         ArrayList<Treino> listaTreinos;
         out.writeObject("listaTreinos");
         listaTreinos = (ArrayList<Treino>) in.readObject();
         return listaTreinos;
     }
 
-    public String deletaTreino(Treino treino) throws IOException, ClassNotFoundException{
-        String msgRecebida="";
+    public String deletaTreino(Treino treino) throws IOException, ClassNotFoundException {
+        String msgRecebida = "";
         out.writeObject("deletarTreino");
+        out.writeObject(treino);
         msgRecebida = (String) in.readObject();
-        if(msgRecebida.equals("ok")){
-            out.writeObject(treino);
-        }
+
         return msgRecebida;
     }
 }

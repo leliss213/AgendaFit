@@ -22,12 +22,12 @@ import table.TabelaExercicioModel;
  * @author guilh
  */
 public class TelaCadastroTreino extends javax.swing.JFrame {
-    
+
     ConexaoController ccont;
     ArrayList<Exercicio> exercicios = new ArrayList();
     ArrayList<Exercicio> listExercicios;
     int codTreino;
-    
+
     /**
      * Creates new form TelaCadastro
      */
@@ -36,37 +36,35 @@ public class TelaCadastroTreino extends javax.swing.JFrame {
 
         ccont = new ConexaoController();
         ccont.criaConexao();
-        
-        loadData();    
+
+        loadData();
     }
-    
-    public void loadData()
-    {
-        try { 
+
+    public void loadData() {
+        try {
             listExercicios = ccont.listaExercicios();
             jComboBox1.setModel(new DefaultComboBoxModel(listExercicios.toArray()));
         } catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(TelaCadastroTreino.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void loadExercicios()
-    {
+
+    public void loadExercicios() {
         DefaultTableModel model = new DefaultTableModel();
         jTable1.setModel(new TabelaExercicioModel(exercicios));
     }
-    
-    public void editarTreino(Treino treino)
-    {
+
+    public void editarTreino(Treino treino) {
         this.codTreino = treino.getCodTreino();
         jTextFieldNome.setText(treino.getNomeTreino());
         jTextFieldDescricao.setText(treino.getDescricao());
         jFormattedData.setText(treino.getData());
         jTextFieldHora.setText(String.valueOf(treino.getHora()));
         jComboBoxTipo.setSelectedIndex(treino.getTipo());
-        
-        //DefaultTableModel model = new DefaultTableModel();
-        //jTable1.setModel(new TabelaExercicioModel(treino.getExercicio()));
+
+        exercicios = treino.getExercicio();
+        DefaultTableModel model = new DefaultTableModel();
+        jTable1.setModel(new TabelaExercicioModel(exercicios));
     }
 
     /**
@@ -237,7 +235,7 @@ public class TelaCadastroTreino extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel1.add(jLabel7, gridBagConstraints);
 
-        jComboBoxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Treino de força", "Treino funcional", "Treino de alongamento e flexibilidade", "Treino de HIIT", "Treino de resistência" }));
+        jComboBoxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nenhum", "Treino de força", "Treino funcional", "Treino de alongamento e flexibilidade", "Treino de HIIT", "Treino de resistência" }));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 5;
@@ -364,11 +362,11 @@ public class TelaCadastroTreino extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarActionPerformed
-        if(!jTextFieldNome.getText().isEmpty()){
-            if(!jTextFieldDescricao.getText().isEmpty()){
-                if(!jFormattedData.getText().isEmpty()){
-                    if(!jTextFieldHora.getText().isEmpty()){
-                        if(jComboBoxTipo.getSelectedIndex()!=0){
+        if (!jTextFieldNome.getText().isEmpty()) {
+            if (!jTextFieldDescricao.getText().isEmpty()) {
+                if (!jFormattedData.getText().isEmpty()) {
+                    if (!jTextFieldHora.getText().isEmpty()) {
+                        if (jComboBoxTipo.getSelectedIndex() != 0) {
                             String nomeTreino = jTextFieldNome.getText();
                             String descricao = jTextFieldDescricao.getText();
                             String data = jFormattedData.getText();
@@ -381,7 +379,13 @@ public class TelaCadastroTreino extends javax.swing.JFrame {
                                 @Override
                                 public void run() {
                                     try {
-                                        String msgRecebida = ccont.cadastraTreino(treino);
+                                        String msgRecebida = "";
+                                        if (TelaCadastroTreino.this.codTreino != 0) {
+                                            treino.setCodTreino(TelaCadastroTreino.this.codTreino);
+                                            msgRecebida = ccont.alteraTreino(treino);
+                                        } else {
+                                            msgRecebida = ccont.cadastraTreino(treino);
+                                        }
                                         System.out.println(msgRecebida);
 
                                         TelaCadastroTreino.this.dispose();
@@ -392,39 +396,39 @@ public class TelaCadastroTreino extends javax.swing.JFrame {
                             });
                             thread.start();
 
-                        } else{
+                        } else {
                             JOptionPane.showMessageDialog(null, "Insira o Tipo do Treino!");
                             jComboBoxTipo.requestFocus();
                         }
-                    } else{
+                    } else {
                         JOptionPane.showMessageDialog(null, "Insira o Hora do Treino!");
                         jTextFieldHora.requestFocus();
                     }
-                } else{
+                } else {
                     JOptionPane.showMessageDialog(null, "Insira o Data do Treino!");
                     jFormattedData.requestFocus();
                 }
-            } else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Insira o Descrição do Treino!");
                 jTextFieldDescricao.requestFocus();
             }
-        } else{
+        } else {
             JOptionPane.showMessageDialog(null, "Insira o Nome do Treino!");
             jTextFieldNome.requestFocus();
-        }   
+        }
     }//GEN-LAST:event_jButtonCadastrarActionPerformed
 
     private void jButtonAddExercicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddExercicioActionPerformed
         Exercicio exercicio = (Exercicio) jComboBox1.getSelectedItem();
-        
+
         this.exercicios.add(exercicio);
-        
+
         loadExercicios();
     }//GEN-LAST:event_jButtonAddExercicioActionPerformed
 
     private void jButtonRemoveExercicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoveExercicioActionPerformed
         int linhaSelecionada = jTable1.getSelectedRow();
-        if(linhaSelecionada != -1) {
+        if (linhaSelecionada != -1) {
             Exercicio exercicio = ((TabelaExercicioModel) jTable1.getModel()).getRowObject(linhaSelecionada);
 
             this.exercicios.remove(exercicio);

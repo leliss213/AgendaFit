@@ -12,7 +12,8 @@ import java.util.ArrayList;
  *
  * @author Leandro
  */
-public class Usuario implements Serializable{    
+public class Usuario implements Serializable {
+
     int codUsuario;
     String nomeUsuario;
     String login;
@@ -31,7 +32,7 @@ public class Usuario implements Serializable{
         this.altura = altura;
         this.email = email;
     }
-    
+
     public Usuario(int codUsuario, String nomeUsuario, String login, String senha, float peso, float altura, String email, ArrayList<Treino> treinos) {
         this.codUsuario = codUsuario;
         this.nomeUsuario = nomeUsuario;
@@ -42,7 +43,7 @@ public class Usuario implements Serializable{
         this.email = email;
         this.treinos = treinos;
     }
-    
+
     public Usuario(String nomeUsuario, String email, String login, String senha, float peso, float altura, ArrayList<Treino> treinos) {
         this.nomeUsuario = nomeUsuario;
         this.login = login;

@@ -23,25 +23,26 @@ import utils.Util;
  * @author guilh
  */
 public class TelaCadastroUsuario extends javax.swing.JFrame {
+
     ConexaoController ccont;
     ArrayList<Treino> treinos = new ArrayList();
     ArrayList<Treino> listTreinos;
-    
+    int codUsuario;
+
     /**
      * Creates new form TelaCadastro
      */
     public TelaCadastroUsuario() {
         initComponents();
-        
+
         ccont = new ConexaoController();
         ccont.criaConexao();
-        
+
         loadData();
     }
-    
-    public void loadData()
-    {
-        try { 
+
+    public void loadData() {
+        try {
             listTreinos = ccont.listaTreinos();
             jComboBox1.setModel(new DefaultComboBoxModel(listTreinos.toArray()));
         } catch (IOException ex) {
@@ -50,23 +51,23 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
             Logger.getLogger(TelaCadastroTreino.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void loadTreinos()
-    {
+
+    public void loadTreinos() {
         DefaultTableModel model = new DefaultTableModel();
         jTable1.setModel(new TabelaTreinoModel(treinos));
     }
-    
-    public void editaUsuario(Usuario usuario)
-    {
+
+    public void editaUsuario(Usuario usuario) {
+        this.codUsuario = usuario.getCodUsuario();
         jTextFieldNome.setText(usuario.getNomeUsuario());
         jTextFieldEmail.setText(usuario.getEmail());
         jTextFieldLogin.setText(usuario.getLogin());
         jTextFieldAltura.setText(String.valueOf(usuario.getAltura()));
         jTextFieldPeso.setText(String.valueOf(usuario.getPeso()));
-        
-        //DefaultTableModel model = new DefaultTableModel();
-        //jTable1.setModel(new TabelaTreinoModel(usuario.getTreinos()));
+
+        treinos = usuario.getTreinos();
+        DefaultTableModel model = new DefaultTableModel();
+        jTable1.setModel(new TabelaTreinoModel(treinos));
     }
 
     /**
@@ -373,20 +374,22 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarActionPerformed
-        if(!jTextFieldNome.getText().isEmpty()){
-            if(!jTextFieldEmail.getText().isEmpty()){
-                if(!jTextFieldLogin.getText().isEmpty()){
-                    if(!jPasswordFieldSenha.getPassword().toString().isEmpty()){
-                        if(!jTextFieldAltura.getText().isEmpty()){
-                            if(!jTextFieldPeso.getText().isEmpty()){
+        if (!jTextFieldNome.getText().isEmpty()) {
+            if (!jTextFieldEmail.getText().isEmpty()) {
+                if (!jTextFieldLogin.getText().isEmpty()) {
+                    if (!jPasswordFieldSenha.getPassword().toString().isEmpty()) {
+                        if (!jTextFieldAltura.getText().isEmpty()) {
+                            if (!jTextFieldPeso.getText().isEmpty()) {
                                 String nomeUsuario = jTextFieldNome.getText();
                                 String emailUsuario = jTextFieldEmail.getText();
                                 String loginUsuario = jTextFieldLogin.getText();
-                                String senhaUsuario = jPasswordFieldSenha.getPassword().toString();
+                                String senhaUsuario = new String(jPasswordFieldSenha.getPassword());
                                 Float alturaUsuario = Float.valueOf(jTextFieldAltura.getText());
                                 Float pesoUsuario = Float.valueOf(jTextFieldPeso.getText());
-                                
-                                String hash = Util.encryptPassword(senhaUsuario);
+
+                                String hash = Util.encryptPassword(senhaUsuario.toString());
+                                System.out.println(senhaUsuario.toString());
+                                System.out.println(hash);
 
                                 final Usuario usuario = new Usuario(nomeUsuario, emailUsuario, loginUsuario, hash, alturaUsuario, pesoUsuario, treinos);
 
@@ -394,11 +397,17 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
                                     @Override
                                     public void run() {
                                         try {
-                                            String msgRecebida = ccont.cadastraUsuario(usuario);
+                                            String msgRecebida = "";
+                                            if (TelaCadastroUsuario.this.codUsuario != 0) {
+                                                usuario.setCodUsuario(TelaCadastroUsuario.this.codUsuario);
+                                                msgRecebida = ccont.alteraUsuario(usuario);
+                                            } else {
+                                                msgRecebida = ccont.cadastraUsuario(usuario);
+                                            }
                                             System.out.println(msgRecebida);
-                                            
+
                                             TelaCadastroUsuario.this.dispose();
-                                            
+
                                         } catch (IOException | ClassNotFoundException ex) {
                                             Logger.getLogger(TelaCadastroExercicio.class.getName()).log(Level.SEVERE, null, ex);
                                         }
@@ -406,27 +415,27 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
                                 });
                                 thread.start();
 
-                            } else{
+                            } else {
                                 JOptionPane.showMessageDialog(null, "Insira o Peso do Usuario!");
                                 jTextFieldPeso.requestFocus();
                             }
-                        } else{
+                        } else {
                             JOptionPane.showMessageDialog(null, "Insira a Altura do Usuario!");
                             jTextFieldAltura.requestFocus();
                         }
-                    } else{
+                    } else {
                         JOptionPane.showMessageDialog(null, "Insira a Senha do Usuario!");
                         jPasswordFieldSenha.requestFocus();
                     }
-                } else{
+                } else {
                     JOptionPane.showMessageDialog(null, "Insira o Login do Usuario!");
                     jTextFieldLogin.requestFocus();
                 }
-            } else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Insira o Email do Usuario!");
                 jTextFieldEmail.requestFocus();
             }
-        } else{
+        } else {
             JOptionPane.showMessageDialog(null, "Insira o Nome do Usuario!");
             jTextFieldNome.requestFocus();
         }
@@ -434,18 +443,18 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
 
     private void jButtonAddTreinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddTreinoActionPerformed
         Treino treino = (Treino) jComboBox1.getSelectedItem();
-        
+
         this.treinos.add(treino);
-        
+
         loadTreinos();
     }//GEN-LAST:event_jButtonAddTreinoActionPerformed
 
     private void jButtonRemoveTreinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoveTreinoActionPerformed
         int linhaSelecionada = jTable1.getSelectedRow();
-        
+
         if (linhaSelecionada != -1) {
             Treino treino = ((TabelaTreinoModel) jTable1.getModel()).getRowObject(linhaSelecionada);
-        
+
             this.treinos.remove(treino);
 
             loadTreinos();

@@ -8,39 +8,26 @@ package utils;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Formatter;
 
 /**
  *
  * @author guilh
  */
 public class Util {
-    public static String encryptPassword(String password)
-    {
-        String sha1 = "";
-        try
-        {
-            MessageDigest crypt = MessageDigest.getInstance("SHA-1");
-            crypt.reset();
-            crypt.update(password.getBytes("UTF-8"));
-            sha1 = byteToHex(crypt.digest());
-        }
-        catch(NoSuchAlgorithmException | UnsupportedEncodingException e)
-        {
-            e.printStackTrace();
-        }
-        return sha1;
-    }
 
-    private static String byteToHex(final byte[] hash)
-    {
-        Formatter formatter = new Formatter();
-        for (byte b : hash)
-        {
-            formatter.format("%02x", b);
+    public static String encryptPassword(String password) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(password.getBytes());
+            byte[] digest = md.digest();
+            StringBuilder sb = new StringBuilder();
+            for (byte b : digest) {
+                sb.append(String.format("%02x", b & 0xff));
+            }
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
         }
-        String result = formatter.toString();
-        formatter.close();
-        return result;
     }
 }

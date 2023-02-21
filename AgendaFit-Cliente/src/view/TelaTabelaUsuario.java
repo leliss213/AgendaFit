@@ -21,33 +21,33 @@ import table.TabelaUsuarioModel;
  * @author guilh
  */
 public class TelaTabelaUsuario extends javax.swing.JFrame {
+
     ConexaoController ccont;
+
     /**
      * Creates new form TelaTabela
      */
     public TelaTabelaUsuario() {
         initComponents();
-        
+
         ccont = new ConexaoController();
         ccont.criaConexao();
-        
+
         loadTable();
     }
-    
-    public void loadTable()
-    {
+
+    public void loadTable() {
         try {
             ArrayList<Usuario> listaUsuarios = ccont.listaUsuario();
             DefaultTableModel model = new DefaultTableModel();
-            
+
             jTable1.setModel(new TabelaUsuarioModel(listaUsuarios));
         } catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(TelaCadastroExercicio.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void editarUsuario(int linhaSelecionada)
-    {
+
+    public void editarUsuario(int linhaSelecionada) {
         Usuario usuario = ((TabelaUsuarioModel) jTable1.getModel()).getRowObject(linhaSelecionada);
         TelaCadastroUsuario telaCadastroUsuario = new TelaCadastroUsuario();
         telaCadastroUsuario.setVisible(true);
@@ -186,7 +186,7 @@ public class TelaTabelaUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
-        
+
     }//GEN-LAST:event_jMenu1MouseClicked
 
     private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
@@ -216,17 +216,23 @@ public class TelaTabelaUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAdicionarActionPerformed
 
     private void jButtonRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverActionPerformed
-        if(jTable1.getSelectedRow() != -1) {
-            try {
-                Usuario usuario = ((TabelaUsuarioModel) jTable1.getModel()).getRowObject(jTable1.getSelectedRow());
-                ccont.deletaUsuario(usuario);
-                
-                loadTable();
-            } catch (IOException ex) {
-                Logger.getLogger(TelaTabelaUsuario.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(TelaTabelaUsuario.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        if (jTable1.getSelectedRow() != -1) {
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Usuario usuario = ((TabelaUsuarioModel) jTable1.getModel()).getRowObject(jTable1.getSelectedRow());
+                        ccont.deletaUsuario(usuario);
+
+                        loadTable();
+                    } catch (IOException ex) {
+                        Logger.getLogger(TelaTabelaUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(TelaTabelaUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            });
+            thread.start();
         }
     }//GEN-LAST:event_jButtonRemoverActionPerformed
 
