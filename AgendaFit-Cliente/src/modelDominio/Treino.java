@@ -13,7 +13,8 @@ import java.util.ArrayList;
  *
  * @author Leandro
  */
-public class Treino implements Serializable{
+public class Treino implements Serializable {
+
     private int codTreino;
     private String nomeTreino;
     private String descricao;
@@ -107,21 +108,24 @@ public class Treino implements Serializable{
 
     @Override
     public String toString() {
-        return "Treino{" + "codTreino=" + codTreino + ", nomeTreino=" + nomeTreino + ", descricao=" + descricao + ", data=" + data + ", hora=" + hora + ", tipo=" + tipo + '}';
+        return nomeTreino + " - " + this.tipoLiteral();
     }
 
-    public String tipoLiteral(){
+    public String tipoLiteral() {
         String retorno = "";
-        if(tipo == 1){
-            retorno = "Peito";
-        }else if(tipo == 2){
-            retorno = "Ombro";
-        }else if(tipo == 3){
-            retorno = "Braço";
-        }else if(tipo == 4){
-            retorno = "Costas";
-        }else if(tipo == 5){
-            retorno = "Perna";
+        int tipo = this.getTipo();
+        if (tipo == 1) {
+            retorno = "Treino de força";
+        } else if (tipo == 2) {
+            retorno = "Treino funcional";
+        } else if (tipo == 3) {
+            retorno = "Treino de alongamento e flexibilidade";
+        } else if (tipo == 4) {
+            retorno = "Treino de HIIT";
+        } else if (tipo == 5) {
+            retorno = "Treino de resistência";
+        } else {
+            // default case
         }
         return retorno;
     }

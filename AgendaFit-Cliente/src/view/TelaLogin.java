@@ -55,6 +55,7 @@ public class TelaLogin extends javax.swing.JFrame {
         setTitle("Login");
         setLocationByPlatform(true);
         setMinimumSize(new java.awt.Dimension(400, 300));
+        setResizable(false);
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         jPanel3.setBackground(new java.awt.Color(65, 78, 225));

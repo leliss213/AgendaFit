@@ -11,7 +11,8 @@ import java.io.Serializable;
  *
  * @author Leandro
  */
-public class Exercicio implements Serializable{
+public class Exercicio implements Serializable {
+
     private int codExercicio;
     private String nomeExercicio;
     private int tipo;
@@ -24,7 +25,6 @@ public class Exercicio implements Serializable{
     public Exercicio(String nomeExercicio) {
         this.nomeExercicio = nomeExercicio;
     }
-
 
     public Exercicio(int codExercicio, String nomeExercicio, int tipo) {
         this.codExercicio = codExercicio;
@@ -60,19 +60,19 @@ public class Exercicio implements Serializable{
     public String toString() {
         return nomeExercicio + " - " + this.tipoLiteral();
     }
-    public String tipoLiteral(){
-        String retorno = "";
-        if(tipo == 1){
-            retorno = "Peito";
-        }else if(tipo == 2){
-            retorno = "Ombro";
-        }else if(tipo == 3){
-            retorno = "Braço";
-        }else if(tipo == 4){
-            retorno = "Costas";
-        }else if(tipo == 5){
-            retorno = "Perna";
+
+    public String tipoLiteral() {
+        if (this.getTipo() == 1) {
+            return "Peito";
+        } else if (this.getTipo() == 2) {
+            return "Ombro";
+        } else if (this.getTipo() == 3) {
+            return "Braço";
+        } else if (this.getTipo() == 4) {
+            return "Costas";
+        } else if (this.getTipo() == 5) {
+            return "Perna";
         }
-        return retorno;
+        return "";
     }
 }
