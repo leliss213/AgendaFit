@@ -41,6 +41,8 @@ public class VisualizacaoDetalhadaTreino extends AppCompatActivity implements Ad
         Intent it = getIntent();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         final Treino treino = (Treino) it.getSerializableExtra("treino");
+
+        final int codTreino = treino.getCodTreino();
         spCadastroTipoTreino = findViewById(R.id.spCadastroTipoTreino);
         tvVisualizacaoDetalhadaTexto2 = findViewById(R.id.tvVisualizacaoDetalhadaTexto2);
         tvVisualizacaoDetalhadaTexto = findViewById(R.id.tvVisualizacaoDetalhadaTexto);
@@ -95,16 +97,61 @@ public class VisualizacaoDetalhadaTreino extends AppCompatActivity implements Ad
             tvVisualizacaoDetalhadaTexto.setVisibility(View.GONE);
             tvVisualizacaoDetalhadaTexto2.setVisibility(View.GONE);
             spCadastroTipoTreino.setVisibility(View.GONE);
+            bVisualizacaoDetalhadaTreinoSalvar.setVisibility(View.GONE);
         }
 
         //verificando os campos apos o click do botão salvar
         bVisualizacaoDetalhadaTreinoSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!tvVisualizacaoDetalhadaTituloTreino.getText().toString().equals("")){
-                    if(!tvVisualizacaoDetalhadaDescricaoTreino.getText().toString().equals("")){
-                        if(!tvVisualizacaoDetalhadaData.getText().toString().equals("")){
-                            if(!tvVisualizacaoDetalhadaHora.getText().toString().equals("")){
+                if(!tvVisualizacaoDetalhadaTituloTreino.getText().toString().isEmpty()){
+                    if(!tvVisualizacaoDetalhadaDescricaoTreino.getText().toString().isEmpty()){
+                        if(!tvVisualizacaoDetalhadaData.getText().toString().isEmpty()){
+                            if(!tvVisualizacaoDetalhadaHora.getText().toString().isEmpty()){
+                                if(spCadastroTipoTreino.getSelectedItemPosition() != 0){
+                                    if(spMultiExerciciosCadastrados.getSelectedSize() > 0){
+                                        String nomeTreino = tvVisualizacaoDetalhadaTituloTreino.getText().toString();
+                                        String descricao = tvVisualizacaoDetalhadaDescricaoTreino.getText().toString();
+                                        String data = tvVisualizacaoDetalhadaData.getText().toString();
+                                        Float hora = Float.valueOf(tvVisualizacaoDetalhadaHora.getText().toString());
+                                        int tipoTreino = spCadastroTipoTreino.getSelectedItemPosition();
+                                        ArrayList<Exercicio> listaExerciciosSelecionados = spMultiExerciciosCadastrados.getSelectedItems();
+
+                                        final Treino meuTreino = new Treino(nomeTreino,descricao,data,hora,listaExerciciosSelecionados, tipoTreino);
+                                        meuTreino.setCodTreino(treino.getCodTreino());
+                                        Thread thread = new Thread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                ConexaoController ccont = new ConexaoController(informacoesApp);
+                                                String msgRecebida = ccont.alteraTreino(meuTreino);
+                                                if (msgRecebida.equals("ok")){
+                                                    runOnUiThread(new Runnable() {
+                                                        @Override
+                                                        public void run() {
+                                                            Toast.makeText(VisualizacaoDetalhadaTreino.this, "certo", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    });
+                                                }else{
+                                                    runOnUiThread(new Runnable() {
+                                                        @Override
+                                                        public void run() {
+                                                            Toast.makeText(VisualizacaoDetalhadaTreino.this, "errado", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    });
+                                                }
+
+                                            }
+                                        });
+                                        thread.start();
+
+                                    }else{
+                                        spMultiExerciciosCadastrados.requestFocus();
+                                        Toast.makeText(informacoesApp, "Insira os Exercícios!", Toast.LENGTH_SHORT).show();
+                                    }
+                                }else{
+                                    spCadastroTipoTreino.requestFocus();
+                                    Toast.makeText(informacoesApp, "Insira o Tipo do Treino!", Toast.LENGTH_SHORT).show();
+                                }
 
                             }else{
                                 tvVisualizacaoDetalhadaHora.requestFocus();
@@ -139,6 +186,7 @@ public class VisualizacaoDetalhadaTreino extends AppCompatActivity implements Ad
                 tvVisualizacaoDetalhadaExerciciosTreino.setVisibility(View.GONE);
                 tvVisualizacaoDetalhadaTexto2.setVisibility(View.VISIBLE);
                 spCadastroTipoTreino.setVisibility(View.VISIBLE);
+                bVisualizacaoDetalhadaTreinoSalvar.setVisibility(View.VISIBLE);
                 desabilitarHabilitar(true);
                 tvVisualizacaoDetalhadaTipoTreinoString.setVisibility(View.GONE);
                 Thread thread1 = new Thread(new Runnable() {

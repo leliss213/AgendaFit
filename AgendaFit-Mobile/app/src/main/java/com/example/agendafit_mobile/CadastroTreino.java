@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ import controller.InformacoesApp;
 import controller.SpinnerMultiSelecionavel;
 import modelDominio.Exercicio;
 import modelDominio.Treino;
+import utils.DataCalendario;
 
 
 public class CadastroTreino extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -27,13 +29,14 @@ public class CadastroTreino extends AppCompatActivity implements AdapterView.OnI
     EditText etCadastroNomeTreino, etCadastroDescricao, etCadastroData, etCadastroHora;
     Button bCadastroCadastrar, bCadastroCancelar;
     InformacoesApp informacoesApp;
+    ImageButton ibCadastroTreinoCalendario;
     SpinnerMultiSelecionavel spinnerMultiSelecionavel;
     //recebe a lista do banco
     ArrayList<Exercicio> listExercicios = new ArrayList<>();
     ArrayList<Exercicio> listExerciciosSelecionados = new ArrayList<>();
     //recebe somente a lista de nomes dos exercicios vindos do banco
     ArrayList<String> listExerciciosNomes = new ArrayList<>();
-
+    DataCalendario dataCalendario;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +61,8 @@ public class CadastroTreino extends AppCompatActivity implements AdapterView.OnI
 
         bCadastroCadastrar = findViewById(R.id.bCadastroCadastrar);
         bCadastroCancelar = findViewById(R.id.bCadastroCancelar);
+
+        ibCadastroTreinoCalendario = findViewById(R.id.ibCadastroTreinoCalendario);
 
         spinnerMultiSelecionavel.setEnabled(true);
         Thread thread = new Thread(new Runnable() {
@@ -142,6 +147,14 @@ public class CadastroTreino extends AppCompatActivity implements AdapterView.OnI
             }
         });
 
+        ibCadastroTreinoCalendario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dataCalendario = new DataCalendario();
+                dataCalendario.setEditText(etCadastroData);
+                dataCalendario.show(getSupportFragmentManager(), "Calendário");
+            }
+        });
     }
     //teste
 

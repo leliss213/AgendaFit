@@ -1,4 +1,4 @@
-package controller;
+package adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +11,6 @@ import com.example.agendafit_mobile.R;
 
 import java.util.List;
 
-import modelDominio.Exercicio;
 import modelDominio.Treino;
 
 public class TreinoAdapter extends RecyclerView.Adapter<TreinoAdapter.MyViewHolder> {

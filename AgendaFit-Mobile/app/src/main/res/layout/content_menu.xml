@@ -16,7 +16,7 @@
         android:layout_width="128dp"
         android:layout_height="128dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -44,7 +44,7 @@
             <ImageView
                 android:layout_width="65dp"
                 android:layout_height="65dp"
-                android:src="@drawable/ic_visualizacao"/>
+                android:src="@drawable/listaexercicios"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -73,7 +73,7 @@
             <ImageView
                 android:layout_width="65dp"
                 android:layout_height="65dp"
-                android:src="@drawable/ic_visualizacao"/>
+                android:src="@drawable/listatreinos"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -101,7 +101,7 @@
             <ImageView
                 android:layout_width="75dp"
                 android:layout_height="75dp"
-                android:src="@drawable/ic_adicionar"/>
+                android:src="@drawable/cadastroexercicio"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -128,7 +128,7 @@
             <ImageView
                 android:layout_width="75dp"
                 android:layout_height="75dp"
-                android:src="@drawable/ic_adicionar"/>
+                android:src="@drawable/cadastrotreino"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

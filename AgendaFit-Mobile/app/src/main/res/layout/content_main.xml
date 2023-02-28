@@ -10,24 +10,32 @@
     tools:context=".MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="119dp">
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:src="@drawable/logoagenda"
+        android:layout_gravity="center"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/etMainUsuario"
-        android:hint="Usuario"/>
+        android:hint="Usuario"
+        android:background="@drawable/edit_text"
+        android:padding="12dp"
+        android:layout_margin="5dp"
+        android:drawableEnd="@drawable/usuario"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="12dp"
         android:id="@+id/etMainSenha"
         android:hint="Senha"
-        android:inputType="textPassword"/>
+        android:inputType="textPassword"
+        android:background="@drawable/edit_text"
+        android:layout_margin="5dp"
+        android:drawableEnd="@drawable/senha"/>
 
     <Button
         android:layout_width="match_parent"
@@ -35,17 +43,6 @@
         android:text="@string/Entrar"
         android:background="@drawable/botoes"
         android:id="@+id/bMainEntrar"
-        android:padding="15dp"
-        android:layout_margin="10dp"
-        android:textColor="@color/branco"
-        android:textStyle="bold"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/Cancelar"
-        android:background="@drawable/botoes"
-        android:id="@+id/bMainCancelar"
         android:padding="15dp"
         android:layout_margin="10dp"
         android:textColor="@color/branco"

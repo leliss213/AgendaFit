@@ -13,9 +13,10 @@ import android.widget.Toast;
 import controller.ConexaoController;
 import controller.InformacoesApp;
 import modelDominio.Usuario;
+import utils.Hash;
 
 public class MainActivity extends AppCompatActivity {
-    Button bMainEntrar, bMainCancelar;
+    Button bMainEntrar;
     EditText etMainUsuario, etMainSenha;
     InformacoesApp informacoesApp;
     Boolean resultadoConexao;
@@ -28,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
 
         informacoesApp = (InformacoesApp) getApplicationContext();
         bMainEntrar = findViewById(R.id.bMainEntrar);
-        bMainCancelar = findViewById(R.id.bMainCancelar);
 
         etMainUsuario = findViewById(R.id.etMainUsuario);
         etMainSenha = findViewById(R.id.etMainSenha);
@@ -65,7 +65,8 @@ public class MainActivity extends AppCompatActivity {
                         String nomeUsuario = etMainUsuario.getText().toString();
                         final String senha = etMainSenha.getText().toString();
 
-                        usuario = new Usuario(nomeUsuario, senha);
+                        String hash = Hash.encryptPassword(senha);
+                        usuario = new Usuario(nomeUsuario, hash);
 
                         Thread thread1 = new Thread(new Runnable() {
                             @Override
@@ -83,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
                                         @Override
                                         public void run() {
                                             Toast.makeText(informacoesApp, "Usuário ou senha incorretos", Toast.LENGTH_SHORT).show();
+                                            limpaCampos();
                                         }
                                     });
                                 }
@@ -101,12 +103,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        bMainCancelar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                limpaCampos();
-            }
-        });
     }
 
     public void limpaCampos() {

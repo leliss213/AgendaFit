@@ -56,6 +56,8 @@ class ConectaServidor extends Thread {
                 ObjectOutputStream out = new ObjectOutputStream(cliente.getOutputStream());
                 idUnico++; 
                 System.out.println("Iniciando uma nova Thread para o Cliente " + idUnico);
+                //depois de conectar ao servidor é mandado ao trataClienteController onde é tratado os comandos
+                //ai retorna no while pra esperar outro usuário conectar
                 TrataClienteController tratacliente = new TrataClienteController(in, out, cliente, idUnico);
                 tratacliente.start();
             }

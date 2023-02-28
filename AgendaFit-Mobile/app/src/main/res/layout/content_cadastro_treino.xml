@@ -21,13 +21,26 @@
         android:layout_height="wrap_content"
         android:id="@+id/etCadastroDescricao"
         android:hint="Descrição do treino"/>
-
-    <EditText
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/etCadastroData"
-        android:hint="Data"
-        android:inputType="date"/>
+        android:orientation="horizontal">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/etCadastroData"
+            android:hint="Data"
+            android:inputType="date"/>
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_date"
+            android:layout_gravity="end"
+            android:layout_alignParentRight="true"
+            android:backgroundTint="@color/branco"
+            android:id="@+id/ibCadastroTreinoCalendario"/>
+    </RelativeLayout>
+
 
     <EditText
         android:layout_width="match_parent"
@@ -36,46 +49,45 @@
         android:hint="Hora"
         android:inputType="time"/>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="5dp">
         <TextView
-            android:layout_width="290dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Escolha o tipo de treino"
             android:textSize="18dp"/>
-
         <Spinner
             android:id="@+id/spCadastroTipoTreino"
-            android:layout_width="114dp"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="5dp"
-        android:orientation="horizontal">
+        android:orientation="vertical">
         <TextView
-            android:layout_width="290dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Selecione os Exercícios do Treino"
             android:textSize="18dp"/>
 
         <controller.SpinnerMultiSelecionavel
-            android:layout_width="114dp"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:id="@+id/spMultiExercicios"
-            android:spinnerMode="dropdown">
-
+            android:spinnerMode="dialog"
+            android:layout_alignParentRight="true">
         </controller.SpinnerMultiSelecionavel>
 
+    </RelativeLayout>
 
-    </LinearLayout>
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
@@ -89,7 +101,9 @@
             android:textColor="@color/branco"
             android:textStyle="bold"
             android:layout_gravity="bottom"
-            android:layout_marginBottom="15dp"/>
+            android:layout_marginBottom="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"/>
 
         <Button
             android:layout_width="190dp"
@@ -100,8 +114,10 @@
             android:textColor="@color/branco"
             android:textStyle="bold"
             android:layout_gravity="bottom"
-            android:layout_marginBottom="15dp"/>
-    </LinearLayout>
+            android:layout_marginBottom="15dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
 
 
 </LinearLayout>
