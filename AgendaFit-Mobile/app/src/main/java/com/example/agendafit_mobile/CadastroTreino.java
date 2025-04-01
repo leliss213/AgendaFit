@@ -96,7 +96,6 @@ public class CadastroTreino extends AppCompatActivity implements AdapterView.OnI
                                         int tipoTreino = spinnerTipoTreino.getSelectedItemPosition();
                                         listExerciciosSelecionados = spinnerMultiSelecionavel.getSelectedItems();
                                         final Treino treino = new Treino(nomeTreino,descricao,data,hora,listExerciciosSelecionados,tipoTreino);
-                                        //Toast.makeText(informacoesApp, "IRU", Toast.LENGTH_SHORT).show();
                                         Thread thread1 = new Thread(new Runnable() {
                                             @Override
                                             public void run() {

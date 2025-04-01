@@ -51,7 +51,6 @@ public class CadastroExercicios extends AppCompatActivity implements AdapterView
 
                         String nomeExercicio = etCadastroExerciciosNomeExercicio.getText().toString();
                         int tipoExercicio = spCadastroTipoTreino.getSelectedItemPosition();
-                       // Toast.makeText(CadastroExercicios.this, "Tipo Exercicio: "+tipoExercicio+" Nome Exercicio: "+nomeExercicio, Toast.LENGTH_SHORT).show();
                         final Exercicio exercicio = new Exercicio(nomeExercicio, tipoExercicio);
 
                         Thread thread = new Thread(new Runnable() {

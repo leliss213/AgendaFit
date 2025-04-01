@@ -1,10 +1,12 @@
 package adapter;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.agendafit_mobile.R;
@@ -14,14 +16,15 @@ import java.util.List;
 import modelDominio.Treino;
 
 public class TreinoAdapter extends RecyclerView.Adapter<TreinoAdapter.MyViewHolder> {
-    private List<Treino> listaTreinos;
-    private TreinoAdapter.TreinoOnClickListener treinoOnClickListener;
+    private final List<Treino> listaTreinos;
+    private final TreinoAdapter.TreinoOnClickListener treinoOnClickListener;
 
     public TreinoAdapter(List<Treino> listaTreinos, TreinoOnClickListener treinoOnClickListener) {
         this.listaTreinos = listaTreinos;
         this.treinoOnClickListener = treinoOnClickListener;
     }
 
+    @NonNull
     @Override
     public TreinoAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
@@ -30,8 +33,9 @@ public class TreinoAdapter extends RecyclerView.Adapter<TreinoAdapter.MyViewHold
         return new MyViewHolder(itemView);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(final TreinoAdapter.MyViewHolder holder, final int position) {
+    public void onBindViewHolder(final TreinoAdapter.MyViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         Treino treino= listaTreinos.get(position);
         String treinoLiteral="";
         if(treino.getTipo() == 1){
@@ -55,7 +59,6 @@ public class TreinoAdapter extends RecyclerView.Adapter<TreinoAdapter.MyViewHold
             String descricaoMenor = treino.getDescricao().substring(0,20)+"...";
             holder.tvTreinoDescricao.setText("Descrição: "+descricaoMenor);
         }
-        /* CUIDADO: .setText() precisa sempre de String. Se for outro tipo de dado (sem concatenação), deve ser feita a conversão com o String.valueOf() */
 
         // clique no item do cliente
         if (treinoOnClickListener != null) {
@@ -75,7 +78,7 @@ public class TreinoAdapter extends RecyclerView.Adapter<TreinoAdapter.MyViewHold
     }
 
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
         TextView tvTreinoNome, tvTreinoTipo,tvTreinoDescricao,tvTreinoHora,tvTreinoData;
         public MyViewHolder(View itemView) {
             super(itemView);

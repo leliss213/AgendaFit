@@ -1,10 +1,12 @@
 package adapter;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.agendafit_mobile.R;
@@ -14,14 +16,15 @@ import java.util.List;
 import modelDominio.Exercicio;
 
 public class ExercicioAdapter extends RecyclerView.Adapter<ExercicioAdapter.MyViewHolder> {
-    private List<Exercicio> listaExercicio;
-    private ExercicioOnClickListener exercicioOnClickListener;
+    private final List<Exercicio> listaExercicio;
+    private final ExercicioOnClickListener exercicioOnClickListener;
 
     public ExercicioAdapter(List<Exercicio> listaExercicio, ExercicioOnClickListener exercicioOnClickListener) {
         this.listaExercicio = listaExercicio;
         this.exercicioOnClickListener = exercicioOnClickListener;
     }
 
+    @NonNull
     @Override
     public ExercicioAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
@@ -31,7 +34,7 @@ public class ExercicioAdapter extends RecyclerView.Adapter<ExercicioAdapter.MyVi
     }
 
     @Override
-    public void onBindViewHolder(final ExercicioAdapter.MyViewHolder holder, final int position) {
+    public void onBindViewHolder(final ExercicioAdapter.MyViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         Exercicio exercicio= listaExercicio.get(position);
         String exercicioLiteral="";
         if(exercicio.getTipo() == 1){
@@ -47,7 +50,6 @@ public class ExercicioAdapter extends RecyclerView.Adapter<ExercicioAdapter.MyVi
         }
         holder.tvExercicioNome.setText(exercicio.getNomeExercicio());
         holder.tvExercicioTipo.setText(exercicioLiteral);
-        /* CUIDADO: .setText() precisa sempre de String. Se for outro tipo de dado (sem concatenação), deve ser feita a conversão com o String.valueOf() */
 
         // clique no item do cliente
         if (exercicioOnClickListener != null) {
@@ -60,15 +62,12 @@ public class ExercicioAdapter extends RecyclerView.Adapter<ExercicioAdapter.MyVi
         }
     }
 
-
     @Override
     public int getItemCount() {
         return listaExercicio.size();
     }
 
-
-
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
         TextView tvExercicioNome, tvExercicioTipo;
         public MyViewHolder(View itemView) {
             super(itemView);
