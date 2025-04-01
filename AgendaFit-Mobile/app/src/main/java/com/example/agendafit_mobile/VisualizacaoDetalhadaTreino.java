@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 import controller.ConexaoController;
 import controller.InformacoesApp;
-import controller.SpinnerMultiSelecionavel;
+import utils.SpinnerMultiSelecionavel;
 import modelDominio.Exercicio;
 import modelDominio.Treino;
 

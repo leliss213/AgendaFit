@@ -1,7 +1,6 @@
 package com.example.agendafit_mobile;
 
 import android.os.Bundle;
-import android.print.PrintJob;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,7 +17,7 @@ import java.util.ArrayList;
 
 import controller.ConexaoController;
 import controller.InformacoesApp;
-import controller.SpinnerMultiSelecionavel;
+import utils.SpinnerMultiSelecionavel;
 import modelDominio.Exercicio;
 import modelDominio.Treino;
 import utils.DataCalendario;

@@ -77,13 +77,13 @@
             android:text="Selecione os Exercícios do Treino"
             android:textSize="18dp"/>
 
-        <controller.SpinnerMultiSelecionavel
+        <utils.SpinnerMultiSelecionavel
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:id="@+id/spMultiExercicios"
             android:spinnerMode="dialog"
             android:layout_alignParentRight="true">
-        </controller.SpinnerMultiSelecionavel>
+        </utils.SpinnerMultiSelecionavel>
 
     </RelativeLayout>
 

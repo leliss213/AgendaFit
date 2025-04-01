@@ -78,28 +78,28 @@ public class MenuActivity extends AppCompatActivity implements BottomNavigationV
 
         int id = menuItem.getItemId();
 
-        switch (id) {
-
-            case R.id.home:
-                Intent it = new Intent(this, MenuActivity.class);
-                startActivity(it);
-                return true;
-
-            case R.id.visualizar:
-                it = new Intent(this, VisualizacaoTreino.class);
-                startActivity(it);
-                return true;
-
-            case R.id.adicionar:
-                it = new Intent(this, CadastroTreino.class);
-                startActivity(it);
-                return true;
-
-            case R.id.perfil:
-                it = new Intent(this, PerfilActivity.class);
-                startActivity(it);
-                return true;
-        }
+//        switch (id) {
+//
+//            case R.id.home:
+//                Intent it = new Intent(this, MenuActivity.class);
+//                startActivity(it);
+//                return true;
+//
+//            case R.id.visualizar:
+//                it = new Intent(this, VisualizacaoTreino.class);
+//                startActivity(it);
+//                return true;
+//
+//            case R.id.adicionar:
+//                it = new Intent(this, CadastroTreino.class);
+//                startActivity(it);
+//                return true;
+//
+//            case R.id.perfil:
+//                it = new Intent(this, PerfilActivity.class);
+//                startActivity(it);
+//                return true;
+//        }
         return false;
     }
 }

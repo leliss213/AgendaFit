@@ -73,12 +73,12 @@
             android:text="Exercícios do Treino:"
             android:id="@+id/tvVisualizacaoDetalhadaTexto"/>
 
-        <controller.SpinnerMultiSelecionavel
+        <utils.SpinnerMultiSelecionavel
             android:layout_width="114dp"
             android:layout_height="wrap_content"
             android:id="@+id/spMultiExerciciosCadastrados"
             android:spinnerMode="dropdown">
-        </controller.SpinnerMultiSelecionavel>
+        </utils.SpinnerMultiSelecionavel>
     </LinearLayout>
     <Button
         android:id="@+id/bVisualizacaoDetalhadaTreinoAlterar"

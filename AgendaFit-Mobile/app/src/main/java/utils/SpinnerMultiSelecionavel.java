@@ -1,4 +1,4 @@
-package controller;
+package utils;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -14,6 +14,7 @@ import androidx.appcompat.widget.AppCompatSpinner;
 
 import java.util.ArrayList;
 
+import controller.ItemExercicio;
 import modelDominio.Exercicio;
 
 public class SpinnerMultiSelecionavel extends AppCompatSpinner implements DialogInterface.OnMultiChoiceClickListener {
@@ -82,7 +83,7 @@ public class SpinnerMultiSelecionavel extends AppCompatSpinner implements Dialog
     public ArrayList<Exercicio> getSelectedItems() {
         ArrayList<Exercicio> exerciciosSelecionados = new ArrayList<>();
         for (int i = 0; i < items.size(); ++i) {
-            if (items.get(i).getValue() == true) { // ou if (items.get(i).isValue()) {..}
+            if (items.get(i).getValue()) { // ou if (items.get(i).isValue()) {..}
                 exerciciosSelecionados.add(items.get(i).getExercicio());
             }
         }
@@ -93,7 +94,7 @@ public class SpinnerMultiSelecionavel extends AppCompatSpinner implements Dialog
     public int getSelectedSize() {
         int size = 0;
         for (int i = 0; i < items.size(); ++i) {
-            if (items.get(i).getValue() == true) {
+            if (items.get(i).getValue()) {
                 size++;
             }
         }
@@ -105,7 +106,7 @@ public class SpinnerMultiSelecionavel extends AppCompatSpinner implements Dialog
         boolean foundOne = false;
 
         for (int i = 0; i < items.size(); ++i) {
-            if (items.get(i).getValue() == true) {
+            if (items.get(i).getValue()) {
                 if (foundOne) {
                     sb.append(", ");
                 }
